@@ -1,0 +1,343 @@
+.bigish {
+  font-size: 24px;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Roboto Condensed", Roboto, Helvetica, sans-serif;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+body {
+  background-color: #1c1621;
+}
+
+.sheet-background {
+  background-color: #1c1621;
+  padding: 0.15em 0;
+}
+
+.sheet-section {
+  border: 0px;
+  border-radius: 10px;
+  background-color: #312b36;
+  margin: 0 0.15em;
+  height: 100%;
+  padding: 0.3em;
+}
+
+.small-header {
+  color: #cacaca;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.big-header {
+  color: #cacaca;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.3em;
+}
+
+button {
+  border: 0;
+  background-color: #47424c;
+  padding: 0.3em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #5f5a63;
+}
+
+button:active {
+  background-color: #47424c;
+}
+
+.no-spin {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+          appearance: textfield;
+  background-color: #312b36;
+  text-align: center;
+  border: none;
+}
+.no-spin ::-webkit-outer-spin-button, .no-spin ::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 1em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #918d94;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 0.75em;
+  width: 0.75em;
+  left: 0.125em;
+  bottom: 0.125em;
+  background-color: white;
+  transition: 0.2s;
+}
+
+input:checked + .slider {
+  background-color: #8e55cd;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #8e55cd;
+}
+
+input:checked + .slider:before {
+  transform: translateX(1em);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.builder-select {
+  background-color: #47424c;
+  border: 0;
+  border-radius: 5px;
+  padding: 0.3em;
+}
+
+/* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
+/* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
+/* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
+#nav-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+#nav-header #home-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-weight: normal;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 0.3em;
+  text-decoration: none;
+}
+#nav-header #title-bar {
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#nav-bar {
+  position: absolute;
+  top: 5%;
+  left: 0;
+  width: 100%;
+  height: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 0px;
+  border-radius: 10px;
+  background-color: #312b36;
+  z-index: 1;
+}
+#nav-bar .nav-button {
+  font-size: 32px;
+  text-decoration: none;
+}
+#nav-bar .disabled {
+  color: #918d94;
+  pointer-events: none;
+}
+
+#nav-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+#nav-left-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -2;
+  height: 100%;
+  text-decoration: none;
+}
+#nav-left-button i {
+  font-size: 48px;
+}
+
+#nav-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+#nav-right-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -2;
+  height: 100%;
+  text-decoration: none;
+}
+#nav-right-button i {
+  font-size: 48px;
+}
+
+/* ~~~~~~~~~~~ BUILDER  ~~~~~~~~~~~ */
+/* ~~~~~~~~~~~ BUILDER  ~~~~~~~~~~~ */
+/* ~~~~~~~~~~~ BUILDER  ~~~~~~~~~~~ */
+.inactive {
+  display: none;
+}
+
+.builder {
+  position: absolute;
+  top: calc(10% + 0.3em);
+  left: 16.5%;
+  height: calc(90% - 0.3em);
+  width: 66%;
+  border: 0px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background-color: #312b36;
+  padding: 0.3em;
+}
+
+#builder-start {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+#builder-start #sources {
+  width: 50%;
+  height: 100%;
+}
+#builder-start #options-rules {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+#builder-start #options-rules #options {
+  width: 100%;
+  flex: 0 1 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+#builder-start #options-rules #options #dice-rolling {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.3em;
+}
+#builder-start #options-rules #options #dice-rolling #dice-rolling-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#builder-start #options-rules #options #dice-rolling #dice-rolling-content #dice-rolling-desc {
+  margin-right: 0.3em;
+}
+#builder-start #options-rules #options #scores-display {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.3em;
+}
+#builder-start #options-rules #options #scores-display-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#builder-start #options-rules #options #scores-display-content img {
+  height: 5em;
+  width: 3.55em;
+}
+#builder-start #options-rules #options #scores-display-content select {
+  height: 2em;
+  text-align: center;
+}
+#builder-start #options-rules #rules {
+  width: 100%;
+  flex: 1 1 80%;
+}
+#builder-start #options-rules #rules .rules-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.3em;
+}
+#builder-start #options-rules #rules .rules-content div {
+  margin-right: 0.3em;
+}
+#builder-start #options-rules #rules .rules-content select {
+  height: 2em;
+  text-align: center;
+}/*# sourceMappingURL=dnd-builder.css.map */

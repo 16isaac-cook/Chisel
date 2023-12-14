@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/pf-sheet.css">
+        <link rel="stylesheet" href="fonts/remixicon.css">
+    </head>
+    <body>
+        <div id="nav-header" class="sheet-background">            
+            <a href="index.html" id="home-button"><i class="ri-arrow-left-line"></i><i class="ri-home-2-line"></i></a>
+            <div id="title-bar">CHISEL PATHFINDER 2E CHARACTER SHEET</div>
+        </div>
+        <div id="sheet-row1" class="sheet-background">
+            <div id="portrait-edit" class="sheet-section">
+                <div id="portrait-container">
+                    <img id="portrait" src="img/blank.png" alt="Portrait"> 
+                </div>
+                <button id="edit-button">Edit</button>
+            </div>
+            <div id="char-info" class="sheet-section">
+                <div id="char-info-row1">
+                    <div id="char-name" class="char-div">
+                        <div class="small-header">Name</div>
+                        <div id="name-value" class="char-value">John Doe</div>
+                    </div>
+                    <div id="char-ancestry" class="char-div">
+                        <div class="small-header">Ancestry</div>
+                        <div id="ancestry-value" class="char-value">Half-Elf</div>
+                    </div>
+                    <div id="char-size" class="char-div">
+                        <div class="small-header">Size</div>
+                        <div id="size-value" class="char-value">Medium</div>
+                    </div>
+                    <div id="char-speed" class="char-div">
+                        <div class="small-header">Speed</div>
+                        <div id="speed-value" class="char-value">30 ft.</div>
+                    </div>
+                </div>
+                <div id="char-info-row2">
+                    <div id="char-class" class="char-div">
+                        <div class="small-header">Class</div>
+                        <div id="class" class="class-div">Fighter</div>
+                    </div>
+                    <div id="experience" class="char-div">
+                        <div id="char-experience" class="small-header">Experience - Level 1</div>
+                        <progress id="experience-bar" min="0" max="100" value="0"></progress>
+                        <div id="experience-nums">
+                            <div id="current-experience" class="small-header">0</div>
+                            <div id="next-experience" class="small-header">100</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="hit-points" class="sheet-section">
+                <div id="hp">
+                    <div id="hp-header" class="small-header">Hit Points</div>
+                    <div id="hp-container">
+                        <div id="hp-value">10</div>
+                        <div id="hp-slash">/</div>
+                        <div id="hp-max">10</div>
+                    </div>
+                </div>
+                <div id="thp">
+                    <div id="thp-header" class="small-header">Temp. HP</div>
+                    <div id="thp-value">0</div>
+                </div>
+                <div id="hp-buttons">
+                    <input type="number" min="0" id="hp-buttons-input">
+                    <button id="damage-button">Damage</button>
+                    <button id="heal-button">Heal</button>
+                </div>
+            </div>
+            <div id="rest-button-container" class="sheet-section">
+                <button id="rest-button">Rest</button>
+            </div>
+            <div id="conditions" class="sheet-section">
+                <div id="conditions-header">
+                    <div id="conditions-name">Conditions</div>
+                    <button id="conditions-button">+</button>
+                </div>
+                <div id="conditions-content">
+                    <div id="condition-prone" class="condition">Prone</div>
+                    <div id="condition-paralyzed" class="condition">Paralyzed</div>
+                    <div id="condition-restrained" class="condition">Restrained</div>
+                </div>
+            </div>
+        </div>
+        <div id="sheet-row2" class="sheet-background">
+            <div id="stats" class="sheet-section">
+                <div id="strength">
+                    <div id="strength-header" class="small-header">Strength</div>
+                    <div id="strength-value" class="stat-value">10</div>
+                    <div id="strength-bonus" class="stat-bonus">+0</div>
+                </div>
+                <div id="dexterity">
+                    <div id="dexterity-header" class="small-header">Dexterity</div>
+                    <div id="dexterity-value" class="stat-value">10</div>
+                    <div id="dexterity-bonus" class="stat-bonus">+0</div>
+                </div>
+                <div id="constitution">
+                    <div id="constitution-header" class="small-header">Constitution</div>
+                    <div id="constitution-value" class="stat-value">10</div>
+                    <div id="constitution-bonus" class="stat-bonus">+0</div>
+                </div>
+                <div id="intelligence">
+                    <div id="intelligence-header" class="small-header">Intelligence</div>
+                    <div id="intelligence-value" class="stat-value">10</div>
+                    <div id="intelligence-bonus" class="stat-bonus">+0</div>
+                </div>
+                <div id="wisdom">
+                    <div id="wisdom-header" class="small-header">Wisdom</div>
+                    <div id="wisdom-value" class="stat-value">10</div>
+                    <div id="wisdom-bonus" class="stat-bonus">+0</div>
+                </div> 
+                <div id="charisma">
+                    <div id="charisma-header" class="small-header">Charisma</div>
+                    <div id="charisma-value" class="stat-value">10</div>
+                    <div id="charisma-bonus" class="stat-bonus">+0</div>
+                </div>
+            </div>
+            <div id="saving-throws" class="sheet-section">
+                <div id="st-header" class="small-header">Saving Throws</div>
+                <div id="st-container">
+                    <!-- ri-record-circle-line for proficient -->
+                    <div id="st-fortitude">
+                        <div id="st-fortitude-header" class="small-header">Fortitude</div>
+                        <div id="st-fortitude-value" class="st-value">+0</div>
+                        <div id="st-fortitude-training" class="st-training"><i class="ri-circle-line"></i></div>
+                    </div>
+                    <div id="st-reflex">
+                        <div id="st-reflex-header" class="small-header">Reflex</div>
+                        <div id="st-reflex-value" class="st-value">+0</div>
+                        <div id="st-reflex-training" class="st-training"><i class="ri-circle-line"></i></div>
+                    </div>
+                    <div id="st-will">
+                        <div id="st-will-header" class="small-header">Will</div>
+                        <div id="st-will-value" class="st-value">+0</div>
+                        <div id="st-will-training" class="st-training"><i class="ri-circle-line"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div id="defenses" class="sheet-section">
+                <div id="AC">10</div>
+                <button id="resists-weaknesses">Resistances / Weaknesses</button>
+            </div>
+            <div id="perception" class="sheet-section">
+                <div id="perc-header"class="small-header">Perception</div>
+                <div id="perception-bonus">+0</div>
+                <div id="vision-type" class="small-header">Low Light Vision</div>
+            </div>
+            <div id="class-dc" class="sheet-section">
+                <div id="class-dc-header" class="small-header">Class DC</div>
+                <div id="class-dc-value">10</div>
+                <div id="class-dc-training"><i class="ri-circle-line"></i></div>
+            </div>
+            <div id="hero-points" class="sheet-section">
+                <div id="hero-points-header" class="small-header">Hero Points</div>
+                <div id="hero-points-container">
+                    <input type="checkbox" id="hero-points-checkbox-one" class="hero-points-checkbox" checked>
+                    <label class="hero-points-checkbox-label" for="hero-points-checkbox-one"></label>
+                    <input type="checkbox" id="hero-points-checkbox-two" class="hero-points-checkbox">
+                    <label class="hero-points-checkbox-label" for="hero-points-checkbox-two"></label>
+                    <input type="checkbox" id="hero-points-checkbox-three" class="hero-points-checkbox">
+                    <label class="hero-points-checkbox-label" for="hero-points-checkbox-three"></label>
+                </div>
+            </div>
+        </div>
+        <div id="sheet-row3" class="sheet-background">
+            <div id="skills"  class="sheet-section">
+                <span id="skills-header" class="small-header">Skills</span>
+                <div id="acrobatics" class="skill-container">
+                    <span id="acrobatics-training" class="skill-training">T</span>
+                    <span id="acrobatics-stat" class="skill-stat">Dexterity</span>
+                    <span id="acrobatics-name" class="skill-name">Acrobatics</span>
+                    <span id="acrobatics-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="arcana" class="skill-container">
+                    <span id="arcana-training" class="skill-training">T</span>
+                    <span id="arcana-stat" class="skill-stat">Intelligence</span>
+                    <span id="arcana-name" class="skill-name">Arcana</span>
+                    <span id="arcana-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="athletics" class="skill-container">
+                    <span id="athletics-training" class="skill-training">T</span>
+                    <span id="athletics-stat" class="skill-stat">Strength</span>
+                    <span id="athletics-name" class="skill-name">Athletics</span>
+                    <span id="athletics-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="crafting" class="skill-container">
+                    <span id="crafting-training" class="skill-training">T</span>
+                    <span id="crafting-stat" class="skill-stat">Intelligence</span>
+                    <span id="crafting-name" class="skill-name">Crafting</span>
+                    <span id="crafting-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="deception" class="skill-container">
+                    <span id="deception-training" class="skill-training">T</span>
+                    <span id="deception-stat" class="skill-stat">Charisma</span>
+                    <span id="deception-name" class="skill-name">Deception</span>
+                    <span id="deception-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="diplomacy" class="skill-container">
+                    <span id="diplomacy-training" class="skill-training">T</span>
+                    <span id="diplomacy-stat" class="skill-stat">Charisma</span>
+                    <span id="diplomacy-name" class="skill-name">Diplomacy</span>
+                    <span id="diplomacy-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="intimidation" class="skill-container">
+                    <span id="intimidation-training" class="skill-training">T</span>
+                    <span id="intimidation-stat" class="skill-stat">Charisma</span>
+                    <span id="intimidation-name" class="skill-name">Intimidation</span>
+                    <span id="intimidation-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="medicine" class="skill-container">
+                    <span id="medicine-training" class="skill-training">T</span>
+                    <span id="medicine-stat" class="skill-stat">Wisdom</span>
+                    <span id="medicine-name" class="skill-name">Medicine</span>
+                    <span id="medicine-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="nature" class="skill-container">
+                    <span id="nature-training" class="skill-training">T</span>
+                    <span id="nature-stat" class="skill-stat">Wisdom</span>
+                    <span id="nature-name" class="skill-name">Nature</span>
+                    <span id="nature-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="occultism" class="skill-container">
+                    <span id="occultism-training" class="skill-training">T</span>
+                    <span id="occultism-stat" class="skill-stat">Intelligence</span>
+                    <span id="occultism-name" class="skill-name">Occultism</span>
+                    <span id="occultism-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="performance" class="skill-container">
+                    <span id="performance-training" class="skill-training">T</span>
+                    <span id="performance-stat" class="skill-stat">Charisma</span>
+                    <span id="performance-name" class="skill-name">Performance</span>
+                    <span id="performance-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="religion" class="skill-container">
+                    <span id="religion-training" class="skill-training">T</span>
+                    <span id="religion-stat" class="skill-stat">Wisdom</span>
+                    <span id="religion-name" class="skill-name">Religion</span>
+                    <span id="religion-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="society" class="skill-container">
+                    <span id="society-training" class="skill-training">T</span>
+                    <span id="society-stat" class="skill-stat">Intelligence</span>
+                    <span id="society-name" class="skill-name">Society</span>
+                    <span id="society-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="stealth" class="skill-container">
+                    <span id="stealth-training" class="skill-training">T</span>
+                    <span id="stealth-stat" class="skill-stat">Dexterity</span>
+                    <span id="stealth-name" class="skill-name">Stealth</span>
+                    <span id="stealth-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="survival" class="skill-container">
+                    <span id="survival-training" class="skill-training">T</span>
+                    <span id="survival-stat" class="skill-stat">Wisdom</span>
+                    <span id="survival-name" class="skill-name">Survival</span>
+                    <span id="survival-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="thievery" class="skill-container">
+                    <span id="thievery-training" class="skill-training">T</span>
+                    <span id="thievery-stat" class="skill-stat">Dexterity</span>
+                    <span id="thievery-name" class="skill-name">Thievery</span>
+                    <span id="thievery-bonus" class="skill-bonus">+0</span>
+                </div>
+                <div id="lore" class="skill-container">
+                    <span id="lore-training" class="skill-training">T</span>
+                    <span id="lore-stat" class="skill-stat">Intelligence</span>
+                    <span id="lore-name" class="skill-name">Lore</span>
+                    <span id="lore-bonus" class="skill-bonus">+0</span>
+                </div>
+            </div>
+            <div id="proficiencies" class="sheet-section">
+                <div id="proficiencies-header" class="small-header">Proficiencies</div>
+                <div id="proficiencies-weapons">
+                    <div id="pw-header" class="small-header">Weapons</div>
+                </div>
+                <div id="proficiencies-defenses">
+                    <div id="pa-header" class="small-header">Defenses</div>
+                </div>
+                <div id="proficiencies-spells">
+                    <div id="pt-header" class="small-header">Spells</div>
+                </div>
+                <div id="proficiencies-languages">
+                    <div id="pl-header" class="small-header">Languages</div>
+                </div>
+            </div>
+            <div id="information-container" class="sheet-section">
+                <div id="information-container-buttons">
+                    <button id="btn-actions">Actions</button>
+                    <button id="btn-weapons">Weapons</button>
+                    <button id="btn-spells">Spells</button>
+                    <button id="btn-equipment">Equipment</button>
+                    <button id="btn-feats">Feats</button>
+                    <button id="btn-details">Details</button>
+                </div>
+                <div id="information-container-actions">
+                    <div id="actions-header">
+                        <button id="btn-encounter">Encounter</button>
+                        <button id="btn-exploration">Exploration</button>
+                        <button id="btn-downtime">Downtime</button>
+                    </div>
+                    <div id="actions-filter">
+                        <input id="action-filter-basic" type="checkbox" checked>
+                        <span id="af-basic">Basic</span>
+                        <input id="action-filter-feats" type="checkbox" checked>
+                        <span id="af-feats">Feats</span>
+                        <input id="action-filter-items" type="checkbox" checked>
+                        <span id="af-items">Items</span>
+                        <input id="action-filter-skills" type="checkbox" checked>
+                        <span id="af-skills">Skills</span>
+                        <!--list box for skills-->
+                        <!--list box for action costs-->
+                    </div>
+                    <!--search box-->
+                    <div id="actions-encounter">
+
+                    </div>
+                    <div id="actions-exploration" style="display: none">
+                    
+                    </div>
+                    <div id="actions-downtime" style="display: none">
+                    
+                    </div>
+                </div>
+                <div id="information-container-weapons" style="display: none"></div>
+                <div id="information-container-spells" style="display: none"></div>
+                <div id="information-container-equipment" style="display: none"></div>
+                <div id="information-container-feats" style="display: none"></div>
+                <div id="information-container-details" style="display: none"></div>
+            </div>
+            <div id="class-info-container" class="sheet-section" style="display: none">
+                <div id="class-info-container-header">Class Info</div>
+            </div>
+        </div>
+        <div id="side-bar-fade" style="display: none">
+            <div id="side-bar">
+                test
+            </div>
+        </div>
+        <script src="js/pf-sheet.js" async defer></script>
+    </body>
+</html>

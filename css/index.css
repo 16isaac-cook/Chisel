@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+  font-family: "Roboto Condensed", Roboto, Helvetica, sans-serif;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+body {
+  background-color: #1c1621;
+}
+
+.sheet-background {
+  background-color: #1c1621;
+  padding: 0.15em 0;
+}
+
+.sheet-section {
+  border: 0px;
+  border-radius: 10px;
+  background-color: #312b36;
+  margin: 0 0.15em;
+  height: 100%;
+  padding: 0.3em;
+}
+
+.small-header {
+  color: #cacaca;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.no-spin {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+          appearance: textfield;
+  background-color: #312b36;
+  text-align: center;
+  border: none;
+}
+.no-spin ::-webkit-outer-spin-button, .no-spin ::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
+/* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
+/* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
+#nav-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#nav-header #home-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-weight: normal;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 0.3em;
+}
+#nav-header #title-bar {
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ~~~~~~~~~~~ MAIN BODY  ~~~~~~~~~~~ */
+/* ~~~~~~~~~~~ MAIN BODY  ~~~~~~~~~~~ */
+/* ~~~~~~~~~~~ MAIN BODY  ~~~~~~~~~~~ */
+#main-body {
+  position: absolute;
+  top: 5%;
+  left: 0;
+  width: 100%;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#gallery {
+  margin: 1em;
+  width: 800px;
+  height: 400px;
+  background-color: #312b36;
+}
+
+#welcome {
+  margin: 0 1em;
+}
+#welcome-content {
+  font-size: 32px;
+}
+
+#blurb {
+  width: 75%;
+  text-align: center;
+  margin: 0 1em 1em 1em;
+}
+
+#nav-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  -moz-column-gap: 0.3em;
+       column-gap: 0.3em;
+}
+#nav-buttons .nav-button {
+  border: 0;
+  background-color: #47424c;
+  padding: 0.3em;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+#nav-buttons .nav-button-icon > * {
+  font-size: 48px;
+}
+#nav-buttons .nav-button:hover {
+  background-color: #5f5a63;
+}
+#nav-buttons .nav-button:active {
+  background-color: #47424c;
+}/*# sourceMappingURL=index.css.map */

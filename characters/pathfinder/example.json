@@ -1,0 +1,210 @@
+[
+    {
+        "info": {
+            "id": "0",
+            "name": "John Doe",
+            "level": "20",
+            "alignment": "CN",
+            "age": "25",
+            "gender": "Male",
+            "deity": "None",
+            "notes": "Jane - Best Friend"
+        },
+        "background": {
+            "id": "BACKGROUND-NIGHT-WATCH"
+        },
+        "ancestry": {
+            "id": "ANCESTRY-HUMAN",
+            "heritage": "ANCESTRY-HERITAGE-HALF-ELF",
+            "level-1": "FEAT-ANCESTRY-HAUGHTY-OBSTINACY",
+            "level-5": "FEAT-ANCESTRY-ELVEN-INSTINCTS",
+            "level-9": "FEAT-ANCESTRY-ELF-STEP",
+            "level-13": "FEAT-ANCESTRY-STUBBORN-PERSISTENCE",
+            "level-17": "FEAT-ANCESTRY-HEROIC-PRESENCE"
+        },
+        "class": {
+            "id": "CLASS-FIGHTER",
+            "level-1": {
+                "granted": ["FEAT-CLASS-ATTACK-OF-OPPORTUNITY", "FEAT-GENERAL-SHIELD-BLOCK"],
+                "chosen": "FEAT-CLASS-DOUBLE-SLICE"
+            },
+            "level-2": "",
+            "level-4": "",
+            "level-6": "",
+            "level-8": "",
+            "level-10": "",
+            "level-12": "",
+            "level-14": "",
+            "level-16": "",
+            "level-18": "",
+            "level-20": ""
+        },
+        "skill": {
+            "background": "FEAT-SKILL-INTIMIDATION-QUICK-COERCION",
+            "level-2": "",
+            "level-4": "",
+            "level-6": "",
+            "level-8": "",
+            "level-10": "",
+            "level-12": "",
+            "level-14": "",
+            "level-16": "",
+            "level-18": "",
+            "level-20": ""
+        },
+        "general": {
+            "level-3": "",
+            "level-7": "",
+            "level-11": "",
+            "level-15": "",
+            "level-19": ""
+        },
+        "inventory": {
+            "currency": {
+                "platinum": "0",
+                "gold": "15",
+                "silver": "0",
+                "copper": "0",
+                "custom-1": { "name": "Electrum", "position": "3", "value": "50","count": "0" },
+                "custom-2": { "name": "Star-Steel", "position": "0", "value": "10000","count": "1" }
+            },
+            "bag-1": {
+                "id": "GEAR-BACKPACK",
+                "name": "Quiver",
+                "contents": [
+                    { "id": "GEAR-ARROWS", "name": "Arrows", "count": "10" }
+                ]
+            },
+            "bag-2": {
+                "id": "GEAR-BACKPACK",
+                "name": "Backpack",
+                "contents": [
+                    { "id": "GEAR-CHALK", "name": "Chalk", "count": "10" }
+                ]
+            },
+            "formula": [
+                { "id": "FORMULA-ARROWS", "name": "Arrows" }
+            ]
+        },
+        "attacks": {
+            "desc": "this is where your custom attacks in the attacks tab will be stored"
+        },
+        "spells": {},
+        "stats": {
+            "ancestry": {
+                "abilityBoosts": {
+                    "chosen-1": "strength",
+                    "chosen-2": "constitution"
+                }          
+            },
+            "background": {
+                "abilityBoosts": {
+                    "chosen-1": "strength",
+                    "chosen-2": "charisma"
+                },
+                "skillTraining": {
+                    "plus-1": "intimidation",
+                    "plus-2": ["lore", "Legal"]
+                }
+            },
+            "class": {
+                "abilityBoosts": {
+                    "chosen": "strength"
+                },
+                "skillTraining": {
+                    "chosen": "acrobatics"
+                }
+            },
+            "level-1": {
+                "abilityBoosts": {
+                    "chosen-1": "strength",      
+                    "chosen-2": "dexterity",      
+                    "chosen-3": "constitution",      
+                    "chosen-4": "charisma"  
+                },
+                "skillTraining": {
+                    "chosen-1": "athletics",
+                    "chosen-2": "medicine",
+                    "chosen-3": "society"
+                }
+            },
+            "level-3": {
+                "skillTraining": {
+                    "chosen": "athletics"
+                }
+            },
+            "level-5": {
+                "abilityBoosts": {
+                    "chosen-1": "strength",      
+                    "chosen-3": "constitution",      
+                    "chosen-2": "wisdom",      
+                    "chosen-4": "charisma"
+                },
+                "skillTraining": {
+                    "chosen": "intimidation"
+                }
+            },
+            "level-7": {
+                "skillTraining": {
+                    "chosen": "athletics"
+                }
+            },
+            "level-9": {
+                "skillTraining": {
+                    "chosen": "intimidation"
+                }
+            },
+            "level-10": {
+                "abilityBoosts": {
+                    "chosen-1": "strength",      
+                    "chosen-3": "constitution",      
+                    "chosen-2": "wisdom",      
+                    "chosen-4": "charisma"
+                }
+            },
+            "level-11": {
+                "skillTraining": {
+                    "chosen": "medicine"
+                }
+            },
+            "level-13": {
+                "skillTraining": {
+                    "chosen": "medicine"
+                }
+            },
+            "level-15": {
+                "abilityBoosts": {
+                    "chosen-1": "wisdom",      
+                    "chosen-3": "dexterity",      
+                    "chosen-2": "intelligence",      
+                    "chosen-4": "charisma"
+                },
+                "skillTraining": {
+                    "chosen-1": "athletics",
+                    "chosen-2": "diplomacy"
+                }
+            },
+            "level-17": {
+                "skillTraining": {
+                    "chosen": "intimidation"
+                }
+            },
+            "level-19": {
+                "skillTraining": {
+                    "chosen": "medicine"
+                }
+            },
+            "level-20": {
+                "abilityBoosts": {
+                    "chosen-1": "dexterity",      
+                    "chosen-2": "wisdom",      
+                    "chosen-3": "intelligence",      
+                    "chosen-4": "charisma"
+                },
+                "skillTraining": {
+                    "chosen": "deception"
+                }
+            }
+        }
+    }
+]

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Chisel | D&D 5e Character Sheet</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/dnd-sheet.css">
+        <link rel="stylesheet" href="fonts/remixicon.css">
+    </head>
+    <body>
+        <div id="nav-header" class="sheet-background">            
+            <a href="index.html" id="home-button"><i class="ri-arrow-left-line"></i><i class="ri-home-2-line"></i></a>
+            <div id="title-bar">CHISEL D&D 5E CHARACTER SHEET</div>
+        </div>
+        <div id="sheet-row1" class="sheet-background">
+            <div id="portrait-edit" class="sheet-section">
+                <div id="portrait-container">
+                    <img id="portrait" src="img/blank.png" alt="Portrait"> 
+                </div>
+                <button id="edit-button">Edit</button>
+            </div>
+            <div id="char-info" class="sheet-section">
+                <div id="char-info-row1">
+                    <div id="char-name" class="char-div">
+                        <div class="small-header">Name</div>
+                        <div id="name-value" class="char-value">John Doe</div>
+                    </div>
+                    <div id="char-race" class="char-div">
+                        <div class="small-header">Race</div>
+                        <div id="race-value" class="char-value">Half-Elf</div>
+                    </div>
+                    <div id="char-size" class="char-div">
+                        <div class="small-header">Size</div>
+                        <div id="size-value" class="char-value">Medium</div>
+                    </div>
+                    <div id="char-speed" class="char-div">
+                        <div class="small-header">Speed</div>
+                        <div id="speed-value" class="char-value">30 ft.</div>
+                    </div>
+                </div>
+                <div id="char-info-row2">
+                    <div id="char-class" class="char-div">
+                        <div class="small-header">Class</div>
+                        <div id="class-1" class="class-div">Fighter 1</div>
+                        <div id="class-2" class="class-div">Rogue 1</div>
+                    </div>
+                    <div id="experience" class="char-div">
+                        <div id="char-experience" class="small-header">Experience</div>
+                        <progress id="experience-bar" min="0" max="100" value="0"></progress>
+                        <div id="experience-nums">
+                            <div id="current-experience" class="small-header">0</div>
+                            <div id="next-experience" class="small-header">100</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="hit-points" class="sheet-section">
+                <div id="hp">
+                    <div id="hp-header" class="small-header">Hit Points</div>
+                    <div id="hp-container">
+                        <div id="hp-value">10</div>
+                        <div id="hp-slash">/</div>
+                        <div id="hp-max">10</div>
+                    </div>
+                </div>
+                <div id="thp">
+                    <div id="thp-header" class="small-header">Temp. HP</div>
+                    <div id="thp-value">0</div>
+                </div>
+                <div id="hp-buttons">
+                    <input type="number" min="0" id="hp-buttons-input">
+                    <button id="damage-button">Damage</button>
+                    <button id="heal-button">Heal</button>
+                </div>
+            </div>
+            <div id="rest-buttons" class="sheet-section">
+                <button id="short-rest-button">Short Rest</button>
+                <button id="long-rest-button">Long Rest</button>
+            </div>
+            <div id="conditions" class="sheet-section">
+                <div id="conditions-header">
+                    <div id="conditions-name">Conditions</div>
+                    <button id="conditions-button">+</button>
+                </div>
+                <div id="conditions-content">
+                    <div id="condition-prone" class="condition">Prone</div>
+                    <div id="condition-paralyzed" class="condition">Paralyzed</div>
+                    <div id="condition-restrained" class="condition">Restrained</div>
+                </div>
+            </div>
+        </div>
+        <div id="sheet-row2" class="sheet-background">
+            <div id="proficiency-bonus" class="sheet-section">
+                <div id="prof-bonus-header" class="small-header">Proficiency</div>
+                <div id="prof-bonus">+2</div>
+            </div>
+            <div id="initiative" class="sheet-section">
+                <div id="init-header" class="small-header">Initiative</div>
+                <div id="init-bonus">+2</div>
+            </div>
+            <div id="stats" class="sheet-section">
+                <div id="strength">
+                    <div id="strength-header" class="small-header">Strength</div>
+                    <div id="strength-value" class="stat-value">10</div>
+                    <div id="strength-bonus" class="stat-bonus">+0</div>
+                </div>
+                <div id="dexterity">
+                    <div id="dexterity-header" class="small-header">Dexterity</div>
+                    <div id="dexterity-value" class="stat-value">10</div>
+                    <div id="dexterity-bonus" class="stat-bonus">+0</div>
+                </div>
+                <div id="constitution">
+                    <div id="constitution-header" class="small-header">Constitution</div>
+                    <div id="constitution-value" class="stat-value">10</div>
+                    <div id="constitution-bonus" class="stat-bonus">+0</div>
+                </div>
+                <div id="intelligence">
+                    <div id="intelligence-header" class="small-header">Intelligence</div>
+                    <div id="intelligence-value" class="stat-value">10</div>
+                    <div id="intelligence-bonus" class="stat-bonus">+0</div>
+                </div>
+                <div id="wisdom">
+                    <div id="wisdom-header" class="small-header">Wisdom</div>
+                    <div id="wisdom-value" class="stat-value">10</div>
+                    <div id="wisdom-bonus" class="stat-bonus">+0</div>
+                </div> 
+                <div id="charisma">
+                    <div id="charisma-header" class="small-header">Charisma</div>
+                    <div id="charisma-value" class="stat-value">10</div>
+                    <div id="charisma-bonus" class="stat-bonus">+0</div>
+                </div>
+            </div>
+            <div id="saving-throws" class="sheet-section">
+                <div id="st-header" class="small-header">Saving Throws</div>
+                <div id="st-container">
+                    <!-- ri-record-circle-line for proficient -->
+                    <div id="st-strength">
+                        <div id="st-strength-header" class="small-header">Strength</div>
+                        <div id="st-strength-value" class="st-value">+0</div>
+                        <div id="st-strength-prof" class="st-prof"><i class="ri-circle-line"></i></div>
+                    </div>
+                    <div id="st-dexterity">
+                        <div id="st-dexterity-header" class="small-header">Dexterity</div>
+                        <div id="st-dexterity-value" class="st-value">+0</div>
+                        <div id="st-dexterity-prof" class="st-prof"><i class="ri-circle-line"></i></div>
+                    </div>
+                    <div id="st-constitution">
+                        <div id="st-constitution-header" class="small-header">Constitution</div>
+                        <div id="st-constitution-value" class="st-value">+0</div>
+                        <div id="st-constitution-prof" class="st-prof"><i class="ri-circle-line"></i></div>
+                    </div>
+                    <div id="st-intelligence">
+                        <div id="st-intelligence-header" class="small-header">Intelligence</div>
+                        <div id="st-intelligence-value" class="st-value">+0</div>
+                        <div id="st-intelligence-prof" class="st-prof"><i class="ri-circle-line"></i></div>
+                    </div>
+                    <div id="st-wisdom">
+                        <div id="st-wisdom-header" class="small-header">Wisdom</div>
+                        <div id="st-wisdom-value" class="st-value">+0</div>
+                        <div id="st-wisdom-prof" class="st-prof"><i class="ri-circle-line"></i></div>
+                    </div> 
+                    <div id="st-charisma">
+                        <div id="st-charisma-header" class="small-header">Charisma</div>
+                        <div id="st-charisma-value" class="st-value">+0</div>
+                        <div id="st-charisma-prof" class="st-prof"><i class="ri-circle-line"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div id="defenses" class="sheet-section">
+                <div id="AC">10</div>
+                <button id="resists-weaknesses">Resistances Weaknesses</button>
+            </div>
+            <div id="senses" class="sheet-section">
+                <div id="senses-header" class="small-header">Senses</div>
+                <div id="senses-container">
+                    <div id="passive-perception-header" class="small-header">Passive<br>Perception</div>
+                    <div id="passive-perception">10</div>
+                    <div id="passive-investigation-header" class="small-header">Passive<br>Investigation</div>
+                    <div id="passive-investigation">10</div>
+                    <div id="passive-insight-header" class="small-header">Passive<br>Insight</div>
+                    <div id="passive-insight">10</div>
+                </div>
+                <div id="vision-type">Darkvision 60 ft.</div>
+            </div>
+        </div>
+        <div id="sheet-row3" class="sheet-background">
+            <div id="skills" class="sheet-section">
+                <!-- ri-record-circle-line for proficient -->
+                <div id="skills-header" class="small-header">Skills</div>
+                <div id="acrobatics" class="skill-container">
+                    <div id="acrobatics-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="acrobatics-stat" class="skill-stat">DEX</div>
+                    <div id="acrobatics-name" class="skill-name">Acrobatics</div>
+                    <div id="acrobatics-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="animal-handling" class="skill-container">
+                    <div id="animal-handling-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="animal-handling-stat" class="skill-stat">WIS</div>
+                    <div id="animal-handling-name" class="skill-name">Animal Handling</div>
+                    <div id="animal-handling-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="arcana" class="skill-container">
+                    <div id="arcana-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="arcana-stat" class="skill-stat">INT</div>
+                    <div id="arcana-name" class="skill-name">Arcana</div>
+                    <div id="arcana-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="athletics" class="skill-container">
+                    <div id="acrobatics-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="acrobatics-stat" class="skill-stat">STR</div>
+                    <div id="acrobatics-name" class="skill-name">Athletics</div>
+                    <div id="acrobatics-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="deception" class="skill-container">
+                    <div id="deception-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="deception-stat" class="skill-stat">CHA</div>
+                    <div id="deception-name" class="skill-name">Deception</div>
+                    <div id="deception-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="history" class="skill-container">
+                    <div id="history-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="history-stat" class="skill-stat">INT</div>
+                    <div id="history-name" class="skill-name">History</div>
+                    <div id="history-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="insight" class="skill-container">
+                    <div id="insight-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="insight-stat" class="skill-stat">WIS</div>
+                    <div id="insight-name" class="skill-name">Insight</div>
+                    <div id="insight-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="intimidation" class="skill-container">
+                    <div id="intimidation-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="intimidation-stat" class="skill-stat">CHA</div>
+                    <div id="intimidation-name" class="skill-name">Intimidation</div>
+                    <div id="intimidation-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="investigation" class="skill-container">
+                    <div id="investigation-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="investigation-stat" class="skill-stat">INT</div>
+                    <div id="investigation-name" class="skill-name">Investigation</div>
+                    <div id="investigation-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="medicine" class="skill-container">
+                    <div id="medicine-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="medicine-stat" class="skill-stat">WIS</div>
+                    <div id="medicine-name" class="skill-name">Medicine</div>
+                    <div id="medicine-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="nature" class="skill-container">
+                    <div id="nature-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="nature-stat" class="skill-stat">INT</div>
+                    <div id="nature-name" class="skill-name">Nature</div>
+                    <div id="nature-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="perception" class="skill-container">
+                    <div id="perception-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="perception-stat" class="skill-stat">WIS</div>
+                    <div id="perception-name" class="skill-name">Perception</div>
+                    <div id="perception-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="performance" class="skill-container">
+                    <div id="performance-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="performance-stat" class="skill-stat">CHA</div>
+                    <div id="performance-name" class="skill-name">Performance</div>
+                    <div id="performance-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="persuasion" class="skill-container">
+                    <div id="persuasion-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="persuasion-stat" class="skill-stat">CHA</div>
+                    <div id="persuasion-name" class="skill-name">Persuasion</div>
+                    <div id="persuasion-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="religion" class="skill-container">
+                    <div id="religion-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="religion-stat" class="skill-stat">WIS</div>
+                    <div id="religion-name" class="skill-name">Religion</div>
+                    <div id="religion-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="sleight-of-hand" class="skill-container">
+                    <div id="sleight-of-hand-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="sleight-of-hand-stat" class="skill-stat">DEX</div>
+                    <div id="sleight-of-hand-name" class="skill-name">Sleight of Hand</div>
+                    <div id="sleight-of-hand-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="stealth" class="skill-container">
+                    <div id="stealth-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="stealth-stat" class="skill-stat">DEX</div>
+                    <div id="stealth-name" class="skill-name">Stealth</div>
+                    <div id="stealth-bonus" class="skill-bonus">+0</div>
+                </div>
+                <div id="survival" class="skill-container">
+                    <div id="survival-proficiency" class="skill-prof"><i class="ri-circle-line"></i></div>
+                    <div id="survival-stat" class="skill-stat">WIS</div>
+                    <div id="survival-name" class="skill-name">Survival</div>
+                    <div id="survival-bonus" class="skill-bonus">+0</div>
+                </div>
+            </div>
+            <div id="inspiration-prof-container">
+                <div id="inspiration" class="sheet-section">
+                    <div id="inspiration-header" class="small-header">Inspiration</div>
+                    <div id="inspiration-container">
+                        <input type="checkbox" id="inspiration-checkbox-raw" class="inspiration-checkbox">
+                        <label class="inspiration-checkbox-label-raw" for="inspiration-checkbox-raw"></label>
+                    </div>
+                    <div id="inspiration-container-bg3" style="display: none">
+                        <input type="checkbox" id="inspiration-checkbox-one" class="inspiration-checkbox">
+                        <label class="inspiration-checkbox-label" for="inspiration-checkbox-one"></label>
+                        <input type="checkbox" id="inspiration-checkbox-two" class="inspiration-checkbox">
+                        <label class="inspiration-checkbox-label" for="inspiration-checkbox-two"></label>
+                        <input type="checkbox" id="inspiration-checkbox-three" class="inspiration-checkbox">
+                        <label class="inspiration-checkbox-label" for="inspiration-checkbox-three"></label>
+                        <input type="checkbox" id="inspiration-checkbox-four" class="inspiration-checkbox">
+                        <label class="inspiration-checkbox-label" for="inspiration-checkbox-four"></label>
+                    </div>
+                </div>
+                <div id="proficiencies" class="sheet-section">
+                    <div id="proficiencies-header" class="small-header">Proficiencies</div>
+                    <div id="proficiencies-weapons">
+                        <div id="pw-header" class="small-header">Weapons</div>
+                    </div>
+                    <div id="proficiencies-armor">
+                        <div id="pa-header" class="small-header">Armor</div>
+                    </div>
+                    <div id="proficiencies-tools">
+                        <div id="pt-header" class="small-header">Tools</div>
+                    </div>
+                    <div id="proficiencies-languages">
+                        <div id="pl-header" class="small-header">Languages</div>
+                    </div>
+                    <div id="proficiencies-other">
+                        <div id="po-header" class="small-header">Other</div>
+                    </div>
+                </div>
+            </div>
+            <div id="information-container" class="sheet-section">
+                <div id="information-container-buttons">
+                    <button id="btn-actions">Actions</button>
+                    <button id="btn-spells">Spells</button>
+                    <button id="btn-inventory">Inventory</button>
+                    <button id="btn-features">Features</button>
+                    <button id="btn-details">Description</button>
+                    <button id="btn-notes">Notes</button>
+                    <button id="btn-extras">Extras</button>
+                </div>
+                <div id="information-container-actions">
+                    <div id="actions-filter">
+                        <!--list box for skills-->
+                        <!--list box for action costs-->
+                    </div>
+                    <!--search box, however the hell you do that, sounds hard-->
+                    <div id="actions-encounter">
+
+                    </div>
+                    <div id="actions-exploration" style="display: none">
+                    
+                    </div>
+                    <div id="actions-downtime" style="display: none">
+                    
+                    </div>
+                </div>
+                <div id="information-container-spells" style="display: none"></div>
+                <div id="information-container-inventory" style="display: none"></div>
+                <div id="information-container-features" style="display: none"></div>
+                <div id="information-container-details" style="display: none"></div>
+                <div id="information-container-notes" style="display: none"></div>
+                <div id="information-container-extras" style="display: none"></div>
+            </div>
+            <div id="class-info-container" class="sheet-section" style="display: none">
+                <div id="class-info-container-header">Class Info</div>
+            </div>
+        </div>
+        <div id="side-bar-fade" style="display: none">
+            <div id="side-bar">
+                test
+            </div>
+        </div>
+        <script src="dnd-sheet.js" async defer></script>
+    </body>
+</html>
