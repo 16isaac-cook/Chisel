@@ -1,0 +1,26 @@
+{
+    "id": 0,
+    "name": "Template",
+    "actions": 123,
+    "heighten": {
+        "value": 1,
+        "levels": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    "level": 1,
+    "range": "varies",
+    "rarity": 0,
+    "school": "evo",
+    "source": {
+        "title": "Template",
+        "page": 1
+    },
+    "summary": "The template for a spell",
+    "target": "One spell waiting to be created",
+    "text": "This spell is used as a template for creating new spells - how exciting!",
+    "tradition": [
+        "Divine",
+        "Occult",
+        "Primal"
+    ],
+    "trait": []
+}

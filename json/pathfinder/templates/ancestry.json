@@ -1,0 +1,34 @@
+{
+    "id": "ANCESTRY_TEMPLATE",
+    "name": "Template",
+    "ability": {
+        "granted": [],
+        "flaw": [],
+        "chosen": []
+    },
+    "hp": 0,
+    "image": [
+        "image.png",
+        "image2.png"
+    ],
+    "languages": [
+        "Common"
+    ],
+    "rarity": 0,
+    "size": 1,
+    "source": {
+        "title": "Template",
+        "page": 1
+    },
+    "speed": {
+        "land": 25
+    },
+    "summary": "Templates are known for their simplicity and usefulness",
+    "text": "Long description",
+    "trait": [
+        "Humanoid",
+        "Template"
+    ],
+    "vision": "Darkvision",
+    "other": []
+}

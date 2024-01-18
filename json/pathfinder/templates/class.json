@@ -1,0 +1,117 @@
+{
+    "id": "CLASS_TEMPLATE",
+    "name": "Template",
+    "ability": [],
+    "hp": 0,
+    "proficiencies": {
+        "attack": {
+            "simple": 0,
+            "martial": 0,
+            "advanced": 0,
+            "unarmed": 0,
+            "weapon": []
+        },
+        "defense": {
+            "light": 0,
+            "medium": 0,
+            "heavy": 0,
+            "unarmored": 0
+        },
+        "fortitude": 0, 
+        "perception": 0,
+        "reflex": 0,
+        "skill": {
+            "granted": [],
+            "choice": [],
+            "base": 0
+        },
+        "will": 0
+    },
+    "rarity": 0,
+    "source": {
+        "title": "Template",
+        "page": 1
+    },
+    "levels": {
+        "1": {
+            "granted": [],
+            "choice": []
+        },
+        "2": {
+            "granted": [],
+            "choice": []
+        },
+        "3": {
+            "granted": [],
+            "choice": []
+        },
+        "4": {
+            "granted": [],
+            "choice": []
+        },
+        "5": {
+            "granted": [],
+            "choice": []
+        },
+        "6": {
+            "granted": [],
+            "choice": []
+        },
+        "7": {
+            "granted": [],
+            "choice": []
+        },
+        "8": {
+            "granted": [],
+            "choice": []
+        },
+        "9": {
+            "granted": [],
+            "choice": []
+        },
+        "10": {
+            "granted": [],
+            "choice": []
+        },
+        "11": {
+            "granted": [],
+            "choice": []
+        },
+        "12": {
+            "granted": [],
+            "choice": []
+        },
+        "13": {
+            "granted": [],
+            "choice": []
+        },
+        "14": {
+            "granted": [],
+            "choice": []
+        },
+        "15": {
+            "granted": [],
+            "choice": []
+        },
+        "16": {
+            "granted": [],
+            "choice": []
+        },
+        "17": {
+            "granted": [],
+            "choice": []
+        },
+        "18": {
+            "granted": [],
+            "choice": []
+        },
+        "19": {
+            "granted": [],
+            "choice": []
+        },
+        "20": {
+            "granted": [],
+            "choice": []
+        }
+    }
+}
