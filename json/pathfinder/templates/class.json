@@ -9,7 +9,7 @@
             "martial": 0,
             "advanced": 0,
             "unarmed": 0,
-            "weapon": []
+            "weapon": {}
         },
         "defense": {
             "light": 0,
@@ -17,15 +17,17 @@
             "heavy": 0,
             "unarmored": 0
         },
-        "fortitude": 0, 
-        "perception": 0,
-        "reflex": 0,
-        "skill": {
-            "granted": [],
-            "choice": [],
-            "base": 0
+        "saves": {
+            "fortitude": 0, 
+            "perception": 0,
+            "reflex": 0,
+            "will": 0
         },
-        "will": 0
+        "skill": {
+            "granted": {},
+            "choice": {},
+            "base": 0
+        }
     },
     "rarity": 0,
     "source": {

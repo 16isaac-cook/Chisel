@@ -15,15 +15,27 @@
             <a href="index.html" id="home-button"><i class="ri-arrow-left-line"></i><i class="ri-home-2-line"></i></a>
         </div>
         <div id="explorer" class="sheet-background">
-            <div id="explorer-main" class="sheet-section"></div>
+            <div id="explorer-main" class="sheet-section">
+                <div id="explorer-header" class="small-header">Explorer</div>
+                <div id="explorer-list"></div>
+                <div id="explorer-buttons"></div>
+            </div>
         </div>
         <div id="workshop" class="sheet-background">
-            <div id="workshop-main" class="sheet-section"></div>
+            <div id="workshop-main" class="sheet-section">
+                <div id="workshop-header" class="small-header">Workshop</div>
+                <div id="workshop-content"></div>
+            </div>
         </div>
         <div id="preview" class="sheet-background">
-            <div id="preview-main" class="sheet-section"></div>
+            <div id="preview-main" class="sheet-section">
+                <div id="preview-header" class="small-header">Preview</div>
+                <div id="preview-content"></div>
+            </div>
         </div>
-        
-        <script src="js/workshop.js" async defer></script>
+        <div id="popup"></div>
+
+        <script src="js/workshop/classes.js"></script>
+        <script src="js/workshop/main.js"></script>
     </body>
 </html>
