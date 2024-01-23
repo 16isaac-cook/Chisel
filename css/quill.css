@@ -89,6 +89,8 @@ body {
 #explorer #explorer-main {
   display: flex;
   flex-direction: column;
+  background-color: #1c1621;
+  padding: 0;
 }
 #explorer #explorer-main .explorer-button {
   font-weight: normal;
@@ -101,7 +103,7 @@ body {
   padding: 0.3em;
   background-color: #47424c;
   border-radius: 5px;
-  margin: 0.3em 0.3em 0 0.3em;
+  margin-top: 0.3em;
 }
 #explorer #explorer-main .explorer-button i {
   font-size: inherit;
@@ -119,9 +121,24 @@ body {
 #explorer #explorer-main hr {
   border-color: #5f5a63;
 }
+#explorer #explorer-main #explorer-list-universal, #explorer #explorer-main #explorer-list-world, #explorer #explorer-main #explorer-help {
+  border: 0px;
+  border-radius: 10px;
+  background-color: #312b36;
+  padding: 0.6em;
+}
+#explorer #explorer-main #explorer-list-world {
+  margin-top: 0.3em;
+  flex: 1 0 auto;
+}
+#explorer #explorer-main #explorer-list-world-buttons {
+  overflow-y: auto;
+}
 #explorer #explorer-main #explorer-help {
-  margin-bottom: 0.6em;
-  margin-top: auto;
+  margin-top: 0.3em;
+}
+#explorer #explorer-main #explorer-help .explorer-button {
+  margin: 0;
 }
 
 #menu {
@@ -132,6 +149,42 @@ body {
   height: 95%;
   padding-left: 0;
 }
-#menu div[data-active=false] {
-  display: none;
+#menu #builder {
+  background-color: #1c1621;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#menu #builder-header {
+  border: 0px;
+  border-radius: 10px;
+  background-color: #312b36;
+  padding: 0.3em;
+  margin-bottom: 0.3em;
+}
+#menu #builder-content {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: row;
+}
+#menu #builder-content-list, #menu #builder-content-main {
+  border: 0px;
+  border-radius: 10px;
+  background-color: #312b36;
+  padding: 0.3em;
+  height: 100%;
+}
+#menu #builder-content-list {
+  margin-right: 0.3em;
+  flex: 1 1 20%;
+  overflow-y: auto;
+}
+#menu #builder-content-main {
+  flex: 1 1 80%;
+  overflow-y: auto;
+}
+
+div[data-active=false] {
+  display: none !important;
 }/*# sourceMappingURL=quill.css.map */

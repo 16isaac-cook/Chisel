@@ -53,7 +53,22 @@ explorer.addEventListener('click', e => {
         const menuID = e.target.getAttribute('href');
         const activeMenu = menu.querySelector('div[data-active=true]');
         const newActive = menu.querySelector(menuID);
-        activeMenu.dataset.active = false;
-        newActive.dataset.active = true;
+        if(activeMenu !== newActive) {
+            activeMenu.dataset.active = false;
+            newActive.dataset.active = true;
+        }
     }
+});
+
+const tag = new Tag('tag');
+
+const test = new Building('test', [tag]);
+console.log(test);
+
+document.querySelector('#form').addEventListener('submit', e => {
+    e.preventDefault();
+    const input = document.querySelector('#text');
+    //test.addTag(input.value);
+    test.tags.add(input.value);
+    console.log(test);
 });

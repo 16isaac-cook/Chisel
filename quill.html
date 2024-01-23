@@ -16,18 +16,22 @@
         </div>
         <div id="explorer" class="sheet-background">
             <div id="explorer-main" class="sheet-section">
-                <div id="explorer-header" class="small-header">Explorer</div>
-                <div id="explorer-list">
+                <div id="explorer-list-universal">
+                    <div id="explorer-header" class="small-header">Explorer</div>
                     <a href="#home" id="home-button" class="explorer-button"><i class="ri-home-2-fill"></i> Home</a>
                     <a href="#worlds" id="worlds-button" class="explorer-button"><i class="ri-earth-fill"></i> Worlds</a>
-                    <hr>
-                    <a href="#overview" id="overview-button" class="explorer-button"><i class="ri-book-2-fill"></i> Overview</a>
-                    <a href="#builder" id="builder-button" class="explorer-button"><i class="ri-haze-fill"></i> World Objects</a>
-                    <a href="#maps" id="maps-button" class="explorer-button"><i class="ri-map-fill"></i> Maps</a>
-                    <a href="#history" id="history-button" class="explorer-button"><i class="ri-hourglass-fill"></i> History</a>
-                    <a href="#campaigns" id="campaigns-button" class="explorer-button"><i class="ri-team-fill"></i> Campaigns</a>
-                    <a href="#writing" id="writing-button" class="explorer-button"><i class="ri-pen-nib-fill"></i> Writing Tools</a>
-                    <a href="#files" id="files-button" class="explorer-button"><i class="ri-folder-3-fill"></i> Files</a>
+                </div>
+                <div id="explorer-list-world">
+                    <div id="explorer-header" class="small-header">World Name</div>
+                    <div id="explorer-list-world-buttons">
+                        <a href="#overview" id="overview-button" class="explorer-button"><i class="ri-book-2-fill"></i> Overview</a>
+                        <a href="#builder" id="builder-button" class="explorer-button"><i class="ri-haze-fill"></i> World Objects</a>
+                        <a href="#maps" id="maps-button" class="explorer-button"><i class="ri-map-fill"></i> Maps</a>
+                        <a href="#history" id="history-button" class="explorer-button"><i class="ri-hourglass-fill"></i> History</a>
+                        <a href="#campaigns" id="campaigns-button" class="explorer-button"><i class="ri-team-fill"></i> Campaigns</a>
+                        <a href="#writing" id="writing-button" class="explorer-button"><i class="ri-pen-nib-fill"></i> Writing Tools</a>
+                        <a href="#files" id="files-button" class="explorer-button"><i class="ri-folder-3-fill"></i> Files</a>
+                    </div>
                 </div>
                 <div id="explorer-help">
                     <a href="#help" id="help-button" class="explorer-button"><i class="ri-question-fill"></i> Help & Info</a>
@@ -35,8 +39,12 @@
             </div>
         </div>
         <div id="menu" class="sheet-background">
-            <div id="home" data-active=true class="sheet-section">
-                <div id="worlds-header" class="small-header">Home</div>
+            <div id="home" data-active=false class="sheet-section">
+                <div id="home-header" class="small-header">Home</div>
+                <form id="form">
+                    <input type="text" name="text" id="text" style="color: black;">
+                    <input type="submit" name="submit" id="submit" style="color: black;">
+                </form>
             </div>
             <div id="worlds" data-active=false class="sheet-section">
                 <div id="worlds-header" class="small-header">Worlds</div>
@@ -44,8 +52,16 @@
             <div id="overview" data-active=false class="sheet-section">
                 <div id="overview-header" class="small-header">Overview</div>
             </div>
-            <div id="builder" data-active=false class="sheet-section">
-                <div id="builder-header" class="small-header">World Objects</div>
+            <div id="builder" data-active=true class="sheet-section">
+                <div id="builder-header" class="small-header">World Object Builder</div>
+                <div id="builder-content">
+                    <div id="builder-content-list">
+                        <div id="builder-content-list-header" class="small-header">World Objects</div>
+                    </div>
+                    <div id="builder-content-main">
+                        <div id="builder-content-main-header" class="small-header">Builder</div>
+                    </div>
+                </div>
             </div>
             <div id="maps" data-active=false class="sheet-section">
                 <div id="maps-header" class="small-header">Maps</div>
