@@ -6,31 +6,64 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/workshop.css">
+        <link rel="stylesheet" href="css/quill.css">
         <link rel="stylesheet" href="fonts/remixicon.css">
     </head>
     <body>
         <div id="nav-header" class="sheet-background">            
-            <div id="title-bar">CHISEL WORKSHOP</div>
-            <a href="index.html" id="home-button"><i class="ri-arrow-left-line"></i><i class="ri-home-2-line"></i></a>
+            <div id="title-bar">CHISEL - QUILL</div>
+            <a href="index.html" id="home-button"><i class="ri-arrow-left-line"></i><i class="ri-home-2-fill"></i></a>
         </div>
         <div id="explorer" class="sheet-background">
             <div id="explorer-main" class="sheet-section">
                 <div id="explorer-header" class="small-header">Explorer</div>
-                <div id="explorer-list"></div>
-                <div id="explorer-buttons"></div>
+                <div id="explorer-list">
+                    <a href="#home" id="home-button" class="explorer-button"><i class="ri-home-2-fill"></i> Home</a>
+                    <a href="#worlds" id="worlds-button" class="explorer-button"><i class="ri-earth-fill"></i> Worlds</a>
+                    <hr>
+                    <a href="#overview" id="overview-button" class="explorer-button"><i class="ri-book-2-fill"></i> Overview</a>
+                    <a href="#builder" id="builder-button" class="explorer-button"><i class="ri-haze-fill"></i> World Objects</a>
+                    <a href="#maps" id="maps-button" class="explorer-button"><i class="ri-map-fill"></i> Maps</a>
+                    <a href="#history" id="history-button" class="explorer-button"><i class="ri-hourglass-fill"></i> History</a>
+                    <a href="#campaigns" id="campaigns-button" class="explorer-button"><i class="ri-team-fill"></i> Campaigns</a>
+                    <a href="#writing" id="writing-button" class="explorer-button"><i class="ri-pen-nib-fill"></i> Writing Tools</a>
+                    <a href="#files" id="files-button" class="explorer-button"><i class="ri-folder-3-fill"></i> Files</a>
+                </div>
+                <div id="explorer-help">
+                    <a href="#help" id="help-button" class="explorer-button"><i class="ri-question-fill"></i> Help & Info</a>
+                </div>
             </div>
         </div>
-        <div id="workshop" class="sheet-background">
-            <div id="workshop-main" class="sheet-section">
-                <div id="workshop-header" class="small-header">Workshop</div>
-                <div id="workshop-content"></div>
+        <div id="menu" class="sheet-background">
+            <div id="home" active=true class="sheet-section">
+                <div id="worlds-header" class="small-header">Home</div>
             </div>
-        </div>
-        <div id="preview" class="sheet-background">
-            <div id="preview-main" class="sheet-section">
-                <div id="preview-header" class="small-header">Preview</div>
-                <div id="preview-content"></div>
+            <div id="worlds" active=false class="sheet-section hidden">
+                <div id="worlds-header" class="small-header">Worlds</div>
+            </div>
+            <div id="overview" active=false class="sheet-section hidden">
+                <div id="overview-header" class="small-header">Overview</div>
+            </div>
+            <div id="builder" active=false class="sheet-section hidden">
+                <div id="builder-header" class="small-header">World Objects</div>
+            </div>
+            <div id="maps" active=false class="sheet-section hidden">
+                <div id="maps-header" class="small-header">Maps</div>
+            </div>
+            <div id="history" active=false class="sheet-section hidden">
+                <div id="history-header" class="small-header">History</div>
+            </div>
+            <div id="campaigns" active=false class="sheet-section hidden">
+                <div id="campaigns-header" class="small-header">Campaigns</div>
+            </div>
+            <div id="writing" active=false class="sheet-section hidden">
+                <div id="writing-header" class="small-header">Writing</div>
+            </div>
+            <div id="files" active=false class="sheet-section hidden">
+                <div id="files-header" class="small-header">Files</div>
+            </div>
+            <div id="help" active=false class="sheet-section hidden">
+                <div id="help-header" class="small-header">Help & Info</div>
             </div>
         </div>
         <div id="popup"></div>

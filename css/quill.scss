@@ -74,6 +74,10 @@ body {
     }
 }
 
+.hidden {
+    display: none;
+}
+
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
@@ -116,21 +120,56 @@ body {
     left: 0;
     width: 20%;
     height: 95%;
+    #explorer-main {
+        display: flex;
+        flex-direction: column;
+    
+        .explorer-button {
+            font-weight: normal;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: $font-big;
+            padding: 0.3em;
+            background-color: $mixed-300;
+            border-radius: 5px;
+            margin: 0.3em 0.3em 0 0.3em;
+    
+            i {
+                font-size: inherit;
+                margin-right: 0.2em;
+            }
+        }
+        .explorer-button:hover {
+            background-color: $mixed-400;
+            //padding-left: 0.6em;
+        }
+        .explorer-button:active {
+            background-color: $mixed-300;
+        }
+    
+        #worlds-button {
+            margin-bottom: 0.3em;
+        }
+    
+        hr {
+            border-color: $mixed-400;
+        }
+    
+        #explorer-help {
+            margin-bottom: 0.6em;
+            margin-top: auto;
+        }
+    }
 }
 
-#workshop {
+#menu {
     position: absolute;
     top: 5%;
     left: 20%;
-    width: 45%;
+    width: 80%;
     height: 95%;
-    padding: 0.3em 0;
-}
-
-#preview {
-    position: absolute;
-    top: 5%;
-    left: 65%;
-    width: 35%;
-    height: 95%;
+    padding-left: 0;
 }

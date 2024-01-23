@@ -44,3 +44,20 @@ Writing Tools
 Files
     Contains quick access to things like images, as well as the actual markdown files themselves
 */
+
+const explorer = document.querySelector('#explorer');
+const menu = document.querySelector('#menu');
+
+explorer.addEventListener('click', e => {
+    if(e.target.className == 'explorer-button') {
+        const menuID = e.target.getAttribute('href');
+        const menus = menu.querySelectorAll('.sheet-section');
+        menus.forEach(item => {
+            if(!item.classList.contains('hidden')) {
+                item.classList.add('hidden');
+            }
+        });
+        const newActive = menu.querySelector(menuID);
+        newActive.classList.toggle('hidden');
+    }
+});
