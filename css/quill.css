@@ -1,6 +1,10 @@
+@font-face {
+  font-family: "Roboto Condensed";
+  src: local("Roboto Condensed"), url("../fonts/RobotoCondensed-VariableFont_wght.ttf");
+}
 * {
   box-sizing: border-box;
-  font-family: "Roboto Condensed", Roboto, Helvetica, sans-serif;
+  font-family: "Roboto Condensed", Helvetica, sans-serif;
   color: #fff;
   margin: 0;
   padding: 0;
@@ -183,6 +187,64 @@ body {
 #menu #builder-content-main {
   flex: 1 1 80%;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#menu #builder-content-main-header {
+  flex: 0 1 auto;
+  margin-bottom: 0.3em;
+}
+#menu #builder-content-main-display {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#menu #builder-content-main-display-builder {
+  flex: 1 0 auto;
+  padding: 0.3em;
+}
+#menu #builder-content-main-display-builder .pair {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#menu #builder-content-main-display-builder .pair input[type=text] {
+  background-color: #47424c;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3em;
+}
+#menu #builder-content-main-display-builder .pair input[type=text]:focus {
+  outline: none;
+  background-color: #5f5a63;
+}
+#menu #builder-content-main-display-builder .pair label {
+  display: inline-block;
+}
+#menu #builder-content-main-display-builder .pair #builder-title {
+  font-size: 32px;
+}
+#menu #builder-content-main-display-builder .pair #builder-title-label {
+  font-size: 24px;
+  font-style: italic;
+  padding: 0 0.3em 0.3em 0.3em;
+}
+#menu #builder-content-main-display-switch {
+  flex: 0 1 auto;
+  color: #cacaca;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  cursor: pointer;
+}
+#menu #builder-content-main-display-switch:hover {
+  color: #fff;
+}
+#menu #builder-content-main-display-switch:active {
+  color: #cacaca;
 }
 
 div[data-active=false] {

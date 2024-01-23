@@ -3,9 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Chisel | Quill - Home</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
         <link rel="stylesheet" href="css/quill.css">
         <link rel="stylesheet" href="fonts/remixicon.css">
     </head>
@@ -41,10 +42,6 @@
         <div id="menu" class="sheet-background">
             <div id="home" data-active=false class="sheet-section">
                 <div id="home-header" class="small-header">Home</div>
-                <form id="form">
-                    <input type="text" name="text" id="text" style="color: black;">
-                    <input type="submit" name="submit" id="submit" style="color: black;">
-                </form>
             </div>
             <div id="worlds" data-active=false class="sheet-section">
                 <div id="worlds-header" class="small-header">Worlds</div>
@@ -60,6 +57,15 @@
                     </div>
                     <div id="builder-content-main">
                         <div id="builder-content-main-header" class="small-header">Builder</div>
+                        <div id="builder-content-main-display">
+                            <div id="builder-content-main-display-builder">
+                                <div class="pair">
+                                    <input type="text" id="builder-title">
+                                    <label for="builder-name" id="builder-title-label">Building Title</label>
+                                </div>
+                            </div>
+                            <div id="builder-content-main-display-switch">Switch to Preview</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,6 +91,7 @@
         <div id="popup"></div>
 
         <script src="js/quill/classes.js"></script>
+        <script src="js/quill/builder.js"></script>
         <script src="js/quill/main.js"></script>
     </body>
 </html>

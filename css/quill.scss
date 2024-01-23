@@ -25,9 +25,16 @@ $font-bigish: 24px;
 $font-big: 32px;
 $font-huge: 48px;
 
+@font-face {
+    font-family: "Roboto Condensed";
+    src:
+        local("Roboto Condensed"),
+        url("../fonts/RobotoCondensed-VariableFont_wght.ttf")
+}
+
 * {
     box-sizing: border-box;
-    font-family:'Roboto Condensed', Roboto, Helvetica, sans-serif;
+    font-family: 'Roboto Condensed', Helvetica, sans-serif;
     color: #fff;
     margin: 0;
     padding: 0;
@@ -225,6 +232,68 @@ body {
             &-main {
                 flex: 1 1 80%;
                 overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                &-header {
+                    flex: 0 1 auto;
+                    margin-bottom: 0.3em;
+                }
+                &-display {
+                    flex: 1 0 auto;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    &-builder {
+                        flex: 1 0 auto;
+                        padding: 0.3em;
+                        .pair {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+
+                            input[type=text] {
+                                background-color: $mixed-300;
+                                border: none;
+                                border-radius: 5px;
+                                padding: 0.3em;
+                            }
+                            input[type=text]:focus {
+                                outline: none;
+                                background-color: $mixed-400;
+                            }
+                            label {
+                                display: inline-block;
+                            }
+
+                            #builder-title {
+                                font-size: $font-big;
+                            }
+                            #builder-title-label {
+                                font-size: $font-bigish;
+                                font-style: italic;
+                                padding: 0 0.3em 0.3em 0.3em;
+                            }
+                        }
+                    }
+
+                    &-switch {
+                        flex: 0 1 auto;
+                        color: #cacaca;
+                        font-weight: bold;
+                        display: flex;
+                        justify-content: center;
+                        align-items: flex-end;
+                        cursor: pointer;
+                    }
+                    &-switch:hover {
+                        color: #fff;
+                    }
+                    &-switch:active {
+                        color: #cacaca;
+                    }
+                }
             }
         }
     }

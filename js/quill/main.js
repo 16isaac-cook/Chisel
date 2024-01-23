@@ -14,6 +14,7 @@ World Objects
         - Deities
         - Documents
         - Ethnicities
+        - Family Trees
         - Geographic Locations
         - Items
         - Laws of Nature/Magic
@@ -48,6 +49,7 @@ Files
 const explorer = document.querySelector('#explorer');
 const menu = document.querySelector('#menu');
 
+//switch menus on clicking their respective button
 explorer.addEventListener('click', e => {
     if(e.target.className == 'explorer-button') {
         const menuID = e.target.getAttribute('href');
@@ -57,18 +59,7 @@ explorer.addEventListener('click', e => {
             activeMenu.dataset.active = false;
             newActive.dataset.active = true;
         }
+        const menuTitle = newActive.querySelector('.small-header');
+        document.title = `Chisel | Quill - ${menuTitle.innerText}`;
     }
-});
-
-const tag = new Tag('tag');
-
-const test = new Building('test', [tag]);
-console.log(test);
-
-document.querySelector('#form').addEventListener('submit', e => {
-    e.preventDefault();
-    const input = document.querySelector('#text');
-    //test.addTag(input.value);
-    test.tags.add(input.value);
-    console.log(test);
 });

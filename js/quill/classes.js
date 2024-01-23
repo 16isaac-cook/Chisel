@@ -8,6 +8,7 @@
 - Deities
 - Documents
 - Ethnicities
+- Family Trees
 - Geographic Locations
 - Items
 - Laws of Nature/Magic
@@ -78,6 +79,9 @@ class WorldObject {
         }
 
         this._name = newName;
+    }
+    get name() {
+        return this._name;
     }
     
     get tags() {
