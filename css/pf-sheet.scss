@@ -1,129 +1,4 @@
-$primary-100: #6720bd;
-$primary-200: #7b3cc5;
-$primary-300: #8e55cd;
-$primary-400: #9f6dd5;
-$primary-500: #b085dc;
-$primary-600: #c19ce3;
-$dark-100: #121212;
-$dark-200: #282828;
-$dark-300: #3f3f3f;
-$dark-400: #575757;
-$dark-500: #717171;
-$dark-600: #8b8b8b;
-$mixed-100: #1c1621;
-$mixed-100-50: #1c1621a0;
-$mixed-200: #312b36;
-$mixed-300: #47424c;
-$mixed-400: #5f5a63;
-$mixed-500: #78737b;
-$mixed-600: #918d94;
-
-$font-tiny: 12px;
-$font-small: 14px;
-$font-norm: 16px;
-$font-bigish: 24px;
-$font-big: 32px;
-$font-huge: 48px;
-
-* {
-    box-sizing: border-box;
-    font-family:'Roboto Condensed', Roboto, Helvetica, sans-serif;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    font-size: $font-norm;
-    //font-weight: bold;
-}
-
-body {
-    background-color: $mixed-100;
-}
-
-.sheet-background {
-    background-color: $mixed-100;
-    padding: 0.15em 0.15em;
-}
-
-.sheet-section {
-    border: 0px;
-    border-radius: 10px;
-    background-color: $mixed-200;
-    margin: 0 0.15em;
-    height: 100%;
-    padding: 0.3em;
-}
-
-.small-header {
-    color: #cacaca;
-    font-size: $font-small;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-button {
-    border: 0;
-    background-color: $mixed-300;
-    padding: 0.3em;
-    font-weight: bold;
-    cursor: pointer;
-}
-button:hover {
-    background-color: $mixed-400;
-}
-button:active {
-    background-color: $mixed-300;
-}
-
-.no-spin {
-    -moz-appearance: textfield;
-    appearance: textfield;
-    background-color: $mixed-200;
-    text-align: center;
-    border: none;
-
-    ::-webkit-outer-spin-button, ::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-}
-
-/* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
-/* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
-/* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
-#nav-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
-    #home-button {
-        position: absolute;
-        top: 0;
-        left: 0;
-        font-weight: normal;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        padding: 0 0.3em;
-        text-decoration: none;
-    }
-
-    #title-bar {
-        font-size: $font-bigish;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}
+@use "universal";
 
 /* ~~~~~~~~~~~ ROW 1  ~~~~~~~~~~~ */
 /* ~~~~~~~~~~~ ROW 1  ~~~~~~~~~~~ */
@@ -271,7 +146,7 @@ button:active {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    font-size: $font-huge;
+                    font-size: universal.$font-huge;
                     min-width: 1em;
                     max-width: 1em;
                 }
@@ -279,13 +154,13 @@ button:active {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    font-size: $font-huge;
+                    font-size: universal.$font-huge;
                 }
                 #hp-max { 
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    font-size: $font-huge;
+                    font-size: universal.$font-huge;
                     min-width: 1em;
                     max-width: 1em;
                 }
@@ -305,7 +180,7 @@ button:active {
                 align-items: flex-end;
             }
             #thp-value { /* input */
-                font-size: $font-huge;
+                font-size: universal.$font-huge;
             }
         }
         #hp-buttons {
@@ -320,7 +195,7 @@ button:active {
                 height: 30%;
                 width: 100%;
                 min-width: 0;
-                background-color: $mixed-300;
+                background-color: universal.$mixed-300;
                 text-align: center;
                 border: none;
             }
@@ -383,7 +258,7 @@ button:active {
             align-items: center;
 
             .condition {
-                background-color: $mixed-300;
+                background-color: universal.$mixed-300;
                 padding: 0.4em;
                 border: none;
                 border-radius: 10px;
@@ -428,7 +303,7 @@ button:active {
     //         align-items: center;
     //         height: calc(100% - 2em);
     //         margin: 0.3em;
-    //         font-size: $font-big;
+    //         font-size: universal.$font-big;
     //     }
     // }
     
@@ -454,7 +329,7 @@ button:active {
     //         align-items: center;
     //         height: calc(100% - 2em);
     //         margin: 0.3em;
-    //         font-size: $font-big;
+    //         font-size: universal.$font-big;
     //     }
     // }
 
@@ -508,12 +383,12 @@ button:active {
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: $font-huge;
+            font-size: universal.$font-huge;
         }
         .stat-bonus {
             flex: 10;
             margin: 0;
-            font-size: $font-big;
+            font-size: universal.$font-big;
         }
 
     #saving-throws {
@@ -560,10 +435,10 @@ button:active {
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: $font-huge;
+            font-size: universal.$font-huge;
         }
         .st-training {
-            font-size: $font-bigish;
+            font-size: universal.$font-bigish;
             font-weight: bold;
         }
 
@@ -580,7 +455,7 @@ button:active {
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: $font-huge;
+            font-size: universal.$font-huge;
             width: 100%;
         }
         #resists-weaknesses {
@@ -610,7 +485,7 @@ button:active {
             align-items: center;
             height: calc(100% - 2em);
             margin: 0.3em;
-            font-size: $font-big;
+            font-size: universal.$font-big;
         }
     }
 
@@ -636,7 +511,7 @@ button:active {
             align-items: center;
             height: calc(100% - 2em);
             margin: 0.3em;
-            font-size: $font-big;
+            font-size: universal.$font-big;
         }
         #class-dc-training {
             font-weight: bold;
@@ -719,7 +594,7 @@ button:active {
         }
 
         :nth-child(odd) + .skill-container {
-            background-color: $mixed-300;
+            background-color: universal.$mixed-300;
         }
 
         .skill-container {
@@ -733,11 +608,11 @@ button:active {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: $font-bigish;
+                font-size: universal.$font-bigish;
             }
             .skill-stat {
                 color: #cacaca;
-                font-size: $font-small;
+                font-size: universal.$font-small;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -746,13 +621,13 @@ button:active {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: $font-bigish;
+                font-size: universal.$font-bigish;
             }
             .skill-bonus {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: $font-bigish;
+                font-size: universal.$font-bigish;
             }
         }
     }
@@ -910,7 +785,7 @@ button:active {
     width: 100%;
     height: 100%;
     z-index: 2;
-    background-color: $mixed-100-50;
+    background-color: universal.$mixed-100-50;
     overflow: hidden;
     #side-bar {
         position: absolute;
@@ -921,7 +796,7 @@ button:active {
         z-index: 3;
         margin: 0;
         padding: 0.3em;
-        background-color: $mixed-200;
+        background-color: universal.$mixed-200;
         animation: side-bar-slide-in 0.1s ease-in-out forwards;
     }
     .side-bar-slide-out {

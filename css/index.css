@@ -1,6 +1,10 @@
+@font-face {
+  font-family: "Roboto Condensed";
+  src: local("Roboto Condensed"), url("../fonts/RobotoCondensed-VariableFont_wght.ttf");
+}
 * {
   box-sizing: border-box;
-  font-family: "Roboto Condensed", Roboto, Helvetica, sans-serif;
+  font-family: "Roboto Condensed", Helvetica, sans-serif;
   color: #fff;
   margin: 0;
   padding: 0;
@@ -13,14 +17,13 @@ body {
 
 .sheet-background {
   background-color: #1c1621;
-  padding: 0.15em 0;
+  padding: 0.3em;
 }
 
 .sheet-section {
   border: 0px;
   border-radius: 10px;
   background-color: #312b36;
-  margin: 0 0.15em;
   height: 100%;
   padding: 0.3em;
 }
@@ -34,10 +37,35 @@ body {
   align-items: flex-end;
 }
 
+.big-header {
+  color: #cacaca;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.3em;
+}
+
+button {
+  border: 0;
+  background-color: #47424c;
+  padding: 0.3em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #5f5a63;
+}
+
+button:active {
+  background-color: #47424c;
+}
+
 .no-spin {
   -moz-appearance: textfield;
-  -webkit-appearance: textfield;
-          appearance: textfield;
+  appearance: textfield;
   background-color: #312b36;
   text-align: center;
   border: none;
@@ -45,6 +73,69 @@ body {
 .no-spin ::-webkit-outer-spin-button, .no-spin ::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 1em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #918d94;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 0.75em;
+  width: 0.75em;
+  left: 0.125em;
+  bottom: 0.125em;
+  background-color: white;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+input:checked + .slider {
+  background-color: #8e55cd;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #8e55cd;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(1em);
+  -ms-transform: translateX(1em);
+  transform: translateX(1em);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
@@ -72,6 +163,7 @@ body {
   align-items: center;
   cursor: pointer;
   padding: 0 0.3em;
+  text-decoration: none;
 }
 #nav-header #title-bar {
   font-size: 24px;
@@ -119,8 +211,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
-  -moz-column-gap: 0.3em;
-       column-gap: 0.3em;
+  column-gap: 0.3em;
 }
 #nav-buttons .nav-button {
   border: 0;

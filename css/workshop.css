@@ -1,6 +1,10 @@
+@font-face {
+  font-family: "Roboto Condensed";
+  src: local("Roboto Condensed"), url("../fonts/RobotoCondensed-VariableFont_wght.ttf");
+}
 * {
   box-sizing: border-box;
-  font-family: "Roboto Condensed", Roboto, Helvetica, sans-serif;
+  font-family: "Roboto Condensed", Helvetica, sans-serif;
   color: #fff;
   margin: 0;
   padding: 0;
@@ -33,10 +37,25 @@ body {
   align-items: flex-end;
 }
 
+button {
+  border: 0;
+  background-color: #47424c;
+  padding: 0.3em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #5f5a63;
+}
+
+button:active {
+  background-color: #47424c;
+}
+
 .no-spin {
   -moz-appearance: textfield;
-  -webkit-appearance: textfield;
-          appearance: textfield;
+  appearance: textfield;
   background-color: #312b36;
   text-align: center;
   border: none;

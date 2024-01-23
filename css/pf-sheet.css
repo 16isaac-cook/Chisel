@@ -1,6 +1,10 @@
+@font-face {
+  font-family: "Roboto Condensed";
+  src: local("Roboto Condensed"), url("../fonts/RobotoCondensed-VariableFont_wght.ttf");
+}
 * {
   box-sizing: border-box;
-  font-family: "Roboto Condensed", Roboto, Helvetica, sans-serif;
+  font-family: "Roboto Condensed", Helvetica, sans-serif;
   color: #fff;
   margin: 0;
   padding: 0;
@@ -13,14 +17,13 @@ body {
 
 .sheet-background {
   background-color: #1c1621;
-  padding: 0.15em 0.15em;
+  padding: 0.3em;
 }
 
 .sheet-section {
   border: 0px;
   border-radius: 10px;
   background-color: #312b36;
-  margin: 0 0.15em;
   height: 100%;
   padding: 0.3em;
 }
@@ -52,8 +55,7 @@ button:active {
 
 .no-spin {
   -moz-appearance: textfield;
-  -webkit-appearance: textfield;
-          appearance: textfield;
+  appearance: textfield;
   background-color: #312b36;
   text-align: center;
   border: none;
@@ -128,8 +130,7 @@ button:active {
 #sheet-row1 #portrait-edit #portrait { /* img */
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   position: absolute;
   top: 0;
   left: 0;
