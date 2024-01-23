@@ -1,121 +1,4 @@
-$primary-100: #6720bd;
-$primary-200: #7b3cc5;
-$primary-300: #8e55cd;
-$primary-400: #9f6dd5;
-$primary-500: #b085dc;
-$primary-600: #c19ce3;
-$dark-100: #121212;
-$dark-200: #282828;
-$dark-300: #3f3f3f;
-$dark-400: #575757;
-$dark-500: #717171;
-$dark-600: #8b8b8b;
-$mixed-100: #1c1621;
-$mixed-100-50: #1c1621a0;
-$mixed-200: #312b36;
-$mixed-300: #47424c;
-$mixed-400: #5f5a63;
-$mixed-500: #78737b;
-$mixed-600: #918d94;
-
-$font-tiny: 12px;
-$font-small: 14px;
-$font-norm: 16px;
-$font-bigish: 24px;
-$font-big: 32px;
-$font-huge: 48px;
-
-@font-face {
-    font-family: "Roboto Condensed";
-    src:
-        local("Roboto Condensed"),
-        url("../fonts/RobotoCondensed-VariableFont_wght.ttf")
-}
-
-* {
-    box-sizing: border-box;
-    font-family: 'Roboto Condensed', Helvetica, sans-serif;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    font-size: $font-norm;
-    //font-weight: bold;
-}
-
-body {
-    background-color: $mixed-100;
-}
-
-.sheet-background {
-    background-color: $mixed-100;
-    padding: 0.3em;
-}
-
-.sheet-section {
-    border: 0px;
-    border-radius: 10px;
-    background-color: $mixed-200;
-    height: 100%;
-    padding: 0.3em;
-}
-
-.small-header {
-    color: #cacaca;
-    font-size: $font-small;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-.no-spin {
-    -moz-appearance: textfield;
-    appearance: textfield;
-    background-color: $mixed-200;
-    text-align: center;
-    border: none;
-
-    ::-webkit-outer-spin-button, ::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-}
-
-/* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
-/* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
-/* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
-#nav-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
-    #home-button {
-        position: absolute;
-        top: 0;
-        left: 0;
-        font-weight: normal;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        padding: 0 0.3em;
-        text-decoration: none;
-    }
-
-    #title-bar {
-        font-size: $font-bigish;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}
+@use "universal";
 
 #explorer {
     position: absolute;
@@ -126,7 +9,7 @@ body {
     #explorer-main {
         display: flex;
         flex-direction: column;
-        background-color: $mixed-100;
+        background-color: universal.$mixed-100;
         padding: 0;
     
         .explorer-button {
@@ -136,9 +19,9 @@ body {
             align-items: center;
             cursor: pointer;
             text-decoration: none;
-            font-size: $font-big;
+            font-size: universal.$font-big;
             padding: 0.3em;
-            background-color: $mixed-300;
+            background-color: universal.$mixed-300;
             border-radius: 5px;
             margin-top: 0.3em;
     
@@ -148,11 +31,11 @@ body {
             }
         }
         .explorer-button:hover {
-            background-color: $mixed-400;
+            background-color: universal.$mixed-400;
             //padding-left: 0.6em;
         }
         .explorer-button:active {
-            background-color: $mixed-300;
+            background-color: universal.$mixed-300;
         }
     
         #worlds-button {
@@ -160,13 +43,13 @@ body {
         }
     
         hr {
-            border-color: $mixed-400;
+            border-color: universal.$mixed-400;
         }
 
         #explorer-list-universal, #explorer-list-world, #explorer-help {
             border: 0px;
             border-radius: 10px;
-            background-color: $mixed-200;
+            background-color: universal.$mixed-200;
             padding: 0.6em;
         }
 
@@ -196,7 +79,7 @@ body {
     padding-left: 0;
 
     #builder {
-        background-color: $mixed-100;
+        background-color: universal.$mixed-100;
         padding: 0;
         display: flex;
         flex-direction: column;
@@ -205,7 +88,7 @@ body {
         &-header {
             border: 0px;
             border-radius: 10px;
-            background-color: $mixed-200;
+            background-color: universal.$mixed-200;
             padding: 0.3em;
             margin-bottom: 0.3em;
         }
@@ -218,7 +101,7 @@ body {
             &-list, &-main {
                 border: 0px;
                 border-radius: 10px;
-                background-color: $mixed-200;
+                background-color: universal.$mixed-200;
                 padding: 0.3em;
                 height: 100%;
             }
@@ -254,24 +137,24 @@ body {
                             align-items: flex-start;
 
                             input[type=text] {
-                                background-color: $mixed-300;
+                                background-color: universal.$mixed-300;
                                 border: none;
                                 border-radius: 5px;
                                 padding: 0.3em;
                             }
                             input[type=text]:focus {
                                 outline: none;
-                                background-color: $mixed-400;
+                                background-color: universal.$mixed-400;
                             }
                             label {
                                 display: inline-block;
                             }
 
                             #builder-title {
-                                font-size: $font-big;
+                                font-size: universal.$font-big;
                             }
                             #builder-title-label {
-                                font-size: $font-bigish;
+                                font-size: universal.$font-bigish;
                                 font-style: italic;
                                 padding: 0 0.3em 0.3em 0.3em;
                             }

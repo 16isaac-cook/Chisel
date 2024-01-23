@@ -1,10 +1,10 @@
-.bigish {
-  font-size: 24px;
+@font-face {
+  font-family: "Roboto Condensed";
+  src: local("Roboto Condensed"), url("../fonts/RobotoCondensed-VariableFont_wght.ttf");
 }
-
 * {
   box-sizing: border-box;
-  font-family: "Roboto Condensed", Roboto, Helvetica, sans-serif;
+  font-family: "Roboto Condensed", Helvetica, sans-serif;
   color: #fff;
   margin: 0;
   padding: 0;
@@ -17,14 +17,13 @@ body {
 
 .sheet-background {
   background-color: #1c1621;
-  padding: 0.15em 0;
+  padding: 0.3em;
 }
 
 .sheet-section {
   border: 0px;
   border-radius: 10px;
   background-color: #312b36;
-  margin: 0 0.15em;
   height: 100%;
   padding: 0.3em;
 }
@@ -66,8 +65,7 @@ button:active {
 
 .no-spin {
   -moz-appearance: textfield;
-  -webkit-appearance: textfield;
-          appearance: textfield;
+  appearance: textfield;
   background-color: #312b36;
   text-align: center;
   border: none;
@@ -101,6 +99,7 @@ button:active {
   right: 0;
   bottom: 0;
   background-color: #918d94;
+  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -112,6 +111,7 @@ button:active {
   left: 0.125em;
   bottom: 0.125em;
   background-color: white;
+  -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
@@ -124,6 +124,8 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
+  -webkit-transform: translateX(1em);
+  -ms-transform: translateX(1em);
   transform: translateX(1em);
 }
 
@@ -136,11 +138,8 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.builder-select {
-  background-color: #47424c;
-  border: 0;
-  border-radius: 5px;
-  padding: 0.3em;
+.bigish {
+  font-weight: 24px;
 }
 
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
@@ -156,7 +155,6 @@ input:checked + .slider:before {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  z-index: 1;
 }
 #nav-header #home-button {
   position: absolute;

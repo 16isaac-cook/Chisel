@@ -37,6 +37,22 @@ body {
   align-items: flex-end;
 }
 
+button {
+  border: 0;
+  background-color: #47424c;
+  padding: 0.3em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #5f5a63;
+}
+
+button:active {
+  background-color: #47424c;
+}
+
 .no-spin {
   -moz-appearance: textfield;
   appearance: textfield;
