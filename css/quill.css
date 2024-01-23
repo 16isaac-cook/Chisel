@@ -45,10 +45,6 @@ body {
   margin: 0;
 }
 
-.hidden {
-  display: none;
-}
-
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
@@ -135,4 +131,7 @@ body {
   width: 80%;
   height: 95%;
   padding-left: 0;
+}
+#menu div[data-active=false] {
+  display: none;
 }/*# sourceMappingURL=quill.css.map */

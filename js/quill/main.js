@@ -51,13 +51,9 @@ const menu = document.querySelector('#menu');
 explorer.addEventListener('click', e => {
     if(e.target.className == 'explorer-button') {
         const menuID = e.target.getAttribute('href');
-        const menus = menu.querySelectorAll('.sheet-section');
-        menus.forEach(item => {
-            if(!item.classList.contains('hidden')) {
-                item.classList.add('hidden');
-            }
-        });
+        const activeMenu = menu.querySelector('div[data-active=true]');
         const newActive = menu.querySelector(menuID);
-        newActive.classList.toggle('hidden');
+        activeMenu.dataset.active = false;
+        newActive.dataset.active = true;
     }
 });
