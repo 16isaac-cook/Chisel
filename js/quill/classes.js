@@ -20,6 +20,7 @@
 - Organizations
 - Professions
 - Religions
+- Rooms
 - Settlements
 - Species
 - Spells
@@ -95,7 +96,7 @@ class WorldObject {
     }
 }
 
-class Building extends WorldObject {
+class Landmark extends WorldObject {
     constructor(name, tags = null, parent = null, children = new Set([])) {
         super(name, tags, parent, children);
     }

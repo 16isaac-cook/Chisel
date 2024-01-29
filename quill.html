@@ -61,7 +61,87 @@
                             <div id="builder-content-main-display-builder">
                                 <div class="pair">
                                     <input type="text" id="builder-title">
-                                    <label for="builder-name" id="builder-title-label">Building Title</label>
+                                    <label for="builder-title" id="builder-title-label">Landmark Title</label>
+                                </div>
+                                <div class="pair">
+                                    <label for="builder-desc" id="builder-desc-label">Landmark Description</label>
+                                    <textarea id="builder-desc"></textarea>
+                                </div>
+                                <div class="pair">
+                                    <label id="builder-parent-label">Landmark Location</label>
+                                    <div class="select-box">
+                                        <div class="select">
+                                            <select id="builder-parent">
+                                                <option value="none">Select object...</option>
+                                                <option value="none2">None2</option>
+                                                <option value="none3">None3</option>
+                                                <option value="none4">None4</option>
+                                                <option value="none5">None5</option>
+                                                <option value="none6">None6</option>
+                                            </select>
+                                        </div>
+                                        <a href="#" id="builder-parent-link"><i class="ri-add-box-fill"></i> Create and Link a New Object</a>
+                                    </div>
+                                    <p>This option sets a location this landmark can be found in and links it to that object.</p>
+                                </div>
+                                <div class="pair">
+                                    <label for="builder-date-built" id="builder-date-built-label">Date of Construction</label>
+                                    <input type="text" id="builder-date-built">
+                                    <p>The date the landmark or building was constructed.</p>
+                                </div>
+                                <div class="pair">
+                                    <label for="builder-date-destroyed" id="builder-date-destroyed-label">Date of Destruction</label>
+                                    <input type="text" id="builder-date-destroyed">
+                                    <p>The date, if any, that the landmark or building was destroyed. If this has a value, the landmark will be marked as a ruin.</p>
+                                </div>
+                                <div class="pair">
+                                    <label id="builder-owner-label">Landmark Owner</label>
+                                    <div class="select-box">
+                                        <div class="select">
+                                            <select id="builder-owner">
+                                                <option value="none">Select object...</option>
+                                                <option value="none2">None2</option>
+                                                <option value="none3">None3</option>
+                                                <option value="none4">None4</option>
+                                                <option value="none5">None5</option>
+                                                <option value="none6">None6</option>
+                                            </select>
+                                        </div>
+                                        <a href="#" id="builder-owner-link"><i class="ri-add-box-fill"></i> Create and Link a New Object</a>
+                                    </div>
+                                    <p>This option sets a person who owns this landmark and links it to that object.</p>
+                                </div>
+                                <div class="pair">
+                                    <label id="builder-owner-org-label">Landmark Owning Organization</label>
+                                    <div class="select-box">
+                                        <div class="select">
+                                            <select id="builder-owner-org">
+                                                <option value="none">Select object...</option>
+                                                <option value="none2">None2</option>
+                                                <option value="none3">None3</option>
+                                                <option value="none4">None4</option>
+                                                <option value="none5">None5</option>
+                                                <option value="none6">None6</option>
+                                            </select>
+                                        </div>
+                                        <a href="#" id="builder-owner-org-link"><i class="ri-add-box-fill"></i> Create and Link a New Object</a>
+                                    </div>
+                                    <p>This option sets an organization that owns this landmark and links it to that object.</p>
+                                </div>
+                                <div class="pair">
+                                    <label for="builder-alt-names" id="builder-alt-names-label">Alternate Names</label>
+                                    <input type="text" id="builder-alt-names">
+                                    <p>Any other names this landmark is known by.</p>
+                                </div>
+                                <div class="pair">
+                                    <label for="builder-purpose" id="builder-purpose-label">Landmark Purpose</label>
+                                    <textarea id="builder-purpose"></textarea>
+                                    <p>The intended purpose of this landmark, and the purpose it may have come to obtain despite that.</p>
+                                </div>
+                                <div class="pair">
+                                    <label for="builder-alterations" id="builder-alterations-label">Landmark Alterations</label>
+                                    <textarea id="builder-alterations"></textarea>
+                                    <p>Alterations that have been made to the landmark.</p>
                                 </div>
                             </div>
                             <div id="builder-content-main-display-switch">Switch to Preview</div>

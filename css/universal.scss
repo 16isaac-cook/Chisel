@@ -92,6 +92,21 @@ button:active {
     background-color: $mixed-300;
 }
 
+input[type=text], textarea, select {
+    background-color: $mixed-300;
+    border: none;
+    border-radius: 5px;
+    padding: 0.3em;
+}
+input[type=text]:focus, textarea:focus, select:focus {
+    outline: none;
+    background-color: $mixed-400;
+}
+
+a {
+    text-decoration: none;
+}
+
 .no-spin {
     -moz-appearance: textfield;
     appearance: textfield;

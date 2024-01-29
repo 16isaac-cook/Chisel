@@ -31,6 +31,7 @@ let builderHTML = {};
 - Organizations
 - Professions
 - Religions
+- Rooms
 - Settlements
 - Species
 - Spells
@@ -47,8 +48,8 @@ const createBuilder = html => {
 //sets the builder HTML when creating a new Object
 const createNewBuilder = object => {
     switch(object) {
-        case 'building': 
-            builderHeader = 'Builder - Building';
+        case 'landmark': 
+            builderHeader = 'Builder - Landmark';
         default: 
             console.error('Something went wrong creating the builder');
     }
