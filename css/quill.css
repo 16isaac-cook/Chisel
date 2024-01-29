@@ -37,6 +37,16 @@ body {
   align-items: flex-end;
 }
 
+.big-header {
+  color: #cacaca;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.3em;
+}
+
 button {
   border: 0;
   background-color: #47424c;
@@ -53,6 +63,22 @@ button:active {
   background-color: #47424c;
 }
 
+input[type=text], textarea, select {
+  background-color: #47424c;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3em;
+}
+
+input[type=text]:focus, textarea:focus, select:focus {
+  outline: none;
+  background-color: #5f5a63;
+}
+
+a {
+  text-decoration: none;
+}
+
 .no-spin {
   -moz-appearance: textfield;
   appearance: textfield;
@@ -63,6 +89,85 @@ button:active {
 .no-spin ::-webkit-outer-spin-button, .no-spin ::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 1em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #918d94;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 0.75em;
+  width: 0.75em;
+  left: 0.125em;
+  bottom: 0.125em;
+  background-color: white;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+input:checked + .slider {
+  background-color: #8e55cd;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #8e55cd;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(1em);
+  -ms-transform: translateX(1em);
+  transform: translateX(1em);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.bigish {
+  font-weight: 24px;
+}
+
+.link {
+  color: #8e55cd;
+}
+
+.link:hover {
+  color: #c19ce3;
+}
+
+.link:active {
+  color: #7b3cc5;
 }
 
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
@@ -168,6 +273,7 @@ button:active {
   width: 80%;
   height: 95%;
   padding-left: 0;
+  max-height: 95%;
 }
 #menu #builder {
   background-color: #1c1621;
@@ -177,6 +283,7 @@ button:active {
   justify-content: center;
 }
 #menu #builder-header {
+  flex: 0 1 0;
   border: 0px;
   border-radius: 10px;
   background-color: #312b36;
@@ -184,9 +291,10 @@ button:active {
   margin-bottom: 0.3em;
 }
 #menu #builder-content {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: row;
+  overflow-y: hidden;
 }
 #menu #builder-content-list, #menu #builder-content-main {
   border: 0px;
@@ -198,46 +306,119 @@ button:active {
 #menu #builder-content-list {
   margin-right: 0.3em;
   flex: 1 1 20%;
-  overflow-y: auto;
 }
 #menu #builder-content-main {
   flex: 1 1 80%;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 #menu #builder-content-main-header {
   flex: 0 1 auto;
   margin-bottom: 0.3em;
 }
 #menu #builder-content-main-display {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 #menu #builder-content-main-display-builder {
-  flex: 1 0 auto;
+  flex: 1 1 0;
   padding: 0.3em;
+  overflow-y: auto;
 }
 #menu #builder-content-main-display-builder .pair {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 0.6em;
 }
 #menu #builder-content-main-display-builder .pair input[type=text] {
   background-color: #47424c;
   border: none;
   border-radius: 5px;
   padding: 0.3em;
+  width: 100%;
 }
 #menu #builder-content-main-display-builder .pair input[type=text]:focus {
   outline: none;
   background-color: #5f5a63;
 }
+#menu #builder-content-main-display-builder .pair textarea {
+  width: 100%;
+  height: 4em;
+  min-height: 4em;
+  max-height: 20em;
+  resize: vertical;
+}
 #menu #builder-content-main-display-builder .pair label {
-  display: inline-block;
+  font-style: italic;
+  padding: 0.3em 0.3em 0 0.3em;
+}
+#menu #builder-content-main-display-builder .pair .select-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  /* Style the arrow inside the select element: */
+  /* Point the arrow upwards when the select box is open (active): */
+  /* style the items (options), including the selected item: */
+  /* Style items (options): */
+  /* Hide the items when the select box is closed: */
+}
+#menu #builder-content-main-display-builder .pair .select-box .select {
+  position: relative;
+  flex: 1 0 auto;
+  margin-right: 0.3em;
+}
+#menu #builder-content-main-display-builder .pair .select-box .select select {
+  display: none;
+}
+#menu #builder-content-main-display-builder .pair .select-box .select-selected {
+  background-color: #47424c;
+  border: none;
+  border-radius: 5px;
+}
+#menu #builder-content-main-display-builder .pair .select-box .select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+#menu #builder-content-main-display-builder .pair .select-box .select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+#menu #builder-content-main-display-builder .pair .select-box .select-items div, #menu #builder-content-main-display-builder .pair .select-box .select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+#menu #builder-content-main-display-builder .pair .select-box .select-items {
+  position: absolute;
+  background-color: #47424c;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  border-radius: 5px;
+}
+#menu #builder-content-main-display-builder .pair .select-box .select-hide {
+  display: none;
+}
+#menu #builder-content-main-display-builder .pair .select-box .select-items div:hover, #menu #builder-content-main-display-builder .pair .select-box .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+#menu #builder-content-main-display-builder .pair p {
+  color: #cacaca;
+  font-style: italic;
 }
 #menu #builder-content-main-display-builder .pair #builder-title {
   font-size: 32px;
@@ -248,13 +429,14 @@ button:active {
   padding: 0 0.3em 0.3em 0.3em;
 }
 #menu #builder-content-main-display-switch {
-  flex: 0 1 auto;
+  flex: 0 1 0;
   color: #cacaca;
   font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: flex-end;
   cursor: pointer;
+  margin-top: 0.3em;
 }
 #menu #builder-content-main-display-switch:hover {
   color: #fff;
