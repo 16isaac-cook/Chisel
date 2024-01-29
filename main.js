@@ -5,6 +5,8 @@ const windowStateKeeper = require('electron-window-state');
 try {
 	require('electron-reloader')(module);
 } catch {}
+const storage = require('electron-json-storage');
+storage.setDataPath('C:/Users/4800625351/Desktop/Chisel/json/pathfinder/templates/');
  
 let devMode = true;
 
@@ -28,7 +30,7 @@ function createWindow() {
     });
 
     win.loadURL(url.format ({
-        pathname: path.join(__dirname, 'quill.html'),
+        pathname: path.join(__dirname, 'hammer.html'),
         protocol: 'file:',
         slashes: true
     }));
