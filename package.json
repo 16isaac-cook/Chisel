@@ -20,6 +20,7 @@
   "devDependencies": {
     "electron": "^28.1.4",
     "electron-reloader": "^1.2.3",
+    "electron-storage": "^1.0.7",
     "electron-window-state": "^5.0.3"
   }
 }

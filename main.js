@@ -5,6 +5,7 @@ const windowStateKeeper = require('electron-window-state');
 try {
 	require('electron-reloader')(module);
 } catch {}
+const storage = require('electron-storage');
  
 let devMode = true;
 
@@ -28,7 +29,7 @@ function createWindow() {
     });
 
     win.loadURL(url.format ({
-        pathname: path.join(__dirname, 'quill.html'),
+        pathname: path.join(__dirname, 'hammer.html'),
         protocol: 'file:',
         slashes: true
     }));

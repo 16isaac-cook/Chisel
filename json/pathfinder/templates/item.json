@@ -1,0 +1,17 @@
+{
+    "id": "ITEM_TEMPLATE",
+    "name": "Template",
+    "hands": 0,
+    "image": [
+        "image1.png",
+        "image2.png"
+    ],
+    "price": 1,
+    "rarity": 0,
+    "summary": "A template item",
+    "text": "A template for an item for use in Pathfinder 2e",
+    "trait": [
+        "Template"
+    ],
+    "weight": 0
+}
