@@ -21,6 +21,6 @@ This is being made as a passion project with no current plans to monetize the co
 The project runs on the `electron` package with some extra packages added on for convenience. After cloning the repo you'll need to run `npm install` to get the required packages, then run `npm start` to launch the program using electron.
 
 ## Credits
-- The `electron`, `electron-reloader`, and `electron-window-state` packages
+- The `electron`, `electron-reloader`, `electron-window-state`, and `electron-storage` packages
 - [remixicon.com](https://remixicon.com/) for various icons used in the project
 - The [Roboto Condensed](https://fonts.google.com/specimen/Roboto+Condensed) font
