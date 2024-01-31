@@ -29,7 +29,7 @@ function createWindow() {
     });
 
     win.loadURL(url.format ({
-        pathname: path.join(__dirname, 'hammer.html'),
+        pathname: path.join(__dirname, 'quill.html'),
         protocol: 'file:',
         slashes: true
     }));

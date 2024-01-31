@@ -155,7 +155,7 @@ input:checked + .slider:before {
 }
 
 .bigish {
-  font-weight: 24px;
+  font-size: 24px;
 }
 
 .link {
@@ -202,6 +202,37 @@ input:checked + .slider:before {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@font-face {
+  font-family: "remixicon";
+  src: url("../fonts/remixicon.eot?t=1690730386070"); /* IE9*/
+  src: url("../fonts/remixicon.eot?t=1690730386070#iefix") format("embedded-opentype"), url("../fonts/remixicon.woff2?t=1690730386070") format("woff2"), url("../fonts/remixicon.woff?t=1690730386070") format("woff"), url("../fonts/remixicon.ttf?t=1690730386070") format("truetype"), url("../fonts/remixicon.svg?t=1690730386070#remixicon") format("svg"); /* iOS 4.1- */
+}
+.eye-checkbox {
+  display: none;
+}
+
+.eye-checkbox-label:before {
+  font-style: normal;
+  font-family: "remixicon";
+  content: "\ecb2";
+}
+
+.eye-checkbox-label:hover {
+  font-weight: bold;
+}
+
+input[type=checkbox]:checked + .eye-checkbox-label:before {
+  font-style: normal;
+  font-family: "remixicon";
+  content: "\ecb4";
+}
+
+.note {
+  font-size: 14px;
+  font-style: italic;
+  margin-top: 0.6em;
 }
 
 #explorer {
@@ -254,7 +285,9 @@ input:checked + .slider:before {
 }
 #explorer #explorer-main #explorer-list-world {
   margin-top: 0.3em;
-  flex: 1 0 auto;
+  flex: 1 1 0;
+  padding: 0.3em;
+  overflow-y: auto;
 }
 #explorer #explorer-main #explorer-list-world-buttons {
   overflow-y: auto;
@@ -262,7 +295,7 @@ input:checked + .slider:before {
 #explorer #explorer-main #explorer-help {
   margin-top: 0.3em;
 }
-#explorer #explorer-main #explorer-help .explorer-button {
+#explorer #explorer-main #explorer-help #settings-button {
   margin: 0;
 }
 
@@ -419,6 +452,7 @@ input:checked + .slider:before {
 #menu #builder-content-main-display-builder .pair p {
   color: #cacaca;
   font-style: italic;
+  padding-left: 0.3em;
 }
 #menu #builder-content-main-display-builder .pair #builder-title {
   font-size: 32px;

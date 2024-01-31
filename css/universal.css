@@ -155,7 +155,7 @@ input:checked + .slider:before {
 }
 
 .bigish {
-  font-weight: 24px;
+  font-size: 24px;
 }
 
 .link {

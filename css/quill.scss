@@ -1,5 +1,37 @@
 @use "universal";
 
+@font-face {font-family: "remixicon";
+    src: url('../fonts/remixicon.eot?t=1690730386070'); /* IE9*/
+    src: url('../fonts/remixicon.eot?t=1690730386070#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url("../fonts/remixicon.woff2?t=1690730386070") format("woff2"),
+    url("../fonts/remixicon.woff?t=1690730386070") format("woff"),
+    url('../fonts/remixicon.ttf?t=1690730386070') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('../fonts/remixicon.svg?t=1690730386070#remixicon') format('svg'); /* iOS 4.1- */
+}
+
+.eye-checkbox {
+    display: none;
+}
+.eye-checkbox-label:before {
+    font-style: normal;
+    font-family: 'remixicon';
+    content: "\ecb2";
+}
+.eye-checkbox-label:hover {
+    font-weight: bold;
+}
+input[type=checkbox]:checked + .eye-checkbox-label:before {
+    font-style: normal;
+    font-family: 'remixicon';
+    content: "\ecb4";
+}
+
+.note {
+    font-size: universal.$font-small;
+    font-style: italic;
+    margin-top: 0.6em;
+}
+
 #explorer {
     position: absolute;
     top: 5%;
@@ -55,7 +87,9 @@
 
         #explorer-list-world {
             margin-top: 0.3em;
-            flex: 1 0 auto;
+            flex: 1 1 0;
+            padding: 0.3em;
+            overflow-y: auto;
             &-buttons {
                 overflow-y: auto;
             }
@@ -63,7 +97,7 @@
     
         #explorer-help {
             margin-top: 0.3em;
-            .explorer-button {
+            #settings-button {
                 margin: 0;
             }
         }
@@ -236,6 +270,7 @@
                             p {
                                 color: #cacaca;
                                 font-style: italic;
+                                padding-left: 0.3em;
                             }
 
                             #builder-title {

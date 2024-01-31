@@ -146,3 +146,9 @@ function closeAllSelect(elmnt) {
 /* If the user clicks anywhere outside the select box,
 then close all select boxes: */
 document.addEventListener("click", closeAllSelect); 
+
+
+
+const testing = new BuilderLandmark();
+console.log(testing);
+testing.pushHTML();
