@@ -2,80 +2,104 @@ const builder = document.querySelector('#builder');
 const list = builder.querySelector('#builder-content-list');
 const main = builder.querySelector('#builder-content-main');
 const mainHeader = main.querySelector('#builder-content-main-header');
-const display = main.querySelector('#builder-content-main-display-builder');
+const displayBuilder = main.querySelector('#builder-content-main-display-builder');
+const displayPreview = main.querySelector('#builder-content-main-display-preview');
 const switchButton = main.querySelector('#builder-content-main-display-switch');
 
-let storedBuilder;
-let builderHeader = 'Builder';
-let builderHTML = {};
+let builderHeader = '';
 
-/*
-- Articles
-    - General purpose text pages
-    - Players Handbook
-- Buildings
-- Characters
-- Countries
-- Deities
-- Documents
-- Ethnicities
-- Family Trees
-- Geographic Locations
-- Items
-- Laws of Nature/Magic
-- Languages
-- Materials/Resources
-- Military Conflicts
-- Military Formations
-- Myths & Legends
-- Organizations
-- Professions
-- Religions
-- Rooms
-- Settlements
-- Species
-- Spells
-- Technologies
-- Traditions
-- Vehicles
-*/
-
-//creates the builder HTML
-const createBuilder = html => {
-
+const createJSONFile = obj => {
+    console.log(JSON.stringify(obj));
 };
 
-//sets the builder HTML when creating a new Object
-const createNewBuilder = object => {
-    switch(object) {
-        case 'landmark': 
-            builderHeader = 'Builder - Landmark';
-        default: 
-            console.error('Something went wrong creating the builder');
-    }
+const getInputs = () => {
+    const pairs = displayBuilder.querySelectorAll('.pair');
+    let titleInput;
+    const textInputs = {};
+    const textAreas = {};
+    const selectInputs = {};
+    pairs.forEach((pair, key) => {
+        const queryTextInput = pair.querySelector('input[type=text]');
+        const queryTextArea = pair.querySelector('textarea');
+        const querySelect = pair.querySelector('select');
+        const queryEye = pair.querySelector('input[type=checkbox]');
+        const queryLabel = pair.querySelector('label');
+        if(queryTextInput) {
+            if(queryTextInput.id == 'builder-title') {
+                titleInput = [queryTextInput, queryLabel.innerText];
+            } else {
+                textInputs[`pair${key}`] = [queryTextInput, queryEye, queryLabel.innerText];
+            }
+        } else if(queryTextArea) {
+            textAreas[`pair${key}`] = [queryTextArea, queryEye, queryLabel.innerText];
+        } else if(querySelect) {
+            selectInputs[`pair${key}`] = [querySelect, queryEye, queryLabel.innerText];
+        } else {
+            console.error('Found nothing in a pair for some reason');
+        }
+    });
+
+    const typeIDEle = displayBuilder.querySelector('#builder-type');
+    const typeID = typeIDEle.dataset.type.toLowerCase().trim().replace(' ', '');
+
+    const saveButton = displayBuilder.querySelector('#builder-save-button');
+    saveButton.addEventListener('click', (e, titleIn = titleInput, textIns = textInputs, areaIns = textAreas, selectIns = selectInputs) => {
+        const objectJSON = {};
+        objectJSON['type'] = typeID;
+        objectJSON['title'] = {'name': titleIn[1].trim(), text: titleIn[0].value.trim()}
+        objectJSON['extra'] = {};
+        for (const [key, val] of Object.entries(textIns)) {
+            const input = val[0].value.trim();
+            const eye = val[1].checked;
+            const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
+            const displayName = val[2].trim();
+            objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
+        }
+        for (const [key, val] of Object.entries(areaIns)) {
+            const input = val[0].value.trim();
+            const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
+            if(name != 'desc') {
+                const eye = val[1].checked;
+                const displayName = val[2].trim();
+                objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
+            } else {
+                const displayName = val[2].trim();
+                objectJSON['description'] = {'name': displayName, 'text': input};
+            }
+        }
+        for (const [key, val] of Object.entries(selectIns)) {
+            const input = val[0].value.trim();
+            const eye = val[1].checked;
+            const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
+            const displayName = val[2].trim();
+            objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
+        }
+        createJSONFile(objectJSON);
+    });
 };
 
-//sets the builder HTML when editing an already made Object
-const createOldBuilder = object => {
-    
-};
-
-//creates a preview based on the values already in the builder
 const createPreview = () => {
-    return Math.random();
+    return 'preview';
 };
+
+let preview = false;
 
 const switchDisplay = () => {
     let headerText = mainHeader.innerHTML;
-    if(headerText === 'Builder') {
-        mainHeader.innerHTML = 'Preview';
+    if(!preview) {
+        preview = true;
+        builderHeader = mainHeader.innerHTML;
+        mainHeader.innerHTML = `Preview`;
         switchButton.innerHTML = 'Switch to Builder';
-        storedBuilder = display.innerHTML;
-        display.innerHTML = createPreview();
+        builderHeader = headerText;
+        displayBuilder.dataset.active = false;
+        displayPreview.dataset.active = true;
     } else {
+        preview = false;
         mainHeader.innerHTML = builderHeader;
         switchButton.innerHTML = 'Switch to Preview';
-        display.innerHTML = storedBuilder;
+        displayPreview.dataset.active = false;
+        displayBuilder.dataset.active = true;
     }
 };
 

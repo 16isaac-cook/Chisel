@@ -152,3 +152,4 @@ document.addEventListener("click", closeAllSelect);
 const testing = new BuilderLandmark();
 console.log(testing);
 testing.pushHTML();
+getInputs();

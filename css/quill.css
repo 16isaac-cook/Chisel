@@ -81,7 +81,8 @@ a {
 
 .no-spin {
   -moz-appearance: textfield;
-  appearance: textfield;
+  -webkit-appearance: textfield;
+          appearance: textfield;
   background-color: #312b36;
   text-align: center;
   border: none;
@@ -115,7 +116,6 @@ a {
   right: 0;
   bottom: 0;
   background-color: #918d94;
-  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -127,7 +127,6 @@ a {
   left: 0.125em;
   bottom: 0.125em;
   background-color: white;
-  -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
@@ -140,8 +139,6 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(1em);
-  -ms-transform: translateX(1em);
   transform: translateX(1em);
 }
 
@@ -360,6 +357,8 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
   flex: 1 1 0;
   padding: 0.3em;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 #menu #builder-content-main-display-builder .pair {
   display: flex;
@@ -461,6 +460,18 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
   font-size: 24px;
   font-style: italic;
   padding: 0 0.3em 0.3em 0.3em;
+}
+#menu #builder-content-main-display-builder #builder-save-button {
+  align-self: center;
+  font-size: 32px;
+  border-radius: 5px;
+}
+#menu #builder-content-main-display-preview {
+  flex: 1 1 0;
+  padding: 0.3em;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 #menu #builder-content-main-display-switch {
   flex: 0 1 0;

@@ -107,6 +107,7 @@ class Builder {
     constructor(type) {
         this.type = type;
         this.html = [];
+        this.header = `Builder - ${type}`;
         this.html.push(this.addTextInput('builder-title', `${this.type} Title`, null, null));
         this.html.push(this.addTextbox('builder-desc', `${this.type} Description`, null, null));
         this.html.push(this.addNote());
@@ -288,9 +289,23 @@ class Builder {
 
         return newPair;
     }
+    addSaveButton() {
+        const newSaveButton = document.createElement('button');
+        newSaveButton.id = 'builder-save-button';
+        newSaveButton.innerHTML = 'Save Object';
+
+        return newSaveButton;
+    }
     pushHTML() {
+        const header = document.querySelector('#builder-content-main-header');
+        header.innerHTML = this.header;
         const builder = document.querySelector('#builder-content-main-display-builder');
         if(builder) {
+            const typeID = document.createElement('div');
+            typeID.dataset.active = false;
+            typeID.id = 'builder-type';
+            typeID.dataset.type = this.type;
+            builder.append(typeID);
             for(i = 0; i < this.html.length; i++) {
                 builder.append(this.html[i]);
             }
@@ -309,5 +324,6 @@ class BuilderLandmark extends Builder {
         this.html.push(this.addTextInput('builder-alt-names', 'Alternate Names', 'Any other names the object is known by.'));
         this.html.push(this.addTextbox('builder-purpose', 'Landmark Purpose', 'The intended purpose of this landmark, and the purpose it may have come to obtain despite that.'));
         this.html.push(this.addTextbox('builder-alterations', 'Landmark Alterations', 'Alterations that have been made to the landmark.'));
+        this.html.push(this.addSaveButton());
     }
 }

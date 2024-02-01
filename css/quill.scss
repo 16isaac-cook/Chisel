@@ -168,6 +168,8 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
                         flex: 1 1 0;
                         padding: 0.3em;
                         overflow-y: auto;
+                        display: flex;
+                        flex-direction: column;
                         .pair {
                             display: flex;
                             flex-direction: column;
@@ -282,6 +284,20 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
                                 padding: 0 0.3em 0.3em 0.3em;
                             }
                         }
+
+                        #builder-save-button {
+                            align-self: center;
+                            font-size: universal.$font-big;
+                            border-radius: 5px;
+                        }
+                    }
+
+                    &-preview {
+                        flex: 1 1 0;
+                        padding: 0.3em;
+                        overflow-y: auto;
+                        display: flex;
+                        flex-direction: column;
                     }
 
                     &-switch {
