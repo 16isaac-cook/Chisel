@@ -17,14 +17,21 @@ async function writeJSON(data, name, filePath = '') {
     fs.access(fullPath, err => {
         if(err) { fs.mkdir(fullPath) }
     })
-    fs.writeFile(jsonPath, data, err => {
+    fs.writeFileSync(jsonPath, data, err => {
         if(err) throw err;
         console.log(`Saved ${name}.json`);
     })
 }
 
 async function readJSON(name, filePath = '') {
-    
+    const fullPath = path.join(__dirname, `json/${filePath}/`);
+    const jsonPath = path.join(fullPath, `${name}.json`);
+    const jsonData = fs.readFileSync(jsonPath, 'utf8', (err, data) => {
+        if(err) throw err;
+        console.log(data);
+        return JSON.stringify(data);
+    })
+    return jsonData;
 }
  
 function createWindow() {
@@ -68,7 +75,7 @@ function createWindow() {
 
 app.whenReady().then(() => {
     ipcMain.handle('writeJSON', (e, data, name, filePath) => writeJSON(data, name, filePath));
-    ipcMain.handle('readJSON', (e, name, filePath) => readJSON(name, filePath));
+    ipcMain.handle('readJSON', async (e, name, filePath) => readJSON(name, filePath));
     createWindow();
     app.on('activate', () => {
         if(BrowserWindow.getAllWindows().length === 0) { createWindow(); }
