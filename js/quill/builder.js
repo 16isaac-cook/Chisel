@@ -16,8 +16,9 @@ const createJSONFile = (obj, name) => {
 const createObjectJSON = (titleIn, textIns, areaIns, selectIns, typeID) => {
     const objectJSON = {};
     objectJSON['type'] = typeID;
-    objectJSON['title'] = {'name': titleIn[1].trim(), text: titleIn[0].value.trim()}
-    objectJSON['description'] = {}
+    objectJSON['title'] = { 'name': titleIn[1].trim(), text: titleIn[0].value.trim() };
+    objectJSON['description'] = {};
+    objectJSON['gm-notes'] = {};
     objectJSON['extra'] = {};
     for (const [key, val] of Object.entries(textIns)) {
         const input = val[0].value.trim();
@@ -29,13 +30,17 @@ const createObjectJSON = (titleIn, textIns, areaIns, selectIns, typeID) => {
     for (const [key, val] of Object.entries(areaIns)) {
         const input = val[0].value.trim();
         const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
-        if(name != 'desc') {
+        if(name == 'desc') {
+            const displayName = val[2].trim();
+            objectJSON['description'] = {'name': displayName, 'text': input};
+        } else if(name == 'gm-notes') {
+            const eye = val[1].checked;
+            const displayName = val[2].trim();
+            objectJSON['gm-notes'] = {'name': displayName, 'text': input, 'visible': eye};
+        } else {
             const eye = val[1].checked;
             const displayName = val[2].trim();
             objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
-        } else {
-            const displayName = val[2].trim();
-            objectJSON['description'] = {'name': displayName, 'text': input};
         }
     }
     for (const [key, val] of Object.entries(selectIns)) {
