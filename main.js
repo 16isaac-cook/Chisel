@@ -15,11 +15,18 @@ async function writeJSON(data, name, filePath = '') {
     const fullPath = path.join(__dirname, `json/${filePath}/`);
     const jsonPath = path.join(fullPath, `${name}.json`);
     fs.access(fullPath, err => {
-        if(err) { fs.mkdir(fullPath) }
-    })
-    fs.writeFileSync(jsonPath, data, err => {
-        if(err) throw err;
-        console.log(`Saved ${name}.json`);
+        if(err) { 
+            fs.mkdir(fullPath, err => { if(err) throw err });
+            fs.writeFile(jsonPath, data, err => {
+                if(err) throw err;
+                console.log(`Saved ${name}.json`);
+            })
+        } else {
+            fs.writeFile(jsonPath, data, err => {
+                if(err) throw err;
+                console.log(`Saved ${name}.json`);
+            })
+        }
     })
 }
 
