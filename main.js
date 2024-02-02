@@ -1,15 +1,31 @@
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const url = require('url');
 const path = require('path');
+const fs = require('fs');
 const windowStateKeeper = require('electron-window-state');
 try {
 	require('electron-reloader')(module);
 } catch {}
-const storage = require('electron-storage');
  
 let devMode = true;
 
 let win;
+
+async function writeJSON(data, name, filePath = '') {
+    const fullPath = path.join(__dirname, `json/${filePath}/`);
+    const jsonPath = path.join(fullPath, `${name}.json`);
+    fs.access(fullPath, err => {
+        if(err) { fs.mkdir(fullPath) }
+    })
+    fs.writeFile(jsonPath, data, err => {
+        if(err) throw err;
+        console.log(`Saved ${name}.json`);
+    })
+}
+
+async function readJSON(name, filePath = '') {
+    
+}
  
 function createWindow() {
     let mainWindowState = windowStateKeeper({
@@ -25,7 +41,10 @@ function createWindow() {
         x: mainWindowState.x,
         y: mainWindowState.y,
         width: mainWindowState.width,
-        height: mainWindowState.height
+        height: mainWindowState.height,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js')
+        }
     });
 
     win.loadURL(url.format ({
@@ -47,4 +66,15 @@ function createWindow() {
     }
 }
 
-app.on('ready', createWindow);
+app.whenReady().then(() => {
+    ipcMain.handle('writeJSON', (e, data, name, filePath) => writeJSON(data, name, filePath));
+    ipcMain.handle('readJSON', (e, name, filePath) => readJSON(name, filePath));
+    createWindow();
+    app.on('activate', () => {
+        if(BrowserWindow.getAllWindows().length === 0) { createWindow(); }
+    })
+})
+
+app.on('window-all-closed', () => {
+    if(process.platform !== 'darwin') { app.quit(); }
+})

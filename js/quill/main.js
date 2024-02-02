@@ -153,3 +153,9 @@ const testing = new BuilderLandmark();
 console.log(testing);
 testing.pushHTML();
 getInputs();
+
+const testing123 = async () => {
+  const test = {'test1': 'a', 'test2': 'b', 'test3': 'c'};
+  console.log(await window.electronAPI.writeJSON(JSON.stringify(test), 'testing'));
+};
+
