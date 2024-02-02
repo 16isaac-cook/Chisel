@@ -8,9 +8,48 @@ const switchButton = main.querySelector('#builder-content-main-display-switch');
 
 let builderHeader = '';
 
-const createJSONFile = obj => {
-    console.log(JSON.stringify(obj));
+const createJSONFile = (obj, name) => {
+    const jsonString = JSON.stringify(obj, null, '\t');
+    window.electronAPI.writeJSON(jsonString, name, 'quill');
 };
+
+const createObjectJSON = (titleIn, textIns, areaIns, selectIns, typeID) => {
+    const objectJSON = {};
+    objectJSON['type'] = typeID;
+    objectJSON['title'] = {'name': titleIn[1].trim(), text: titleIn[0].value.trim()}
+    objectJSON['description'] = {}
+    objectJSON['extra'] = {};
+    for (const [key, val] of Object.entries(textIns)) {
+        const input = val[0].value.trim();
+        const eye = val[1].checked;
+        const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
+        const displayName = val[2].trim();
+        objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
+    }
+    for (const [key, val] of Object.entries(areaIns)) {
+        const input = val[0].value.trim();
+        const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
+        if(name != 'desc') {
+            const eye = val[1].checked;
+            const displayName = val[2].trim();
+            objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
+        } else {
+            const displayName = val[2].trim();
+            objectJSON['description'] = {'name': displayName, 'text': input};
+        }
+    }
+    for (const [key, val] of Object.entries(selectIns)) {
+        const input = val[0].value.trim();
+        const eye = val[1].checked;
+        const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
+        const displayName = val[2].trim();
+        objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
+    }
+
+    jsonFileName = objectJSON['title']['text'].toLowerCase().replace(' ', '-');
+    if(jsonFileName == '') { jsonFileName = 'placeholder'; }
+    createJSONFile(objectJSON, jsonFileName);
+}
 
 const getInputs = () => {
     const pairs = displayBuilder.querySelectorAll('.pair');
@@ -43,38 +82,9 @@ const getInputs = () => {
     const typeID = typeIDEle.dataset.type.toLowerCase().trim().replace(' ', '');
 
     const saveButton = displayBuilder.querySelector('#builder-save-button');
-    saveButton.addEventListener('click', (e, titleIn = titleInput, textIns = textInputs, areaIns = textAreas, selectIns = selectInputs) => {
-        const objectJSON = {};
-        objectJSON['type'] = typeID;
-        objectJSON['title'] = {'name': titleIn[1].trim(), text: titleIn[0].value.trim()}
-        objectJSON['extra'] = {};
-        for (const [key, val] of Object.entries(textIns)) {
-            const input = val[0].value.trim();
-            const eye = val[1].checked;
-            const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
-            const displayName = val[2].trim();
-            objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
-        }
-        for (const [key, val] of Object.entries(areaIns)) {
-            const input = val[0].value.trim();
-            const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
-            if(name != 'desc') {
-                const eye = val[1].checked;
-                const displayName = val[2].trim();
-                objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
-            } else {
-                const displayName = val[2].trim();
-                objectJSON['description'] = {'name': displayName, 'text': input};
-            }
-        }
-        for (const [key, val] of Object.entries(selectIns)) {
-            const input = val[0].value.trim();
-            const eye = val[1].checked;
-            const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
-            const displayName = val[2].trim();
-            objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
-        }
-        createJSONFile(objectJSON);
+    saveButton.addEventListener('click', e => {
+        e.preventDefault();
+        createObjectJSON(titleInput, textInputs, textAreas, selectInputs, typeID)
     });
 };
 
