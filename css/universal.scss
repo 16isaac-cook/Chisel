@@ -98,7 +98,8 @@ input[type=text], textarea, select {
     border-radius: 5px;
     padding: 0.3em;
 }
-input[type=text]:focus, textarea:focus, select:focus {
+
+*:focus {
     outline: none;
     background-color: $mixed-400;
 }
