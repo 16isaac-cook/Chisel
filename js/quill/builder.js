@@ -103,10 +103,11 @@ const getInputs = () => {
     const typeID = typeIDEle.dataset.type.toLowerCase().trim().replace(' ', '');
     const iconID = typeIDEle.dataset.icon.toLowerCase().trim().replace(' ', '');
 
-    const saveButton = displayBuilder.querySelector('#builder-save-button');
-    saveButton.addEventListener('click', e => {
+    displayBuilder.addEventListener('click', e => {
         e.preventDefault();
-        createObjectJSON(titleInput, textInputs, textAreas, selectInputs, radios, typeID, iconID)
+        if(e.target.classList.contains('builder-save-button')){
+            createObjectJSON(titleInput, textInputs, textAreas, selectInputs, radios, typeID, iconID);
+        }
     });
 };
 

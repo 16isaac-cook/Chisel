@@ -320,12 +320,15 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
                             }
                         }
 
-                        #builder-save-button {
+                        .builder-save-button {
                             align-self: center;
                             font-size: universal.$font-big;
                             border-radius: 5px;
                             padding-left: 0.6em;
                             padding-right: 0.6em;
+                        }
+                        .builder-save-button:first-of-type {
+                            margin-top: 0.3em;
                         }
                     }
 

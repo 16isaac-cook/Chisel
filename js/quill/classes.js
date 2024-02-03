@@ -112,6 +112,7 @@ class Builder {
         this.header = `Builder - ${type}`;
         this.text('builder-title', `${this.type} Title`, null, null);
         this.box('builder-desc', `${this.type} Description`, null, null);
+        this.save();
         this.html.push(this.addNote());
         this.box('builder-gm-notes', `GM Notes`, null, false);
     }
@@ -358,7 +359,7 @@ class Builder {
     }
     addSaveButton() {
         const newSaveButton = document.createElement('button');
-        newSaveButton.id = 'builder-save-button';
+        newSaveButton.classList.add('builder-save-button');
         newSaveButton.innerHTML = 'Save Object';
 
         return newSaveButton;

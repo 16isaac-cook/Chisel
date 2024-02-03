@@ -514,12 +514,15 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
   font-style: italic;
   padding: 0 0.3em 0.3em 0.3em;
 }
-#menu #builder-content-main-display-builder #builder-save-button {
+#menu #builder-content-main-display-builder .builder-save-button {
   align-self: center;
   font-size: 32px;
   border-radius: 5px;
   padding-left: 0.6em;
   padding-right: 0.6em;
+}
+#menu #builder-content-main-display-builder .builder-save-button:first-of-type {
+  margin-top: 0.3em;
 }
 #menu #builder-content-main-display-preview {
   flex: 1 1 0;
