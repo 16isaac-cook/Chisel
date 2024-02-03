@@ -456,6 +456,34 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
 #menu #builder-content-main-display-builder .pair .select-box .select-items div:hover, #menu #builder-content-main-display-builder .pair .select-box .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
 }
+#menu #builder-content-main-display-builder .pair div.radio {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  column-gap: 0.3em;
+  row-gap: 0.3em;
+}
+#menu #builder-content-main-display-builder .pair div.radio input[type=radio] {
+  display: none;
+}
+#menu #builder-content-main-display-builder .pair div.radio label {
+  font-style: normal;
+  padding: 0.6em;
+  background-color: #47424c;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 24px;
+}
+#menu #builder-content-main-display-builder .pair div.radio label:hover {
+  background-color: #5f5a63;
+}
+#menu #builder-content-main-display-builder .pair div.radio label:active {
+  background-color: #47424c;
+}
+#menu #builder-content-main-display-builder .pair div.radio input[type=radio]:checked + label {
+  background-color: #5f5a63;
+}
 #menu #builder-content-main-display-builder .pair p {
   color: #cacaca;
   font-style: italic;
@@ -473,6 +501,8 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
   align-self: center;
   font-size: 32px;
   border-radius: 5px;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
 }
 #menu #builder-content-main-display-preview {
   flex: 1 1 0;

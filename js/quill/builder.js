@@ -13,9 +13,14 @@ const createJSONFile = (obj, name) => {
     window.electronAPI.writeJSON(jsonString, name, 'quill');
 };
 
-const createObjectJSON = (titleIn, textIns, areaIns, selectIns, typeID) => {
+const createObjectJSON = (titleIn, textIns, areaIns, selectIns, radios, typeID, iconID) => {
     const objectJSON = {};
     objectJSON['type'] = typeID;
+    if(iconID.includes('line')) {
+        objectJSON['icon'] = iconID;
+    } else {
+        objectJSON['icon'] = iconID + '-fill';
+    }
     objectJSON['title'] = { 'name': titleIn[1].trim(), text: titleIn[0].value.trim() };
     objectJSON['description'] = {};
     objectJSON['gm-notes'] = {};
@@ -50,6 +55,13 @@ const createObjectJSON = (titleIn, textIns, areaIns, selectIns, typeID) => {
         const displayName = val[2].trim();
         objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
     }
+    for (const [key, val] of Object.entries(radios)) {
+        const input = val[0].querySelector('input[name="builder-radio"]:checked').value.trim();
+        const eye = val[1].checked;
+        const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
+        const displayName = val[2].trim();
+        objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
+    }
 
     jsonFileName = objectJSON['title']['text'].toLowerCase().replace(' ', '-');
     if(jsonFileName == '') { jsonFileName = 'placeholder'; }
@@ -62,12 +74,14 @@ const getInputs = () => {
     const textInputs = {};
     const textAreas = {};
     const selectInputs = {};
+    const radios = {};
     pairs.forEach((pair, key) => {
         const queryTextInput = pair.querySelector('input[type=text]');
         const queryTextArea = pair.querySelector('textarea');
         const querySelect = pair.querySelector('select');
         const queryEye = pair.querySelector('input[type=checkbox]');
         const queryLabel = pair.querySelector('label');
+        const queryRadio = pair.querySelector('div.radio');
         if(queryTextInput) {
             if(queryTextInput.id == 'builder-title') {
                 titleInput = [queryTextInput, queryLabel.innerText];
@@ -78,6 +92,8 @@ const getInputs = () => {
             textAreas[`pair${key}`] = [queryTextArea, queryEye, queryLabel.innerText];
         } else if(querySelect) {
             selectInputs[`pair${key}`] = [querySelect, queryEye, queryLabel.innerText];
+        } else if(queryRadio) {
+            radios[`pair${key}`] = [queryRadio, queryEye, queryLabel.innerText];
         } else {
             console.error('Found nothing in a pair for some reason');
         }
@@ -85,11 +101,12 @@ const getInputs = () => {
 
     const typeIDEle = displayBuilder.querySelector('#builder-type');
     const typeID = typeIDEle.dataset.type.toLowerCase().trim().replace(' ', '');
+    const iconID = typeIDEle.dataset.icon.toLowerCase().trim().replace(' ', '');
 
     const saveButton = displayBuilder.querySelector('#builder-save-button');
     saveButton.addEventListener('click', e => {
         e.preventDefault();
-        createObjectJSON(titleInput, textInputs, textAreas, selectInputs, typeID)
+        createObjectJSON(titleInput, textInputs, textAreas, selectInputs, radios, typeID, iconID)
     });
 };
 

@@ -5,34 +5,35 @@ Overview
 World Objects
     Where the magic happens. For creating and viewing objects such as locations, NPCs, deities, etc.
     The types of objects are as follows:
-        - Articles
-            - General purpose text pages
-            - Players Handbook
-        - Buildings
-        - Characters
-        - Countries
-        - Deities
-        - Documents
-        - Ethnicities
-        - Family Trees
-        - Geographic Locations
-        - Items
-        - Laws of Nature/Magic
-        - Languages
-        - Materials/Resources
-        - Military Conflicts
-        - Military Formations
-        - Myths & Legends
-        - Organizations
-        - Professions
-        - Religions
-        - Rooms
-        - Settlements
-        - Species
-        - Spells
-        - Technologies
-        - Traditions
-        - Vehicles
+        'Building', 'home-3'
+        'Celestial Body', 'moon'
+        'Character', 'user'
+        'Condition', 'alert'
+        'Conflict', 'sword'
+        'Country', 'government'
+        'Currency', 'coins'
+        'Deity', 'psychotherapy'
+        'Document', 'file-paper-2'
+        'Ethnicity', 'walk'
+        'Geographic Location', 'landscape'
+        'Item', 'key-2'
+        'Landmark', 'building-2'
+        'Language', 'character-recognition'
+        'Material', 'box-3'
+        'Military', 'honour'
+        'Myth', 'book-2'
+        'Natural Law', 'flashlight'
+        'Organization', 'team'
+        'Profession', 'account-box'
+        'Religion', 'sparkling-line'
+        'Rule', 'dice'
+        'Settlement', 'community'
+        'Species', 'aliens'
+        'Spell', 'fire'
+        'Technology', 'flask'
+        'Title', 'vip-crown'
+        'Tradition', 'chat-history'
+        'Vehicle', 'riding-line'
 Maps
     Where maps are created, including things like image upload and POI tick creator
 History
@@ -150,14 +151,5 @@ document.addEventListener("click", closeAllSelect);
 
 
 const testing = new BuilderLandmark();
-console.log(testing);
 testing.pushHTML();
 getInputs();
-
-const testing123 = async () => {
-    console.log(
-        await window.electronAPI.readJSON('ancestry', 'pathfinder/templates')
-    );
-}
-
-testing123();
