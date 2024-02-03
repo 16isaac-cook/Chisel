@@ -55,7 +55,7 @@ const menu = document.querySelector('#menu');
 explorer.addEventListener('click', e => {
     if(e.target.className == 'explorer-button') {
         const menuID = e.target.getAttribute('href');
-        const activeMenu = menu.querySelector('div[data-active=true]');
+        const activeMenu = menu.querySelector(`div[data-active=true]`);
         const newActive = menu.querySelector(menuID);
         if(activeMenu !== newActive) {
             activeMenu.dataset.active = false;
@@ -149,7 +149,8 @@ then close all select boxes: */
 document.addEventListener("click", closeAllSelect); 
 
 
-
-const testing = new BuilderLandmark();
-testing.pushHTML();
-getInputs();
+document.querySelector('#build-landmark-button').addEventListener('click', e => {
+    const testing = new BuilderLandmark();
+    testing.pushHTML();
+    getInputs();
+})

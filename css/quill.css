@@ -70,7 +70,7 @@ input[type=text], textarea, select {
   padding: 0.3em;
 }
 
-input[type=text]:focus, textarea:focus, select:focus {
+*:focus {
   outline: none;
   background-color: #5f5a63;
 }
@@ -487,7 +487,7 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
 #menu #builder-content-main-display-builder .pair p {
   color: #cacaca;
   font-style: italic;
-  padding-left: 0.3em;
+  padding: 0.3em;
 }
 #menu #builder-content-main-display-builder .pair #builder-title {
   font-size: 32px;
@@ -528,6 +528,6 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
   color: #cacaca;
 }
 
-div[data-active=false] {
+div[data-active=false], div[data-active-builder=false] {
   display: none !important;
 }/*# sourceMappingURL=quill.css.map */

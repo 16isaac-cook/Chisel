@@ -307,7 +307,7 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
                             p {
                                 color: #cacaca;
                                 font-style: italic;
-                                padding-left: 0.3em;
+                                padding: 0.3em;
                             }
 
                             #builder-title {
@@ -359,6 +359,6 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
     }
 }
 
-div[data-active='false'] {
+div[data-active='false'], div[data-active-builder='false'] {
     display: none !important;
 }
