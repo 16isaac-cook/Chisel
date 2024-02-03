@@ -70,7 +70,7 @@ input[type=text], textarea, select {
   padding: 0.3em;
 }
 
-*:focus {
+input[type=text]:focus, textarea:focus, select:focus {
   outline: none;
   background-color: #5f5a63;
 }
@@ -214,6 +214,9 @@ input:checked + .slider:before {
   padding: 0 0.3em;
   text-decoration: none;
 }
+#nav-header #home-button:focus {
+  outline: none;
+}
 #nav-header #title-bar {
   font-size: 24px;
   display: flex;
@@ -288,9 +291,6 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
 #explorer #explorer-main .explorer-button:active {
   background-color: #47424c;
 }
-#explorer #explorer-main #worlds-button {
-  margin-bottom: 0.3em;
-}
 #explorer #explorer-main hr {
   border-color: #5f5a63;
 }
@@ -356,6 +356,20 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
 #menu #builder-content-list {
   margin-right: 0.3em;
   flex: 1 1 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#menu #builder-content-list-list {
+  flex: 1 1 0;
+  padding: 0.3em;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+#menu #builder-content-list button {
+  font-weight: normal;
+  border-radius: 5px;
 }
 #menu #builder-content-main {
   flex: 1 1 80%;
@@ -372,6 +386,64 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+#menu #builder-content-main-display-quick-access {
+  flex: 1 1 0;
+  padding: 0.3em;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+#menu #builder-content-main-display-quick-access-desc {
+  flex: 0 1 0;
+  text-align: center;
+  font-size: 32px;
+}
+#menu #builder-content-main-display-quick-access-buttons {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0.6em;
+}
+#menu #builder-content-main-display-quick-access-buttons .builder-choose-button {
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  background-color: #47424c;
+  padding: 0.3em;
+  font-size: 32px;
+  border-radius: 5px;
+  margin: 0.15em;
+  width: 15%;
+  min-height: 4.5em;
+}
+#menu #builder-content-main-display-quick-access-buttons .builder-choose-button-icon {
+  flex: 1 0 auto;
+  font-size: 48px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#menu #builder-content-main-display-quick-access-buttons .builder-choose-button-icon i {
+  font-size: inherit;
+}
+#menu #builder-content-main-display-quick-access-buttons .builder-choose-button-text {
+  flex: 1 0 0;
+  font-size: 24px;
+  text-align: center;
+}
+#menu #builder-content-main-display-quick-access-buttons .builder-choose-button:hover {
+  background-color: #5f5a63;
+}
+#menu #builder-content-main-display-quick-access-buttons .builder-choose-button:active {
+  background-color: #47424c;
+}
+#menu #builder-content-main-display-quick-access-blank {
+  flex: 1 0 0;
 }
 #menu #builder-content-main-display-builder {
   flex: 1 1 0;

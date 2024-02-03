@@ -148,9 +148,14 @@ function closeAllSelect(elmnt) {
 then close all select boxes: */
 document.addEventListener("click", closeAllSelect); 
 
+createQuickMenu();
 
-document.querySelector('#build-landmark-button').addEventListener('click', e => {
-    const testing = new BuilderLandmark();
-    testing.pushHTML();
-    getInputs();
-})
+document.querySelector('#builder-content-main-display-quick-access').addEventListener('click', e => {
+    if(e.target.classList.contains('builder-choose-button')) {
+        switchToBuilder(e.target.dataset.obj);
+    } else if(e.target.parentElement.classList.contains('builder-choose-button')) {
+        switchToBuilder(e.target.parentElement.dataset.obj);
+    } else if(e.target.parentElement.parentElement.classList.contains('builder-choose-button')) {
+        switchToBuilder(e.target.parentElement.parentElement.dataset.obj);
+    }
+});

@@ -4,6 +4,8 @@ const main = builder.querySelector('#builder-content-main');
 const mainHeader = main.querySelector('#builder-content-main-header');
 const displayBuilder = main.querySelector('#builder-content-main-display-builder');
 const displayPreview = main.querySelector('#builder-content-main-display-preview');
+const displayQuickMenu = main.querySelector('#builder-content-main-display-quick-access');
+const displayQuick = main.querySelector('#builder-content-main-display-quick-access-buttons');
 const switchButton = main.querySelector('#builder-content-main-display-switch');
 
 let builderHeader = '';
@@ -11,6 +13,53 @@ let builderHeader = '';
 const createJSONFile = (obj, name) => {
     const jsonString = JSON.stringify(obj, null, '\t');
     window.electronAPI.writeJSON(jsonString, name, 'quill');
+};
+
+const switchToBuilder = obj => {
+    while(displayQuick.firstChild) {
+        displayQuick.removeChild(displayQuick.lastChild);
+    }
+    const objSelection = builderObjects[obj];
+    let newObjClass = new objSelection[2](objSelection[0], objSelection[1]);
+    newObjClass.pushHTML();
+    getInputs();
+
+    displayQuickMenu.dataset.activeBuilder = false;
+    displayBuilder.dataset.activeBuilder = true;
+    switchButton.dataset.activeBuilder = true;
+
+    newObjClass = null;
+};
+
+const createQuickMenu = () => {
+    while(displayBuilder.firstChild) {
+        displayBuilder.removeChild(displayBuilder.lastChild);
+    }
+    switchButton.dataset.activeBuilder = false;
+    displayBuilder.dataset.activeBuilder = false;
+    displayQuickMenu.dataset.activeBuilder = true;
+    builderObjects.forEach((obj, count) => {
+        const text = obj[0];
+        const textMod = text.toLowerCase().trim().replace(' ', '-');
+        const icon = obj[1];
+
+        const objButton = document.createElement('a');
+        objButton.href = `#${textMod}`;
+        objButton.classList.add('builder-choose-button');
+        objButton.dataset.obj = count;
+
+        const objButtonIcon = document.createElement('div');
+        objButtonIcon.classList.add('builder-choose-button-icon');
+        objButtonIcon.innerHTML = `<i class="ri-${icon}"></i>`;
+        objButton.append(objButtonIcon);
+
+        const objButtonText = document.createElement('div');
+        objButtonText.classList.add('builder-choose-button-text');
+        objButtonText.innerHTML = text;
+        objButton.append(objButtonText);
+
+        displayQuick.append(objButton);
+    });
 };
 
 const createObjectJSON = (titleIn, textIns, areaIns, selectIns, radios, typeID, iconID) => {
@@ -66,6 +115,7 @@ const createObjectJSON = (titleIn, textIns, areaIns, selectIns, radios, typeID, 
     jsonFileName = objectJSON['title']['text'].toLowerCase().replace(' ', '-');
     if(jsonFileName == '') { jsonFileName = 'placeholder'; }
     createJSONFile(objectJSON, jsonFileName);
+    createQuickMenu();
 }
 
 const getInputs = () => {
@@ -99,16 +149,16 @@ const getInputs = () => {
         }
     });
 
-    const typeIDEle = displayBuilder.querySelector('#builder-type');
+    const typeIDEle = displayBuilder.querySelector('#builder-obj-type');
     const typeID = typeIDEle.dataset.type.toLowerCase().trim().replace(' ', '');
     const iconID = typeIDEle.dataset.icon.toLowerCase().trim().replace(' ', '');
 
-    displayBuilder.addEventListener('click', e => {
-        e.preventDefault();
-        if(e.target.classList.contains('builder-save-button')){
+    const saveButtons = displayBuilder.querySelectorAll('.builder-save-button');
+    saveButtons.forEach(button => {
+        button.addEventListener('click', e => {
             createObjectJSON(titleInput, textInputs, textAreas, selectInputs, radios, typeID, iconID);
-        }
-    });
+        });
+    })  
 };
 
 const createPreview = () => {
@@ -137,3 +187,5 @@ const switchDisplay = () => {
 };
 
 switchButton.addEventListener('click', switchDisplay);
+
+document.querySelector('#builder-content-list-add-button').addEventListener('click', createQuickMenu);

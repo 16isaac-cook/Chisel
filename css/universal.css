@@ -70,7 +70,7 @@ input[type=text], textarea, select {
   padding: 0.3em;
 }
 
-*:focus {
+input[type=text]:focus, textarea:focus, select:focus {
   outline: none;
   background-color: #5f5a63;
 }
@@ -213,6 +213,9 @@ input:checked + .slider:before {
   cursor: pointer;
   padding: 0 0.3em;
   text-decoration: none;
+}
+#nav-header #home-button:focus {
+  outline: none;
 }
 #nav-header #title-bar {
   font-size: 24px;

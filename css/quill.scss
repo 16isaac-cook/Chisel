@@ -70,10 +70,6 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
             background-color: universal.$mixed-300;
         }
     
-        #worlds-button {
-            margin-bottom: 0.3em;
-        }
-    
         hr {
             border-color: universal.$mixed-400;
         }
@@ -146,6 +142,22 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
             &-list {
                 margin-right: 0.3em;
                 flex: 1 1 20%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                &-list {
+                    flex: 1 1 0;
+                    padding: 0.3em;
+                    overflow-y: auto;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                button {
+                    font-weight: normal;
+                    border-radius: 5px;
+                }
             }
 
             &-main {
@@ -163,6 +175,71 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
+
+                    &-quick-access {
+                        flex: 1 1 0;
+                        padding: 0.3em;
+                        overflow-y: auto;
+                        display: flex;
+                        flex-direction: column;
+
+                        &-desc {
+                            flex: 0 1 0;
+                            text-align: center;
+                            font-size: universal.$font-big;
+                        }
+                        
+                        &-buttons {
+                            flex: 1 1 0;
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: wrap;
+                            justify-content: center;
+                            align-items: flex-start;
+                            padding: 0.6em;
+
+                            .builder-choose-button {
+                                height: max-content;
+                                display: flex;
+                                flex-direction: column;
+                                background-color: universal.$mixed-300;
+                                padding: 0.3em;
+                                font-size: universal.$font-big;
+                                border-radius: 5px;
+                                margin: 0.15em;
+                                width: 15%;
+                                min-height: 4.5em;
+
+                                &-icon {
+                                    flex: 1 0 auto;
+                                    font-size: universal.$font-huge;
+                                    text-align: center;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    i {
+                                        font-size: inherit;
+                                    }
+                                }
+    
+                                &-text {
+                                    flex: 1 0 0;
+                                    font-size: universal.$font-bigish;
+                                    text-align: center;
+                                }
+                            }
+                            .builder-choose-button:hover {
+                                background-color: universal.$mixed-400;
+                            }
+                            .builder-choose-button:active {
+                                background-color: universal.$mixed-300;
+                            }
+                        }
+
+                        &-blank {
+                            flex: 1 0 0;
+                        }
+                    }
 
                     &-builder {
                         flex: 1 1 0;

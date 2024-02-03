@@ -55,13 +55,20 @@
                 <div id="builder-content">
                     <div id="builder-content-list">
                         <div id="builder-content-list-header" class="small-header">World Objects</div>
-                        <button id="build-landmark-button">Build Landmark</button>
+                        <div id="builder-content-list-list"></div>
+                        <button id="builder-content-list-add-button">Create New Object <i class='ri-add-box-fill'></i></button>
                     </div>
                     <div id="builder-content-main">
-                        <div id="builder-content-main-header" class="small-header">Builder</div>
+                        <div id="builder-content-main-header" class="small-header">Create Menu</div>
                         <div id="builder-content-main-display">
-                            <div id="builder-content-main-display-quick-access" data-active-builder="false"></div>
-                            <div id="builder-content-main-display-builder" data-active-builder="true"></div>
+                            <div id="builder-content-main-display-quick-access" data-active-builder="true">
+                                <div id="builder-content-main-display-quick-access-desc">
+                                    Select an object below to create.
+                                </div>
+                                <div id="builder-content-main-display-quick-access-buttons"></div>
+                                <div id="builder-content-main-display-quick-access-blank"></div>
+                            </div>
+                            <div id="builder-content-main-display-builder" data-active-builder="false"></div>
                             <div id="builder-content-main-display-preview" data-active-builder="false"></div>
                             <div id="builder-content-main-display-switch">Switch to Preview</div>
                         </div>

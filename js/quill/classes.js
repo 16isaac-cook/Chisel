@@ -1,35 +1,3 @@
-/*
-'Building', 'home-3'
-'Celestial Body', 'moon'
-'Character', 'user'
-'Condition', 'alert'
-'Conflict', 'sword'
-'Country', 'government'
-'Currency', 'coins'
-'Deity', 'psychotherapy'
-'Document', 'file-paper-2'
-'Ethnicity', 'walk'
-'Geographic Location', 'landscape'
-'Item', 'key-2'
-'Landmark', 'building-2'
-'Language', 'character-recognition'
-'Material', 'box-3'
-'Military', 'honour'
-'Myth', 'book-2'
-'Natural Law', 'flashlight'
-'Organization', 'team'
-'Profession', 'account-box'
-'Religion', 'sparkling-line'
-'Rule', 'dice'
-'Settlement', 'community'
-'Species', 'aliens'
-'Spell', 'fire'
-'Technology', 'flask'
-'Title', 'vip-crown'
-'Tradition', 'chat-history'
-'Vehicle', 'riding-line'
-*/
-
 class Tag {
     constructor(name) {
         this._name = name;
@@ -371,7 +339,7 @@ class Builder {
         if(builder) {
             const typeID = document.createElement('div');
             typeID.dataset.active = false;
-            typeID.id = 'builder-type';
+            typeID.id = 'builder-obj-type';
             typeID.dataset.type = this.type;
             typeID.dataset.icon = this.icon;
             builder.append(typeID);
@@ -399,8 +367,8 @@ class Builder {
 }
 
 class BuilderBuilding extends Builder {
-    constructor() {
-        super('Building', 'home-3');
+    constructor(name, icon) {
+        super(name, icon);
         this.select('builder-parent', 'Building Location', 'This option sets a location this building can be found in and links it to that object.');
         this.text('builder-date-built', 'Date of Construction', 'The date the building was built or constructed.');
         this.text('builder-date-destroyed', 'Date of Destruction', 'The date, if any, that the building was destroyed. This option will mark the object as a ruin.');
@@ -414,74 +382,76 @@ class BuilderBuilding extends Builder {
 }
 
 class BuilderCelestialBody extends Builder {
-    constructor() {
-        super('Celestial Body', 'moon');
+    constructor(name, icon) {
+        super(name, icon);
+        this.radio('builder-type', 'Type of Celestial Body', 'This option sets the type assigned to this object.', ['Planet', 'Star', 'Moon', 'Asteroid', 'Comet', 'Nebula', 'Galaxy', 'Other']);
+        this.box('builder-purpose', 'Cultural Significance', 'Any significance this celestial body may have for cultures, such as being an object of worship.');
     }
 }
 
 class BuilderCharacter extends Builder {
-    constructor() {
-        super('Character', 'user');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderCondition extends Builder {
-    constructor() {
-        super('Condition', 'alert');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderConflict extends Builder {
-    constructor() {
-        super('Conflict', 'sword');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderCountry extends Builder {
-    constructor() {
-        super('Country', 'government');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderCurrency extends Builder {
-    constructor() {
-        super('Currency', 'coins');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderDeity extends Builder {
-    constructor() {
-        super('Deity', 'psychotherapy');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderDocument extends Builder {
-    constructor() {
-        super('Document', 'file-paper-2');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderEthnicity extends Builder {
-    constructor() {
-        super('Ethnicity', 'walk');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderGeographicLocation extends Builder {
-    constructor() {
-        super('Geographic Location', 'landscape');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderItem extends Builder {
-    constructor() {
-        super('Item', 'key-2');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderLandmark extends Builder {
-    constructor() {
-        super('Landmark', 'building-2');
+    constructor(name, icon) {
+        super(name, icon);
         this.select('builder-parent', 'Landmark Location', 'This option sets a location this landmark can be found in and links it to that object.');
         this.text('builder-date-built', 'Date of Construction', 'The date the landmark was built or constructed.');
         this.text('builder-date-destroyed', 'Date of Destruction', 'The date, if any, that the landmark was destroyed. This option will mark the object as a ruin.');
@@ -495,97 +465,129 @@ class BuilderLandmark extends Builder {
 }
 
 class BuilderLanguage extends Builder {
-    constructor() {
-        super('Language', 'character-recognition');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderMaterial extends Builder {
-    constructor() {
-        super('Material', 'box-3');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderMilitary extends Builder {
-    constructor() {
-        super('Military', 'honour');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderMyth extends Builder {
-    constructor() {
-        super('Myth', 'book-2');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderNaturalLaw extends Builder {
-    constructor() {
-        super('Natural Law', 'flashlight');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderOrganization extends Builder {
-    constructor() {
-        super('Organization', 'team');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderProfession extends Builder {
-    constructor() {
-        super('Profession', 'account-box');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderReligion extends Builder {
-    constructor() {
-        super('Religion', 'sparkling-line');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderRule extends Builder {
-    constructor() {
-        super('Rule', 'dice');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderSettlement extends Builder {
-    constructor() {
-        super('Settlement', 'community');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderSpecies extends Builder {
-    constructor() {
-        super('Species', 'aliens');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderSpell extends Builder {
-    constructor() {
-        super('Spell', 'fire');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderTechnology extends Builder {
-    constructor() {
-        super('Technology', 'flask');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderTitle extends Builder {
-    constructor() {
-        super('Title', 'vip-crown');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderTradition extends Builder {
-    constructor() {
-        super('Tradition', 'chat-history');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
 
 class BuilderVehicle extends Builder {
-    constructor() {
-        super('Vehicle', 'riding-line');
+    constructor(name, icon) {
+        super(name, icon);
     }
 }
+
+const builderObjects = [
+    ['Building', 'home-3-fill', BuilderBuilding],
+    ['Celestial Body', 'moon-fill', BuilderCelestialBody],
+    ['Character', 'user-fill', BuilderCharacter],
+    ['Condition', 'alert-fill', BuilderCondition],
+    ['Conflict', 'sword-fill', BuilderConflict],
+    ['Country', 'government-fill', BuilderCountry],
+    ['Currency', 'coins-fill', BuilderCurrency],
+    ['Deity', 'psychotherapy-fill', BuilderDeity],
+    ['Document', 'file-paper-2-fill', BuilderDocument],
+    ['Ethnicity', 'walk-fill', BuilderEthnicity],
+    ['Geographic Location', 'landscape-fill', BuilderGeographicLocation],
+    ['Item', 'key-2-fill', BuilderItem],
+    ['Landmark', 'building-2-fill', BuilderLandmark],
+    ['Language', 'character-recognition-fill', BuilderLanguage],
+    ['Material', 'box-3-fill', BuilderMaterial],
+    ['Military', 'honour-fill', BuilderMilitary],
+    ['Myth', 'book-2-fill', BuilderMyth],
+    ['Natural Law', 'flashlight-fill', BuilderNaturalLaw],
+    ['Organization', 'team-fill', BuilderOrganization],
+    ['Profession', 'account-box-fill', BuilderProfession],
+    ['Religion', 'sparkling-fill', BuilderReligion],
+    ['Rule', 'dice-fill', BuilderRule],
+    ['Settlement', 'community-fill', BuilderSettlement],
+    ['Species', 'aliens-fill', BuilderSpecies],
+    ['Spell', 'fire-fill', BuilderSpell],
+    ['Technology', 'flask-fill', BuilderTechnology],
+    ['Title', 'vip-crown-fill', BuilderTitle],
+    ['Tradition', 'chat-history-fill', BuilderTradition],
+    ['Vehicle', 'riding-line', BuilderVehicle]
+]
