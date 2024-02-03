@@ -124,14 +124,14 @@ const switchDisplay = () => {
         mainHeader.innerHTML = `Preview`;
         switchButton.innerHTML = 'Switch to Builder';
         builderHeader = headerText;
-        displayBuilder.dataset.active = false;
-        displayPreview.dataset.active = true;
+        displayBuilder.dataset.activeBuilder = false;
+        displayPreview.dataset.activeBuilder = true;
     } else {
         preview = false;
         mainHeader.innerHTML = builderHeader;
         switchButton.innerHTML = 'Switch to Preview';
-        displayPreview.dataset.active = false;
-        displayBuilder.dataset.active = true;
+        displayPreview.dataset.activeBuilder = false;
+        displayBuilder.dataset.activeBuilder = true;
     }
 };
 
