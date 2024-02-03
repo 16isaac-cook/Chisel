@@ -232,6 +232,11 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
                                     border: 6px solid transparent;
                                     border-color: #fff transparent transparent transparent;
                                 }
+                                .select-selected[data-count='0'] {
+                                    color: #cacaca;
+                                    font-style: italic;
+                                    text-decoration: line-through;
+                                }
                                 
                                 /* Point the arrow upwards when the select box is open (active): */
                                 .select-selected.select-arrow-active:after {

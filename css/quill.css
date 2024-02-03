@@ -81,8 +81,7 @@ a {
 
 .no-spin {
   -moz-appearance: textfield;
-  -webkit-appearance: textfield;
-          appearance: textfield;
+  appearance: textfield;
   background-color: #312b36;
   text-align: center;
   border: none;
@@ -116,6 +115,7 @@ a {
   right: 0;
   bottom: 0;
   background-color: #918d94;
+  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -127,6 +127,7 @@ a {
   left: 0.125em;
   bottom: 0.125em;
   background-color: white;
+  -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
@@ -139,6 +140,8 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
+  -webkit-transform: translateX(1em);
+  -ms-transform: translateX(1em);
   transform: translateX(1em);
 }
 
@@ -422,6 +425,11 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
   height: 0;
   border: 6px solid transparent;
   border-color: #fff transparent transparent transparent;
+}
+#menu #builder-content-main-display-builder .pair .select-box .select-selected[data-count="0"] {
+  color: #cacaca;
+  font-style: italic;
+  text-decoration: line-through;
 }
 #menu #builder-content-main-display-builder .pair .select-box .select-selected.select-arrow-active:after {
   border-color: transparent transparent #fff transparent;
