@@ -11,17 +11,46 @@ const switchButton = main.querySelector('#builder-content-main-display-switch');
 let builderHeader = '';
 let builderWorld;
 
+let openedBuilder = false;
+let savedObjects = [];
+
 const createJSONFile = (obj, name) => {
     const jsonString = JSON.stringify(obj, null, '\t');
     window.electronAPI.writeJSON(jsonString, name, `quill/${builderWorld}`);
 };
 
-const switchToBuilder = obj => {
-    while(displayQuick.firstChild) {
-        displayQuick.removeChild(displayQuick.lastChild);
+const createBuilderList = (files = []) => {
+    if(typeof files != 'string' && files.length) {
+        //getting data
+        files.forEach(file => {
+            if(!savedObjects.find(element => element.fileName == file.fileName)){
+                savedObjects.push({ fileName: file.fileName, data: file.data });
+            }
+        });
     }
+
+    savedObjects.forEach(item => {
+        let newFolderItem = new FolderItem(item.fileName, JSON.parse(item.data));
+        const thisFolder = document.querySelector(`#${newFolderItem.folderName}-items`);
+        if(thisFolder) {
+            const newListItem = newFolderItem.createListItem();
+            let alreadyThere = false;
+            thisFolder.childNodes.forEach(item => {
+                if(item.id == newListItem.id) {
+                    alreadyThere = true;
+                }
+            })
+            if(!alreadyThere) {
+                thisFolder.append(newListItem);
+            }
+        }
+        newFolderItem = null;
+    });
+};
+
+const switchToBuilder = obj => {
     const objSelection = builderObjects[obj];
-    let newObjClass = new objSelection[2](objSelection[0], objSelection[1]);
+    let newObjClass = new objSelection[3](objSelection[0], objSelection[1], objSelection[2]);
     newObjClass.pushHTML();
     getInputs();
 
@@ -33,6 +62,9 @@ const switchToBuilder = obj => {
 };
 
 const createQuickMenu = () => {
+    while(displayQuick.firstChild) {
+        displayQuick.removeChild(displayQuick.lastChild);
+    }
     while(displayBuilder.firstChild) {
         displayBuilder.removeChild(displayBuilder.lastChild);
     }
@@ -63,10 +95,10 @@ const createQuickMenu = () => {
     });
 };
 
-const createObjectJSON = (titleIn, linkCheck, textIns, areaIns, selectIns, radios, typeID, iconID) => {
+const createObjectJSON = (titleIn, linkCheck, textIns, areaIns, selectIns, radios, typeIDEle) => {
     const objectJSON = {};
-    objectJSON['type'] = typeID;
-    objectJSON['icon'] = iconID;
+    objectJSON['type'] = { singular: typeIDEle.dataset.type, plural: typeIDEle.dataset.plural };
+    objectJSON['icon'] = typeIDEle.dataset.type;
     objectJSON['title'] = { 'name': titleIn[1].trim(), text: titleIn[0].value.trim() };
     objectJSON['link'] = linkCheck.checked;
     objectJSON['description'] = {};
@@ -103,7 +135,7 @@ const createObjectJSON = (titleIn, linkCheck, textIns, areaIns, selectIns, radio
         objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
     }
     for (const [key, val] of Object.entries(radios)) {
-        const input = val[0].querySelector('input[name="builder-radio"]:checked').value.trim();
+        const input = val[0].querySelector('input[type="radio"]:checked').value.trim();
         const eye = val[1].checked;
         const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
         const displayName = val[2].trim();
@@ -156,13 +188,11 @@ const getInputs = () => {
     });
 
     const typeIDEle = displayBuilder.querySelector('#builder-obj-type');
-    const typeID = formatString(typeIDEle.dataset.type);
-    const iconID = formatString(typeIDEle.dataset.icon);
 
     const saveButtons = displayBuilder.querySelectorAll('.builder-save-button');
     saveButtons.forEach(button => {
         button.addEventListener('click', e => {
-            createObjectJSON(titleInput, linkCheckInput, textInputs, textAreas, selectInputs, radios, typeID, iconID);
+            createObjectJSON(titleInput, linkCheckInput, textInputs, textAreas, selectInputs, radios, typeIDEle);
         });
     })  
 };
@@ -196,7 +226,7 @@ const initiateBuilder = (world) => {
     builderWorld = world;
     window.electronAPI.readDir(`quill/${builderWorld}`)
         .then((data) => {
-            console.log(data);
+            createBuilderList(data);
         })
         .catch(err => {
             console.error(err);

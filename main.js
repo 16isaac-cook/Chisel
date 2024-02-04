@@ -41,9 +41,7 @@ async function readJSON(name, filePath = '') {
     const jsonPath = path.join(fullPath, `${name}`);
 
     return readFileAsync(jsonPath, 'utf8')
-        .then(data => {
-            JSON.stringify(data);
-        })
+        .then(data => data)
         .catch(err => { throw err; });
 }
 
@@ -54,7 +52,7 @@ async function readDir(filePath = '') {
         .then(files => {
             const filePromises = files.map(file => {
                 return readJSON(file, filePath)
-                        .then(data => ({ fileName: file, data }))
+                        .then(data => ({ fileName: file, data: data }))
                         .catch(err => { throw err; });
             });
 

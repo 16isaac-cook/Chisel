@@ -55,13 +55,15 @@ const menu = document.querySelector('#menu');
 
 //switch menus on clicking their respective button
 explorer.addEventListener('click', e => {
-    if(e.target.className == 'explorer-button') {
+    if(e.target.classList.contains('explorer-button')) {
         const menuID = e.target.getAttribute('href');
         const activeMenu = menu.querySelector(`div[data-active=true]`);
         const newActive = menu.querySelector(menuID);
         if(activeMenu !== newActive) {
             activeMenu.dataset.active = false;
+            document.querySelector('.current-page').classList.remove('current-page');
             newActive.dataset.active = true;
+            e.target.classList.add('current-page');
         }
         if(menuID == '#builder') {
             createQuickMenu();

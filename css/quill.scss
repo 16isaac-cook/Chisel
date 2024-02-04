@@ -59,7 +59,7 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
     position: absolute;
     top: 5%;
     left: 0;
-    width: 20%;
+    width: 15%;
     height: 95%;
     #explorer-main {
         display: flex;
@@ -90,7 +90,17 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
             //padding-left: 0.6em;
         }
         .explorer-button:active {
-            background-color: universal.$mixed-300;
+            background-color: universal.$primary-200;
+        }
+
+        .current-page {
+            background-color: universal.$primary-200;
+        }
+        .current-page:hover {
+            background-color: universal.$primary-300;
+        }
+        .current-page:active {
+            background-color: universal.$primary-200;
         }
     
         hr {
@@ -107,7 +117,7 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
         #explorer-list-world {
             margin-top: 0.3em;
             flex: 1 1 0;
-            padding: 0.3em;
+            padding: 0.6em;
             overflow-y: auto;
             &-buttons {
                 overflow-y: auto;
@@ -126,8 +136,8 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
 #menu {
     position: absolute;
     top: 5%;
-    left: 20%;
-    width: 80%;
+    left: 15%;
+    width: 85%;
     height: 95%;
     padding-left: 0;
     max-height: 95%;
@@ -168,6 +178,7 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                overflow-x: hidden;
 
                 &-list {
                     flex: 1 1 0;
@@ -175,6 +186,85 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
                     overflow-y: auto;
                     display: flex;
                     flex-direction: column;
+                }
+
+                .builder-list-folder {
+                    text-wrap: nowrap;
+                    width: 100%;
+                    margin-bottom: 0.3em;
+
+                    .builder-list-folder-label {
+                        position: relative;
+                        display: block;
+                        background-color: universal.$mixed-300;
+                        padding: 0.3em 0.3em 0.3em 0.3em;
+                        border-radius: 5px;
+                        width: 100%;
+                        cursor: pointer;
+                        user-select: none;
+    
+                        i {
+                            font-size: inherit;
+                        }
+                    }
+                    .builder-list-folder-label:hover {
+                        background-color: universal.$mixed-400;
+                    }
+                    .builder-list-folder-label:active {
+                        background-color: universal.$primary-200;
+                    }
+                    .builder-list-folder-label:after {
+                        position: absolute;
+                        content: "";
+                        top: calc(50% - 2.5px);
+                        right: 10px;
+                        width: 0;
+                        height: 0;
+                        border: 6px solid transparent;
+                        border-color: #fff transparent transparent transparent;
+                    }
+                    .builder-list-folder-toggle {
+                        display: none;
+                    }
+                    .builder-list-folder-toggle:checked + .builder-list-folder-label:after {
+                        border-color: transparent transparent #fff transparent;
+                        top: calc(25% - 2.5px);
+                    }
+                    .builder-list-folder-toggle:checked + .builder-list-folder-label {
+                        background-color: universal.$primary-200;
+                    }
+                    .builder-list-folder-toggle:checked + .builder-list-folder-label:hover {
+                        background-color: universal.$primary-300;
+                    }
+                    .builder-list-folder-toggle:checked + .builder-list-folder-label:active {
+                        background-color: universal.$primary-200;
+                    }
+                    .builder-list-items {
+                        display: none;
+                        padding: 0.3em 0.9em 0em 0.3em;
+
+                        .builder-list-item {
+                            background-color: universal.$mixed-300;
+                            padding: 0.3em;
+                            margin-bottom: 0.3em;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            user-select: none;
+                            overflow-x: hidden;
+                        }
+                        .builder-list-item:last-of-type {
+                            margin-bottom: 0;
+                        }
+                        .builder-list-item:hover {
+                            background-color: universal.$mixed-400;
+                        }
+                        .builder-list-item:active {
+                            background-color: universal.$primary-200;
+                        }
+                    }
+                    .builder-list-folder-toggle:checked + .builder-list-folder-label + .builder-list-items {
+                        display: block;
+                    }
                 }
 
                 button {
@@ -255,7 +345,7 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
                                 background-color: universal.$mixed-400;
                             }
                             .builder-choose-button:active {
-                                background-color: universal.$mixed-300;
+                                background-color: universal.$primary-200;
                             }
                         }
 
@@ -397,7 +487,7 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
                                     background-color: universal.$mixed-400;
                                 }
                                 label:active {
-                                    background-color: universal.$mixed-300;
+                                    background-color: universal.$primary-200;
                                 }
                                 input[type='radio']:checked + label {
                                     background-color: universal.$mixed-400;
@@ -454,7 +544,7 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
                         color: #fff;
                     }
                     &-switch:active {
-                        color: #cacaca;
+                        color: universal.$primary-200;
                     }
                 }
             }
