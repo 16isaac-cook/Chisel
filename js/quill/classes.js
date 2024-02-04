@@ -1,3 +1,23 @@
+const formatString = (string, lower = true) => {
+    let newString = string
+        .trim()
+        .replaceAll(' ', '')
+        .replaceAll('\\', '')
+        .replaceAll('/', '')
+        .replaceAll(':', '_')
+        .replaceAll('*', '')
+        .replaceAll('"', '')
+        .replaceAll('<', '')
+        .replaceAll('>', '')
+        .replaceAll('|', '')
+        .replaceAll("'", '');
+    if(lower) {
+        newString = newString.toLowerCase()
+    }
+    
+    return newString;
+};
+
 class Tag {
     constructor(name) {
         this._name = name;
@@ -195,6 +215,7 @@ class Builder {
         newSelect.append(firstOption);
 
         const createSelectOptions = (sel) => {
+            let b, c, ll, j;
             /* For each element, create a new DIV that will contain the option list: */
             b = document.createElement("DIV");
             b.setAttribute("class", "select-items select-hide");
@@ -207,7 +228,7 @@ class Builder {
                 c.addEventListener("click", function(e) {
                     /* When an item is clicked, update the original select box,
                     and the selected item: */
-                    var y, i, k, s, h, sl, yl;
+                    let y, i, k, s, h, sl, yl;
                     s = this.parentNode.parentNode.getElementsByTagName("select")[0];
                     sl = s.length;
                     h = this.parentNode.previousSibling;
@@ -231,6 +252,7 @@ class Builder {
             return b;
         }
 
+        let a, ll, b;
         ll = newSelect.length;
         newSelect.dataset.count = 0;
         /* For each element, create a new DIV that will act as the selected item: */
@@ -298,7 +320,7 @@ class Builder {
             newInput.type = 'radio';
             newInput.id = id + `-radio-${count}`;
             newInput.name = id;
-            newInput.value = item.toLowerCase().trim().replace(' ', '-');
+            newInput.value = formatString(item);
             if(count == 0) {
                 newInput.checked = true;
             }
@@ -356,7 +378,7 @@ class Builder {
             typeID.dataset.icon = this.icon;
             builder.append(typeID);
 
-            for(i = 0; i < this.html.length; i++) {
+            for(let i = 0; i < this.html.length; i++) {
                 builder.append(this.html[i]);
             }
         }

@@ -9,10 +9,11 @@ const displayQuick = main.querySelector('#builder-content-main-display-quick-acc
 const switchButton = main.querySelector('#builder-content-main-display-switch');
 
 let builderHeader = '';
+let builderWorld;
 
 const createJSONFile = (obj, name) => {
     const jsonString = JSON.stringify(obj, null, '\t');
-    window.electronAPI.writeJSON(jsonString, name, 'quill');
+    window.electronAPI.writeJSON(jsonString, name, `quill/${builderWorld}`);
 };
 
 const switchToBuilder = obj => {
@@ -40,7 +41,7 @@ const createQuickMenu = () => {
     displayQuickMenu.dataset.activeBuilder = true;
     builderObjects.forEach((obj, count) => {
         const text = obj[0];
-        const textMod = text.toLowerCase().trim().replace(' ', '-');
+        const textMod = formatString(text);
         const icon = obj[1];
 
         const objButton = document.createElement('a');
@@ -65,11 +66,7 @@ const createQuickMenu = () => {
 const createObjectJSON = (titleIn, linkCheck, textIns, areaIns, selectIns, radios, typeID, iconID) => {
     const objectJSON = {};
     objectJSON['type'] = typeID;
-    if(iconID.includes('line')) {
-        objectJSON['icon'] = iconID;
-    } else {
-        objectJSON['icon'] = iconID + '-fill';
-    }
+    objectJSON['icon'] = iconID;
     objectJSON['title'] = { 'name': titleIn[1].trim(), text: titleIn[0].value.trim() };
     objectJSON['link'] = linkCheck.checked;
     objectJSON['description'] = {};
@@ -113,7 +110,7 @@ const createObjectJSON = (titleIn, linkCheck, textIns, areaIns, selectIns, radio
         objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
     }
 
-    jsonFileName = objectJSON['title']['text'].toLowerCase().replace(' ', '-');
+    jsonFileName = formatString(objectJSON['title']['text']);
     if(jsonFileName == '') { jsonFileName = 'placeholder'; }
     createJSONFile(objectJSON, jsonFileName);
     createQuickMenu();
@@ -159,8 +156,8 @@ const getInputs = () => {
     });
 
     const typeIDEle = displayBuilder.querySelector('#builder-obj-type');
-    const typeID = typeIDEle.dataset.type.toLowerCase().trim().replace(' ', '');
-    const iconID = typeIDEle.dataset.icon.toLowerCase().trim().replace(' ', '');
+    const typeID = formatString(typeIDEle.dataset.type);
+    const iconID = formatString(typeIDEle.dataset.icon);
 
     const saveButtons = displayBuilder.querySelectorAll('.builder-save-button');
     saveButtons.forEach(button => {
@@ -195,6 +192,16 @@ const switchDisplay = () => {
     }
 };
 
-switchButton.addEventListener('click', switchDisplay);
+const initiateBuilder = (world) => {
+    builderWorld = world;
+    window.electronAPI.readDir(`quill/${builderWorld}`)
+        .then((data) => {
+            console.log(data);
+        })
+        .catch(err => {
+            console.error(err);
+        });
+};
 
+switchButton.addEventListener('click', switchDisplay);
 document.querySelector('#builder-content-list-add-button').addEventListener('click', createQuickMenu);
