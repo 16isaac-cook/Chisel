@@ -80,6 +80,7 @@ class Builder {
         this.header = `Builder - ${type}`;
         this.text('builder-title', `${this.type} Title`, null, null);
         this.box('builder-desc', `${this.type} Description`, null, null);
+        this.html.push(this.addLinkCheck('builder-checkbox-link', 'Should this object get auto-linked in other objects?'));
         this.save();
         this.html.push(this.addNote());
         this.box('builder-gm-notes', `GM Notes`, null, false);
@@ -322,6 +323,17 @@ class Builder {
         if(newDesc) {
             newPair.append(newDesc);
         }
+
+        return newPair;
+    }
+    addLinkCheck(id, label) {
+        const newPair = document.createElement('div');
+        newPair.classList.add('pair');
+        
+        const newLabel = document.createElement('label');
+        newLabel.id = id;
+        newLabel.innerHTML = `${label} <input type="checkbox" id="${id}-checkbox" class="link-checkbox" checked><label for="${id}-checkbox" class="link-checkbox-label"></label>`
+        newPair.append(newLabel);
 
         return newPair;
     }

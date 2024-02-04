@@ -249,6 +249,32 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
   content: "\ecb4";
 }
 
+#builder-checkbox-link {
+  font-size: 24px;
+  font-style: normal !important;
+}
+
+.link-checkbox {
+  display: none;
+}
+
+.link-checkbox-label:before {
+  font-size: 24px;
+  font-style: normal;
+  font-family: "remixicon";
+  content: "\eb7f";
+}
+
+.link-checkbox-label:hover {
+  font-weight: bold;
+}
+
+input[type=checkbox]:checked + .link-checkbox-label:before {
+  font-style: normal;
+  font-family: "remixicon";
+  content: "\eb82";
+}
+
 .note {
   font-size: 14px;
   font-style: italic;

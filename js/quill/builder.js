@@ -62,7 +62,7 @@ const createQuickMenu = () => {
     });
 };
 
-const createObjectJSON = (titleIn, textIns, areaIns, selectIns, radios, typeID, iconID) => {
+const createObjectJSON = (titleIn, linkCheck, textIns, areaIns, selectIns, radios, typeID, iconID) => {
     const objectJSON = {};
     objectJSON['type'] = typeID;
     if(iconID.includes('line')) {
@@ -71,6 +71,7 @@ const createObjectJSON = (titleIn, textIns, areaIns, selectIns, radios, typeID, 
         objectJSON['icon'] = iconID + '-fill';
     }
     objectJSON['title'] = { 'name': titleIn[1].trim(), text: titleIn[0].value.trim() };
+    objectJSON['link'] = linkCheck.checked;
     objectJSON['description'] = {};
     objectJSON['gm-notes'] = {};
     objectJSON['extra'] = {};
@@ -121,6 +122,7 @@ const createObjectJSON = (titleIn, textIns, areaIns, selectIns, radios, typeID, 
 const getInputs = () => {
     const pairs = displayBuilder.querySelectorAll('.pair');
     let titleInput;
+    let linkCheckInput;
     const textInputs = {};
     const textAreas = {};
     const selectInputs = {};
@@ -129,20 +131,27 @@ const getInputs = () => {
         const queryTextInput = pair.querySelector('input[type=text]');
         const queryTextArea = pair.querySelector('textarea');
         const querySelect = pair.querySelector('select');
-        const queryEye = pair.querySelector('input[type=checkbox]');
         const queryLabel = pair.querySelector('label');
         const queryRadio = pair.querySelector('div.radio');
+        const queryLinkCheck = pair.querySelector('#builder-checkbox-link');
         if(queryTextInput) {
+            const queryEye = pair.querySelector('input[type=checkbox]');
             if(queryTextInput.id == 'builder-title') {
                 titleInput = [queryTextInput, queryLabel.innerText];
             } else {
                 textInputs[`pair${key}`] = [queryTextInput, queryEye, queryLabel.innerText];
             }
+        } else if(queryLinkCheck) {
+            const linkCheck = queryLinkCheck.querySelector('input[type=checkbox]');
+            linkCheckInput = linkCheck;
         } else if(queryTextArea) {
+            const queryEye = pair.querySelector('input[type=checkbox]');
             textAreas[`pair${key}`] = [queryTextArea, queryEye, queryLabel.innerText];
         } else if(querySelect) {
+            const queryEye = pair.querySelector('input[type=checkbox]');
             selectInputs[`pair${key}`] = [querySelect, queryEye, queryLabel.innerText];
         } else if(queryRadio) {
+            const queryEye = pair.querySelector('input[type=checkbox]');
             radios[`pair${key}`] = [queryRadio, queryEye, queryLabel.innerText];
         } else {
             console.error('Found nothing in a pair for some reason');
@@ -156,7 +165,7 @@ const getInputs = () => {
     const saveButtons = displayBuilder.querySelectorAll('.builder-save-button');
     saveButtons.forEach(button => {
         button.addEventListener('click', e => {
-            createObjectJSON(titleInput, textInputs, textAreas, selectInputs, radios, typeID, iconID);
+            createObjectJSON(titleInput, linkCheckInput, textInputs, textAreas, selectInputs, radios, typeID, iconID);
         });
     })  
 };

@@ -9,6 +9,7 @@
     url('../fonts/remixicon.svg?t=1690730386070#remixicon') format('svg'); /* iOS 4.1- */
 }
 
+
 .eye-checkbox {
     display: none;
 }
@@ -24,6 +25,28 @@ input[type=checkbox]:checked + .eye-checkbox-label:before {
     font-style: normal;
     font-family: 'remixicon';
     content: "\ecb4";
+}
+
+#builder-checkbox-link {
+    font-size: universal.$font-bigish;
+    font-style: normal !important;
+}
+.link-checkbox {
+    display: none;
+}
+.link-checkbox-label:before {
+    font-size: universal.$font-bigish;
+    font-style: normal;
+    font-family: 'remixicon';
+    content: "\eb7f";
+}
+.link-checkbox-label:hover {
+    font-weight: bold;
+}
+input[type=checkbox]:checked + .link-checkbox-label:before {
+    font-style: normal;
+    font-family: 'remixicon';
+    content: "\eb82";
 }
 
 .note {
