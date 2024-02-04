@@ -131,6 +131,7 @@ class Builder {
         }
 
         if(id == 'builder-title') {
+            newInput.required = true;
             newPair.append(newInput);
             newPair.append(newLabel);
         } else {
@@ -352,9 +353,10 @@ class Builder {
         return newPair;
     }
     addSaveButton() {
-        const newSaveButton = document.createElement('button');
+        const newSaveButton = document.createElement('input');
+        newSaveButton.type = 'submit';
         newSaveButton.classList.add('builder-save-button');
-        newSaveButton.innerHTML = 'Save Object';
+        newSaveButton.value = 'Save Object';
 
         return newSaveButton;
     }

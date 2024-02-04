@@ -186,6 +186,7 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
                     overflow-y: auto;
                     display: flex;
                     flex-direction: column;
+                    margin: 0.3em 0;
                 }
 
                 .builder-list-folder {
@@ -514,8 +515,17 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
                             align-self: center;
                             font-size: universal.$font-big;
                             border-radius: 5px;
-                            padding-left: 0.6em;
-                            padding-right: 0.6em;
+                            padding: 0.3em 0.6em 0.3em 0.6em;
+                            border: 0;
+                            background-color: universal.$mixed-300;
+                            font-weight: bold;
+                            cursor: pointer;
+                        }
+                        .builder-save-button:hover {
+                            background-color: universal.$mixed-400;
+                        }
+                        .builder-save-button:active {
+                            background-color: universal.$primary-200;
                         }
                         .builder-save-button:first-of-type {
                             margin-top: 0.3em;
@@ -553,5 +563,9 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
 }
 
 div[data-active='false'], div[data-active-builder='false'] {
+    display: none !important;
+}
+
+form[data-active-builder='false'] {
     display: none !important;
 }

@@ -16,7 +16,12 @@ let savedObjects = [];
 
 const createJSONFile = (obj, name) => {
     const jsonString = JSON.stringify(obj, null, '\t');
-    window.electronAPI.writeJSON(jsonString, name, `quill/${builderWorld}`);
+    window.electronAPI.writeJSON(jsonString, name, `quill/${builderWorld}`)
+    .then(log => {
+        console.log(log);
+        initiateBuilder(builderWorld)
+    })
+    .catch(err => console.error(err));
 };
 
 const createBuilderList = (files = []) => {
@@ -46,13 +51,31 @@ const createBuilderList = (files = []) => {
         }
         newFolderItem = null;
     });
+
+    const builderList = document.querySelector('#builder-content-list');
+    builderList.addEventListener('click', e => {
+        if(e.target.classList.contains('builder-list-item')) {
+            const thisItem = e.target.id.replace('builder-list-item-', '') + '.json';
+            const itemData = JSON.parse(savedObjects.find(obj => obj.fileName == thisItem).data);
+            const thisObj = builderObjects.findIndex(obj => obj[0] == itemData.type.singular);
+            switchToBuilder(thisObj, itemData);
+        }
+    });
 };
 
-const switchToBuilder = obj => {
+const switchToBuilder = (obj, data = null) => {
+    while(displayBuilder.firstChild) {
+        displayBuilder.removeChild(displayBuilder.lastChild);
+    }
     const objSelection = builderObjects[obj];
     let newObjClass = new objSelection[3](objSelection[0], objSelection[1], objSelection[2]);
     newObjClass.pushHTML();
-    getInputs();
+
+    if(data) {
+        getInputs(data);   
+    } else {
+        getInputs();
+    }
 
     displayQuickMenu.dataset.activeBuilder = false;
     displayBuilder.dataset.activeBuilder = true;
@@ -98,7 +121,7 @@ const createQuickMenu = () => {
 const createObjectJSON = (titleIn, linkCheck, textIns, areaIns, selectIns, radios, typeIDEle) => {
     const objectJSON = {};
     objectJSON['type'] = { singular: typeIDEle.dataset.type, plural: typeIDEle.dataset.plural };
-    objectJSON['icon'] = typeIDEle.dataset.type;
+    objectJSON['icon'] = typeIDEle.dataset.icon;
     objectJSON['title'] = { 'name': titleIn[1].trim(), text: titleIn[0].value.trim() };
     objectJSON['link'] = linkCheck.checked;
     objectJSON['description'] = {};
@@ -148,7 +171,7 @@ const createObjectJSON = (titleIn, linkCheck, textIns, areaIns, selectIns, radio
     createQuickMenu();
 }
 
-const getInputs = () => {
+const getInputs = (data = null) => {
     const pairs = displayBuilder.querySelectorAll('.pair');
     let titleInput;
     let linkCheckInput;
@@ -166,21 +189,53 @@ const getInputs = () => {
         if(queryTextInput) {
             const queryEye = pair.querySelector('input[type=checkbox]');
             if(queryTextInput.id == 'builder-title') {
+                if(data) {
+                    queryTextInput.value = data.title.text;
+                }
                 titleInput = [queryTextInput, queryLabel.innerText];
             } else {
+                if(data) {
+                    const thisID = queryTextInput.id.replace('builder-', '');
+                    queryTextInput.value = data.extra[thisID].text;
+                    queryEye.checked = data.extra[thisID].visible;
+                }
                 textInputs[`pair${key}`] = [queryTextInput, queryEye, queryLabel.innerText];
             }
         } else if(queryLinkCheck) {
             const linkCheck = queryLinkCheck.querySelector('input[type=checkbox]');
+            if(data) {
+                linkCheck.checked = data.link;
+            }
             linkCheckInput = linkCheck;
         } else if(queryTextArea) {
             const queryEye = pair.querySelector('input[type=checkbox]');
+            if(data) {
+                const thisID = queryTextArea.id.replace('builder-', '');
+                if(thisID == 'desc') {
+                    queryTextArea.value = data.description.text;
+                } else if(thisID == 'gm-notes') {
+                    queryTextArea.value = data['gm-notes'].text;
+                    queryEye.checked = data['gm-notes'].visible;
+                } else {
+                    queryTextArea.value = data.extra[thisID].text;
+                    queryEye.checked = data.extra[thisID].visible;
+                }
+            }
             textAreas[`pair${key}`] = [queryTextArea, queryEye, queryLabel.innerText];
         } else if(querySelect) {
             const queryEye = pair.querySelector('input[type=checkbox]');
+            /*
+                add import code once the select code is ready
+            */
             selectInputs[`pair${key}`] = [querySelect, queryEye, queryLabel.innerText];
         } else if(queryRadio) {
             const queryEye = pair.querySelector('input[type=checkbox]');
+            if(data) {
+                const thisID = queryRadio.id.replace('builder-', '');
+                const findRadio = queryRadio.querySelector(`input[value=${data.extra[thisID].text}]`);
+                findRadio.checked = true;
+                queryEye.checked = data.extra[thisID].visible;
+            }
             radios[`pair${key}`] = [queryRadio, queryEye, queryLabel.innerText];
         } else {
             console.error('Found nothing in a pair for some reason');
@@ -189,12 +244,10 @@ const getInputs = () => {
 
     const typeIDEle = displayBuilder.querySelector('#builder-obj-type');
 
-    const saveButtons = displayBuilder.querySelectorAll('.builder-save-button');
-    saveButtons.forEach(button => {
-        button.addEventListener('click', e => {
-            createObjectJSON(titleInput, linkCheckInput, textInputs, textAreas, selectInputs, radios, typeIDEle);
-        });
-    })  
+    displayBuilder.addEventListener('submit', e => {
+        e.preventDefault();
+        createObjectJSON(titleInput, linkCheckInput, textInputs, textAreas, selectInputs, radios, typeIDEle);
+    })
 };
 
 const createPreview = () => {

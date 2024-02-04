@@ -402,6 +402,7 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  margin: 0.3em 0;
 }
 #menu #builder-content-list .builder-list-folder {
   text-wrap: nowrap;
@@ -701,8 +702,17 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
   align-self: center;
   font-size: 32px;
   border-radius: 5px;
-  padding-left: 0.6em;
-  padding-right: 0.6em;
+  padding: 0.3em 0.6em 0.3em 0.6em;
+  border: 0;
+  background-color: #47424c;
+  font-weight: bold;
+  cursor: pointer;
+}
+#menu #builder-content-main-display-builder .builder-save-button:hover {
+  background-color: #5f5a63;
+}
+#menu #builder-content-main-display-builder .builder-save-button:active {
+  background-color: #7b3cc5;
 }
 #menu #builder-content-main-display-builder .builder-save-button:first-of-type {
   margin-top: 0.3em;
@@ -732,5 +742,9 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
 }
 
 div[data-active=false], div[data-active-builder=false] {
+  display: none !important;
+}
+
+form[data-active-builder=false] {
   display: none !important;
 }/*# sourceMappingURL=quill.css.map */
