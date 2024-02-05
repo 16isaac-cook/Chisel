@@ -65,12 +65,19 @@ class Folder {
 }
 
 class FolderItem {
-    constructor(fileName, data) {
+    constructor(fileName, data, folder) {
         this.fileName = fileName;
         this.data = data;
         this.title = this.data.title.text;
         this.id = 'builder-list-item-' + fileName.replace('.json', '');
-        this.folderName = 'builder-list-folder-' + formatString(this.data.type.plural, true, true);
+        this.folder = new Folder(this.data.type.plural, this.data.icon);
+        this.createFolder();
+    }
+    createFolder() {
+        if(!document.querySelector(`#${this.folder.id}`)) {
+            this.folder.pushHTML();
+        }
+        this.folder = null;
     }
     createListItem() {
         const listItem = document.createElement('div');
@@ -621,8 +628,8 @@ const builderObjects = [
     ['Vehicle', 'riding-line', 'Vehicles', BuilderVehicle]
 ]
 
-builderObjects.forEach(item => {
-    let newFolder = new Folder(item[2], item[1]);
-    newFolder.pushHTML();
-    newFolder = null;
-});
+// builderObjects.forEach(item => {
+//     let newFolder = new Folder(item[2], item[1]);
+//     newFolder.pushHTML();
+//     newFolder = null;
+// });

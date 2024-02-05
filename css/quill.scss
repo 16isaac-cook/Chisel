@@ -123,6 +123,11 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
                 overflow-y: auto;
             }
         }
+        #explorer-list-world[data-explorer-active=false] {
+            div {
+                display:none;
+            }
+        }
     
         #explorer-help {
             margin-top: 0.3em;
@@ -190,7 +195,6 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
                 }
 
                 .builder-list-folder {
-                    text-wrap: nowrap;
                     width: 100%;
                     margin-bottom: 0.3em;
 

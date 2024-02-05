@@ -98,7 +98,8 @@ a {
 
 .no-spin {
   -moz-appearance: textfield;
-  appearance: textfield;
+  -webkit-appearance: textfield;
+          appearance: textfield;
   background-color: #312b36;
   text-align: center;
   border: none;
@@ -132,7 +133,6 @@ a {
   right: 0;
   bottom: 0;
   background-color: #918d94;
-  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -144,7 +144,6 @@ a {
   left: 0.125em;
   bottom: 0.125em;
   background-color: white;
-  -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
@@ -157,8 +156,6 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(1em);
-  -ms-transform: translateX(1em);
   transform: translateX(1em);
 }
 
@@ -344,6 +341,9 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
 #explorer #explorer-main #explorer-list-world-buttons {
   overflow-y: auto;
 }
+#explorer #explorer-main #explorer-list-world[data-explorer-active=false] div {
+  display: none;
+}
 #explorer #explorer-main #explorer-help {
   margin-top: 0.3em;
 }
@@ -405,7 +405,6 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
   margin: 0.3em 0;
 }
 #menu #builder-content-list .builder-list-folder {
-  text-wrap: nowrap;
   width: 100%;
   margin-bottom: 0.3em;
 }
@@ -417,7 +416,10 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
   border-radius: 5px;
   width: 100%;
   cursor: pointer;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 #menu #builder-content-list .builder-list-folder .builder-list-folder-label i {
   font-size: inherit;
@@ -464,7 +466,10 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
   margin-bottom: 0.3em;
   border-radius: 5px;
   cursor: pointer;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   overflow-x: hidden;
 }
 #menu #builder-content-list .builder-list-folder .builder-list-items .builder-list-item:last-of-type {
@@ -521,6 +526,8 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
   padding: 0.6em;
 }
 #menu #builder-content-main-display-quick-access-buttons .builder-choose-button {
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
   display: flex;
   flex-direction: column;
@@ -662,7 +669,8 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
-  column-gap: 0.3em;
+  -moz-column-gap: 0.3em;
+       column-gap: 0.3em;
   row-gap: 0.3em;
 }
 #menu #builder-content-main-display-builder .pair div.radio input[type=radio] {

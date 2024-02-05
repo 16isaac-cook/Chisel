@@ -36,7 +36,7 @@ const createBuilderList = (files = []) => {
 
     savedObjects.forEach(item => {
         let newFolderItem = new FolderItem(item.fileName, JSON.parse(item.data));
-        const thisFolder = document.querySelector(`#${newFolderItem.folderName}-items`);
+        const thisFolder = document.querySelector(`#builder-list-folder-${formatString(newFolderItem.data.type.plural, true, true)}-items`);
         if(thisFolder) {
             const newListItem = newFolderItem.createListItem();
             let alreadyThere = false;
@@ -52,7 +52,7 @@ const createBuilderList = (files = []) => {
         newFolderItem = null;
     });
 
-    const builderList = document.querySelector('#builder-content-list');
+    const builderList = document.querySelector('#builder-content-list-list');
     builderList.addEventListener('click', e => {
         if(e.target.classList.contains('builder-list-item')) {
             const thisItem = e.target.id.replace('builder-list-item-', '') + '.json';
