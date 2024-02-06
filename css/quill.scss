@@ -170,11 +170,13 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
             flex-direction: column;
             background-color: transparent;
             border-radius: 10px;
-            padding: 0.3em;
             overflow-y: auto;
 
             .content-section {
-
+                flex: 1 1 0;
+                border-radius: 10px;
+                background-color: universal.$mixed-200;
+                padding: 0.3em;
             }
         }
     }
@@ -201,7 +203,6 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
             flex-direction: row;
             overflow-y: hidden;
             background-color: transparent;
-            padding: 0;
 
             &-list, &-main {
                 border: 0px;

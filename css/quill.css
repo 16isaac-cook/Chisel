@@ -386,8 +386,13 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
   flex-direction: column;
   background-color: transparent;
   border-radius: 10px;
-  padding: 0.3em;
   overflow-y: auto;
+}
+#menu .sheet-section .content .content-section {
+  flex: 1 1 0;
+  border-radius: 10px;
+  background-color: #312b36;
+  padding: 0.3em;
 }
 #menu #builder {
   background-color: #1c1621;
@@ -410,7 +415,6 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
   flex-direction: row;
   overflow-y: hidden;
   background-color: transparent;
-  padding: 0;
 }
 #menu #builder-content-list, #menu #builder-content-main {
   border: 0px;

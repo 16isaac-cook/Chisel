@@ -118,7 +118,7 @@ const createQuickMenu = () => {
     });
 };
 
-const createObjectJSON = (titleIn, linkCheck, textIns, areaIns, selectIns, radios, typeIDEle) => {
+const createObjectJSON = (titleIn, linkCheck, textIns, areaIns, selectIns, radios, typeIDEle, createJSON) => {
     const objectJSON = {};
     objectJSON['type'] = { singular: typeIDEle.dataset.type, plural: typeIDEle.dataset.plural };
     objectJSON['icon'] = typeIDEle.dataset.icon;
@@ -133,21 +133,22 @@ const createObjectJSON = (titleIn, linkCheck, textIns, areaIns, selectIns, radio
         const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
         const displayName = val[2].trim();
         objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
+        objectJSON['extra'][name]['type'] = 'text';
     }
     for (const [key, val] of Object.entries(areaIns)) {
         const input = val[0].value.trim();
         const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
         if(name == 'desc') {
             const displayName = val[2].trim();
-            objectJSON['description'] = {'name': displayName, 'text': input};
+            objectJSON['description'] = {'name': displayName, 'text': input, 'type': 'textarea'};
         } else if(name == 'gm-notes') {
             const eye = val[1].checked;
             const displayName = val[2].trim();
-            objectJSON['gm-notes'] = {'name': displayName, 'text': input, 'visible': eye};
+            objectJSON['gm-notes'] = {'name': displayName, 'text': input, 'visible': eye, 'type': 'textarea'};
         } else {
             const eye = val[1].checked;
             const displayName = val[2].trim();
-            objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
+            objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye, 'type': 'textarea'};
         }
     }
     for (const [key, val] of Object.entries(selectIns)) {
@@ -155,23 +156,28 @@ const createObjectJSON = (titleIn, linkCheck, textIns, areaIns, selectIns, radio
         const eye = val[1].checked;
         const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
         const displayName = val[2].trim();
-        objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
+        objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye, 'type': 'select'};
     }
     for (const [key, val] of Object.entries(radios)) {
         const input = val[0].querySelector('input[type="radio"]:checked').value.trim();
         const eye = val[1].checked;
         const name = val[0].id.substring(val[0].id.indexOf('-') + 1);
         const displayName = val[2].trim();
-        objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye};
+        objectJSON['extra'][name] = {'name': displayName, 'text': input, 'visible': eye, 'type': 'radio'};
     }
 
-    jsonFileName = formatString(objectJSON['title']['text']);
-    if(jsonFileName == '') { jsonFileName = 'placeholder'; }
-    createJSONFile(objectJSON, jsonFileName);
-    createQuickMenu();
+    if(createJSON) {
+        const newJsonFileName = formatString(objectJSON['title']['text']);
+        if(newJsonFileName == '') { newJsonFileName = 'placeholder'; }
+        createJSONFile(objectJSON, newJsonFileName);
+        createQuickMenu();
+    }
+    else {
+        return objectJSON;
+    }
 }
 
-const getInputs = (data = null) => {
+const getInputs = (data = null, createJSON = true) => {
     const pairs = displayBuilder.querySelectorAll('.pair');
     let titleInput;
     let linkCheckInput;
@@ -244,14 +250,22 @@ const getInputs = (data = null) => {
 
     const typeIDEle = displayBuilder.querySelector('#builder-obj-type');
 
-    displayBuilder.addEventListener('submit', e => {
-        e.preventDefault();
-        createObjectJSON(titleInput, linkCheckInput, textInputs, textAreas, selectInputs, radios, typeIDEle);
-    })
+    if(createJSON) {
+        displayBuilder.addEventListener('submit', e => {
+            e.preventDefault();
+            createObjectJSON(titleInput, linkCheckInput, textInputs, textAreas, selectInputs, radios, typeIDEle, createJSON);
+        })
+    }
+    else {
+        return createObjectJSON(titleInput, linkCheckInput, textInputs, textAreas, selectInputs, radios, typeIDEle, createJSON);
+    }
 };
 
+//preview code
 const createPreview = () => {
-    return 'preview';
+    const newPrev = getInputs(null, false);
+    console.log(newPrev);
+    return newPrev;
 };
 
 let preview = false;
@@ -264,6 +278,7 @@ const switchDisplay = () => {
         mainHeader.innerHTML = `Preview`;
         switchButton.innerHTML = 'Switch to Builder';
         builderHeader = headerText;
+        displayPreview.innerHTML = createPreview();
         displayBuilder.dataset.activeBuilder = false;
         displayPreview.dataset.activeBuilder = true;
     } else {
@@ -275,6 +290,7 @@ const switchDisplay = () => {
     }
 };
 
+//this runs from main.js when the builder is opened
 const initiateBuilder = (world) => {
     builderWorld = world;
     window.electronAPI.readDir(`quill/${builderWorld}`)
