@@ -1,85 +1,105 @@
-class Tag {
-    constructor(name) {
-        this._name = name;
-        this._objects = new Set([]);
+const formatString = (string, lower = true, hyphen = false) => {
+    let newString = string.trim();
+    if(hyphen) {
+        newString = newString.replaceAll(' ', '-');
+    } else {
+        newString = newString.replaceAll(' ', '');
     }
 
-    get objects() {
-        return this._objects;
-    }
-}
+    newString = newString.replaceAll('\\', '')
+        .replaceAll('/', '')
+        .replaceAll(':', '_')
+        .replaceAll('*', '')
+        .replaceAll('"', '')
+        .replaceAll('<', '')
+        .replaceAll('>', '')
+        .replaceAll('|', '')
+        .replaceAll("'", '');
 
-class WorldObject {
-    constructor(name = 'WorldObject', tags = null, parent = null, children = new Set([])) {
-        this._name = name;
-        this._tags = new Set([]);
-        this._parent = parent;
-        this._children = children;
-
-        //add tags and put this Object into the tags' Sets
-        if(tags && tags instanceof Array) {
-            tags.forEach(tag => {
-                if(tag instanceof Tag) {
-                    this._tags.add(tag);
-                } else {
-                    console.error(`WorldObject '${this._name}' was incorrectly given this to add this to its tags: [${tag}](${typeof tag})`);
-                }
-            });
-        } else if(tags && tags instanceof Tag) {
-            this._tags.add(tags);
-        } else {
-            console.error(`WorldObject '${this.name}' was incorrectly given this to add this to its tags: [${tags}](${typeof tags})`);
-        }
-        if(this._tags.size) {
-            this._tags.forEach((tag) => {
-                if(tag instanceof Tag) {
-                    tag.objects.add(this);
-                } else {
-                    console.error(`WorldObject '${this._name}' has a tag of [${tag}](${typeof tag}), which is not a Tag object`);
-                }
-            })
-        }
+    if(lower) {
+        newString = newString.toLowerCase()
     }
 
-    set name(newName) {
-        newName = newName.trim();
-
-        if(newName === '') {
-            throw 'The name cannot be empty';
-        }
-
-        this._name = newName;
-    }
-    get name() {
-        return this._name;
-    }
     
-    get tags() {
-        return this._tags;
+    return newString;
+};
+
+//object list folders and items
+class Folder {
+    constructor(plural, icon) {
+        this.plural = plural;
+        this.icon = icon;
+        this.id = 'builder-list-folder-' + formatString(this.plural, true, true);
     }
-    get parent() {
-        return this._parent;
+    createHTML() {
+        const listFolder = document.createElement('div');
+        listFolder.id = this.id;
+        listFolder.classList.add('builder-list-folder');
+
+        const folderCheck = document.createElement('input');
+        folderCheck.type = 'checkbox';
+        folderCheck.id = this.id + '-toggle';
+        folderCheck.classList.add('builder-list-folder-toggle');
+        listFolder.append(folderCheck);
+
+        const folderLabel = document.createElement('label');
+        folderLabel.htmlFor = folderCheck.id;
+        folderLabel.id = this.id + '-label';
+        folderLabel.classList.add('builder-list-folder-label');
+        folderLabel.innerHTML = `<i class="ri-${this.icon}"></i> ${this.plural}`;
+        listFolder.append(folderLabel);
+
+        const listItems = document.createElement('div');
+        listItems.id = this.id + '-items';
+        listItems.classList.add('builder-list-items');
+        listFolder.append(listItems);
+
+        return listFolder;
     }
-    get children() {
-        return this._children;
+    pushHTML() {
+        const list = document.querySelector('#builder-content-list-list');
+        if(list) {
+            list.append(this.createHTML());
+        }
     }
 }
 
-class Landmark extends WorldObject {
-    constructor(name, tags = null, parent = null, children = new Set([])) {
-        super(name, tags, parent, children);
+class FolderItem {
+    constructor(fileName, data, folder) {
+        this.fileName = fileName;
+        this.data = data;
+        this.title = this.data.title.text;
+        this.id = 'builder-list-item-' + fileName.replace('.json', '');
+        this.folder = new Folder(this.data.type.plural, this.data.icon);
+        this.createFolder();
+    }
+    createFolder() {
+        if(!document.querySelector(`#${this.folder.id}`)) {
+            this.folder.pushHTML();
+        }
+        this.folder = null;
+    }
+    createListItem() {
+        const listItem = document.createElement('div');
+        listItem.id = this.id;
+        listItem.classList.add('builder-list-item');
+        listItem.innerHTML = this.title;
+
+        return listItem;
     }
 }
 
 // builders
 class Builder {
-    constructor(type, icon) {
+    constructor(type, icon, plural) {
         this.type = type;
         this.icon = icon;
+        this.plural = plural;
         this.html = [];
         this.header = `Builder - ${type}`;
         this.text('builder-title', `${this.type} Title`, null, null);
         this.box('builder-desc', `${this.type} Description`, null, null);
+        this.html.push(this.addLinkCheck('builder-checkbox-link', 'Should this object get auto-linked in other objects?'));
         this.save();
         this.html.push(this.addNote());
         this.box('builder-gm-notes', `GM Notes`, null, false);
@@ -118,6 +138,7 @@ class Builder {
         }
 
         if(id == 'builder-title') {
+            newInput.required = true;
             newPair.append(newInput);
             newPair.append(newLabel);
         } else {
@@ -194,6 +215,7 @@ class Builder {
         newSelect.append(firstOption);
 
         const createSelectOptions = (sel) => {
+            let b, c, ll, j;
             /* For each element, create a new DIV that will contain the option list: */
             b = document.createElement("DIV");
             b.setAttribute("class", "select-items select-hide");
@@ -206,7 +228,7 @@ class Builder {
                 c.addEventListener("click", function(e) {
                     /* When an item is clicked, update the original select box,
                     and the selected item: */
-                    var y, i, k, s, h, sl, yl;
+                    let y, i, k, s, h, sl, yl;
                     s = this.parentNode.parentNode.getElementsByTagName("select")[0];
                     sl = s.length;
                     h = this.parentNode.previousSibling;
@@ -230,6 +252,7 @@ class Builder {
             return b;
         }
 
+        let a, ll, b;
         ll = newSelect.length;
         newSelect.dataset.count = 0;
         /* For each element, create a new DIV that will act as the selected item: */
@@ -297,7 +320,7 @@ class Builder {
             newInput.type = 'radio';
             newInput.id = id + `-radio-${count}`;
             newInput.name = id;
-            newInput.value = item.toLowerCase().trim().replace(' ', '-');
+            newInput.value = formatString(item);
             if(count == 0) {
                 newInput.checked = true;
             }
@@ -325,10 +348,22 @@ class Builder {
 
         return newPair;
     }
+    addLinkCheck(id, label) {
+        const newPair = document.createElement('div');
+        newPair.classList.add('pair');
+        
+        const newLabel = document.createElement('label');
+        newLabel.id = id;
+        newLabel.innerHTML = `${label} <input type="checkbox" id="${id}-checkbox" class="link-checkbox" checked><label for="${id}-checkbox" class="link-checkbox-label"></label>`
+        newPair.append(newLabel);
+
+        return newPair;
+    }
     addSaveButton() {
-        const newSaveButton = document.createElement('button');
+        const newSaveButton = document.createElement('input');
+        newSaveButton.type = 'submit';
         newSaveButton.classList.add('builder-save-button');
-        newSaveButton.innerHTML = 'Save Object';
+        newSaveButton.value = 'Save Object';
 
         return newSaveButton;
     }
@@ -342,9 +377,10 @@ class Builder {
             typeID.id = 'builder-obj-type';
             typeID.dataset.type = this.type;
             typeID.dataset.icon = this.icon;
+            typeID.dataset.plural = this.plural;
             builder.append(typeID);
 
-            for(i = 0; i < this.html.length; i++) {
+            for(let i = 0; i < this.html.length; i++) {
                 builder.append(this.html[i]);
             }
         }
@@ -367,8 +403,8 @@ class Builder {
 }
 
 class BuilderBuilding extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
         this.select('builder-parent', 'Building Location', 'This option sets a location this building can be found in and links it to that object.');
         this.text('builder-date-built', 'Date of Construction', 'The date the building was built or constructed.');
         this.text('builder-date-destroyed', 'Date of Destruction', 'The date, if any, that the building was destroyed. This option will mark the object as a ruin.');
@@ -382,76 +418,76 @@ class BuilderBuilding extends Builder {
 }
 
 class BuilderCelestialBody extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
         this.radio('builder-type', 'Type of Celestial Body', 'This option sets the type assigned to this object.', ['Planet', 'Star', 'Moon', 'Asteroid', 'Comet', 'Nebula', 'Galaxy', 'Other']);
         this.box('builder-purpose', 'Cultural Significance', 'Any significance this celestial body may have for cultures, such as being an object of worship.');
     }
 }
 
 class BuilderCharacter extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderCondition extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderConflict extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderCountry extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderCurrency extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderDeity extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderDocument extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderEthnicity extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderGeographicLocation extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderItem extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderLandmark extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
         this.select('builder-parent', 'Landmark Location', 'This option sets a location this landmark can be found in and links it to that object.');
         this.text('builder-date-built', 'Date of Construction', 'The date the landmark was built or constructed.');
         this.text('builder-date-destroyed', 'Date of Destruction', 'The date, if any, that the landmark was destroyed. This option will mark the object as a ruin.');
@@ -465,129 +501,135 @@ class BuilderLandmark extends Builder {
 }
 
 class BuilderLanguage extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderMaterial extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderMilitary extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderMyth extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderNaturalLaw extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderOrganization extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderProfession extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderReligion extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderRule extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderSettlement extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderSpecies extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderSpell extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderTechnology extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderTitle extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderTradition extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 class BuilderVehicle extends Builder {
-    constructor(name, icon) {
-        super(name, icon);
+    constructor(name, icon, plural) {
+        super(name, icon, plural);
     }
 }
 
 const builderObjects = [
-    ['Building', 'home-3-fill', BuilderBuilding],
-    ['Celestial Body', 'moon-fill', BuilderCelestialBody],
-    ['Character', 'user-fill', BuilderCharacter],
-    ['Condition', 'alert-fill', BuilderCondition],
-    ['Conflict', 'sword-fill', BuilderConflict],
-    ['Country', 'government-fill', BuilderCountry],
-    ['Currency', 'coins-fill', BuilderCurrency],
-    ['Deity', 'psychotherapy-fill', BuilderDeity],
-    ['Document', 'file-paper-2-fill', BuilderDocument],
-    ['Ethnicity', 'walk-fill', BuilderEthnicity],
-    ['Geographic Location', 'landscape-fill', BuilderGeographicLocation],
-    ['Item', 'key-2-fill', BuilderItem],
-    ['Landmark', 'building-2-fill', BuilderLandmark],
-    ['Language', 'character-recognition-fill', BuilderLanguage],
-    ['Material', 'box-3-fill', BuilderMaterial],
-    ['Military', 'honour-fill', BuilderMilitary],
-    ['Myth', 'book-2-fill', BuilderMyth],
-    ['Natural Law', 'flashlight-fill', BuilderNaturalLaw],
-    ['Organization', 'team-fill', BuilderOrganization],
-    ['Profession', 'account-box-fill', BuilderProfession],
-    ['Religion', 'sparkling-fill', BuilderReligion],
-    ['Rule', 'dice-fill', BuilderRule],
-    ['Settlement', 'community-fill', BuilderSettlement],
-    ['Species', 'aliens-fill', BuilderSpecies],
-    ['Spell', 'fire-fill', BuilderSpell],
-    ['Technology', 'flask-fill', BuilderTechnology],
-    ['Title', 'vip-crown-fill', BuilderTitle],
-    ['Tradition', 'chat-history-fill', BuilderTradition],
-    ['Vehicle', 'riding-line', BuilderVehicle]
+    ['Building', 'home-3-fill', 'Buildings', BuilderBuilding],
+    ['Celestial Body', 'moon-fill', 'Celestial Bodies', BuilderCelestialBody],
+    ['Character', 'user-fill', 'Characters', BuilderCharacter],
+    ['Condition', 'alert-fill', 'Conditions', BuilderCondition],
+    ['Conflict', 'sword-fill', 'Conflicts', BuilderConflict],
+    ['Country', 'government-fill', 'Countries', BuilderCountry],
+    ['Currency', 'coins-fill', 'Currencies', BuilderCurrency],
+    ['Deity', 'psychotherapy-fill', 'Deities', BuilderDeity],
+    ['Document', 'file-paper-2-fill', 'Documents', BuilderDocument],
+    ['Ethnicity', 'walk-fill', 'Ethnicities', BuilderEthnicity],
+    ['Geographic Location', 'landscape-fill', 'Geographic Locations', BuilderGeographicLocation],
+    ['Item', 'key-2-fill', 'Items', BuilderItem],
+    ['Landmark', 'building-2-fill', 'Landmarks', BuilderLandmark],
+    ['Language', 'character-recognition-fill', 'Languages', BuilderLanguage],
+    ['Material', 'box-3-fill', 'Materials', BuilderMaterial],
+    ['Military', 'honour-fill', 'Militaries', BuilderMilitary],
+    ['Myth', 'book-2-fill', 'Myths', BuilderMyth],
+    ['Natural Law', 'flashlight-fill', 'Natural Laws', BuilderNaturalLaw],
+    ['Organization', 'team-fill', 'Organizations', BuilderOrganization],
+    ['Profession', 'account-box-fill', 'Professions', BuilderProfession],
+    ['Religion', 'sparkling-fill', 'Religions', BuilderReligion],
+    ['Rule', 'dice-fill', 'Rules', BuilderRule],
+    ['Settlement', 'community-fill', 'Settlements', BuilderSettlement],
+    ['Species', 'aliens-fill', 'Species', BuilderSpecies],
+    ['Spell', 'fire-fill', 'Spells', BuilderSpell],
+    ['Technology', 'flask-fill', 'Technologies', BuilderTechnology],
+    ['Title', 'vip-crown-fill', 'Titles', BuilderTitle],
+    ['Tradition', 'chat-history-fill', 'Traditions', BuilderTradition],
+    ['Vehicle', 'riding-line', 'Vehicles', BuilderVehicle]
 ]
+
+// builderObjects.forEach(item => {
+//     let newFolder = new Folder(item[2], item[1]);
+//     newFolder.pushHTML();
+//     newFolder = null;
+// });
