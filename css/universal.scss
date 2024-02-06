@@ -66,6 +66,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    text-align: center;
 }
 
 .big-header {
@@ -78,18 +79,18 @@ body {
     margin-bottom: 0.3em;
 }
 
-button {
+button, input[type=submit] {
     border: 0;
     background-color: $mixed-300;
     padding: 0.3em;
-    font-weight: bold;
     cursor: pointer;
+    border-radius: 5px;
 }
-button:hover {
+button:hover, input[type=submit]:hover {
     background-color: $mixed-400;
 }
-button:active {
-    background-color: $mixed-300;
+button:active, input[type=submit]:active {
+    background-color: $primary-200;
 }
 
 input[type=text], textarea, select {
@@ -97,6 +98,10 @@ input[type=text], textarea, select {
     border: none;
     border-radius: 5px;
     padding: 0.3em;
+}
+
+input[type=text]:hover, textarea:hover, select:hover {
+    background-color: $mixed-400;
 }
 
 input[type=text]:focus, textarea:focus, select:focus {

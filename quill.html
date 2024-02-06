@@ -23,7 +23,7 @@
                     <a href="#worlds" id="worlds-button" class="explorer-button"><i class="ri-globe-fill"></i> Worlds</a>
                 </div>
                 <div id="explorer-list-world" data-explorer-active="false">
-                    <div id="explorer-header" class="small-header">World Name</div>
+                    <div id="explorer-header" class="small-header">Select a World to get started!</div>
                     <div id="explorer-list-world-buttons">
                         <a href="#overview" id="overview-button" class="explorer-button"><i class="ri-book-2-fill"></i> Overview</a>
                         <a href="#builder" id="builder-button" class="explorer-button"><i class="ri-haze-fill"></i> World Objects</a>
@@ -51,6 +51,7 @@
             </div>
             <div id="worlds" data-active="false" class="sheet-section">
                 <div id="worlds-header" class="small-header">Worlds</div>
+                <button>Add World</button>
             </div>
             <div id="overview" data-active="false" class="sheet-section">
                 <div id="overview-header" class="small-header">Overview</div>
@@ -102,7 +103,13 @@
                 <div id="help-header" class="small-header">Help & Info</div>
             </div>
         </div>
-        <div id="popup"></div>
+        <div id="popup" data-popup="false">
+            <form id="popup-box" class="sheet-section">
+                <div id="popup-header">Popups be like</div>
+                <input type="text" id="popup-input" required>
+                <input type="submit" id="popup-button">
+            </form>
+        </div>
 
         <script src="js/quill/classes.js"></script>
         <script src="js/quill/builder.js"></script>

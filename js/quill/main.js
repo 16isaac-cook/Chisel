@@ -49,6 +49,7 @@ Files
 */
 
 let currentWorld = 'The Land: A Look into The Depths of Ultra-Magic';
+let currentWorldFormatted = formatString(currentWorld, false);
 
 const explorer = document.querySelector('#explorer');
 const menu = document.querySelector('#menu');
@@ -67,7 +68,7 @@ explorer.addEventListener('click', e => {
         }
         if(menuID == '#builder') {
             createQuickMenu();
-            initiateBuilder(formatString(currentWorld, false));
+            initiateBuilder(currentWorldFormatted);
         }
         const menuTitle = newActive.querySelector('.small-header');
         document.title = `Chisel | Quill - ${menuTitle.innerText}`;
@@ -97,6 +98,51 @@ function closeAllSelect(elmnt) {
     }
 }
 
+const createWorld = () => {
+    const explorerList = document.querySelector('#explorer-list-world');
+    const explorerHeader = explorerList.querySelector('#explorer-header');
+    explorerList.dataset.explorerActive = true;
+    explorerHeader.innerHTML = currentWorld;
+};
+
+const createWorldList = () => {
+    //create world list :p
+};
+
+//world creation popup
+const worldNamePopup = () => {
+    const popup = document.querySelector('#popup');
+    popup.dataset.popup = true;
+    
+    const box = popup.querySelector('#popup-box');
+    const header = box.querySelector('#popup-header');
+    const input = box.querySelector('#popup-input');
+    
+    header.innerHTML = 'Enter world name:';
+
+    box.addEventListener('submit', e => {
+        const newName = input.value;
+        const formattedName = formatString(newName, false, false);
+
+        //jerry-rig this shit to just check if it exists already and make a folder if it doesn't
+        electronAPI.readDir(`quill/${formattedName}`)
+            .then((data) => {
+                console.log('World file already exists, good to go!');
+                currentWorld = input.value;
+                currentWorldFormatted = formatString(currentWorld, false);
+                createWorld();
+                popup.dataset.popup = false;
+            })
+            .catch(err => {
+                console.log('Created world file!')
+                currentWorld = input.value;
+                currentWorldFormatted = formatString(currentWorld, false);
+                createWorld();
+                popup.dataset.popup = false;
+            });
+    });
+}
+
 //If the user clicks anywhere outside the select box, then close all select boxes:
 document.addEventListener("click", closeAllSelect); 
 
@@ -108,4 +154,9 @@ document.querySelector('#builder-content-main-display-quick-access').addEventLis
     } else if(e.target.parentElement.parentElement.classList.contains('builder-choose-button')) {
         switchToBuilder(e.target.parentElement.parentElement.dataset.obj);
     }
+});
+
+document.querySelector('#worlds').querySelector('button').addEventListener('click', e => {
+    //worldNamePopup();
+    createWorld();
 });

@@ -35,6 +35,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  text-align: center;
 }
 
 .big-header {
@@ -47,20 +48,20 @@ body {
   margin-bottom: 0.3em;
 }
 
-button {
+button, input[type=submit] {
   border: 0;
   background-color: #47424c;
   padding: 0.3em;
-  font-weight: bold;
   cursor: pointer;
+  border-radius: 5px;
 }
 
-button:hover {
+button:hover, input[type=submit]:hover {
   background-color: #5f5a63;
 }
 
-button:active {
-  background-color: #47424c;
+button:active, input[type=submit]:active {
+  background-color: #7b3cc5;
 }
 
 input[type=text], textarea, select {
@@ -68,6 +69,10 @@ input[type=text], textarea, select {
   border: none;
   border-radius: 5px;
   padding: 0.3em;
+}
+
+input[type=text]:hover, textarea:hover, select:hover {
+  background-color: #5f5a63;
 }
 
 input[type=text]:focus, textarea:focus, select:focus {
@@ -341,7 +346,7 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
 #explorer #explorer-main #explorer-list-world-buttons {
   overflow-y: auto;
 }
-#explorer #explorer-main #explorer-list-world[data-explorer-active=false] div {
+#explorer #explorer-main #explorer-list-world[data-explorer-active=false] #explorer-list-world-buttons {
   display: none;
 }
 #explorer #explorer-main #explorer-help {
@@ -747,6 +752,43 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
 }
 #menu #builder-content-main-display-switch:active {
   color: #7b3cc5;
+}
+
+#popup {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}
+#popup #popup-box {
+  padding: 0.6em;
+  font-size: 24px;
+  height: auto;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#popup #popup-box * {
+  font-size: inherit;
+}
+#popup #popup-box #popup-header {
+  margin-bottom: 0.3em;
+}
+#popup #popup-box #popup-button {
+  margin-top: 0.3em;
+  width: 50%;
+}
+
+#popup[data-popup=true] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 div[data-active=false], div[data-active-builder=false] {
