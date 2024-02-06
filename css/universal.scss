@@ -217,6 +217,10 @@ input:checked + .slider:before {
     color: $primary-200;
 }
 
+label {
+    user-select: none;
+}
+
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */

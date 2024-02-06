@@ -189,6 +189,13 @@ input:checked + .slider:before {
   color: #7b3cc5;
 }
 
+label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */

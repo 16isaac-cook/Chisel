@@ -588,6 +588,7 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
                         align-items: flex-end;
                         cursor: pointer;
                         margin-top: 0.3em;
+                        user-select: none;
                     }
                     &-switch:hover {
                         color: #fff;

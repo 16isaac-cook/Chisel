@@ -189,6 +189,13 @@ input:checked + .slider:before {
   color: #7b3cc5;
 }
 
+label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
@@ -776,6 +783,10 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
   align-items: flex-end;
   cursor: pointer;
   margin-top: 0.3em;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 #menu #builder-content-main-display-switch:hover {
   color: #fff;
