@@ -365,6 +365,30 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
   padding-left: 0;
   max-height: 95%;
 }
+#menu .sheet-section {
+  background-color: #1c1621;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#menu .sheet-section .quill-header {
+  flex: 0 1 0;
+  border: 0px;
+  border-radius: 10px;
+  background-color: #312b36;
+  padding: 0.3em;
+  margin-bottom: 0.3em;
+}
+#menu .sheet-section .content {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 0.3em;
+  overflow-y: auto;
+}
 #menu #builder {
   background-color: #1c1621;
   padding: 0;
@@ -385,6 +409,8 @@ input[type=checkbox]:checked + .link-checkbox-label:before {
   display: flex;
   flex-direction: row;
   overflow-y: hidden;
+  background-color: transparent;
+  padding: 0;
 }
 #menu #builder-content-list, #menu #builder-content-main {
   border: 0px;

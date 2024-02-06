@@ -156,7 +156,7 @@ document.querySelector('#builder-content-main-display-quick-access').addEventLis
     }
 });
 
-document.querySelector('#worlds').querySelector('button').addEventListener('click', e => {
-    //worldNamePopup();
-    createWorld();
-});
+// document.querySelector('#worlds').querySelector('button').addEventListener('click', e => {
+//     worldNamePopup();
+// });
+createWorld();
