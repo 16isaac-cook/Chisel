@@ -1,6 +1,6 @@
 {
   "name": "chisel",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A tool for creating campaigns, homebrew, and characters for various TTRPGs.",
   "main": "index.js",
   "scripts": {
