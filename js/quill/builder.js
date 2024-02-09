@@ -104,6 +104,8 @@ const switchToBuilder = (builderObj, itemData = null) => {
         for(const [key, val] of Object.entries(jsonData)) {
             if(key == 'title') {
                 mainForm.querySelector('#builder-title').value = val;
+            }  else if (key == 'link') {
+                mainForm.querySelector('#builder-checkbox-link-checkbox').checked = val;
             } else if (key == 'description') {
                 mainForm.querySelector('#builder-desc').value = val;
             } else if (key == 'gm-notes') {
@@ -205,6 +207,10 @@ const createObject = () => {
                             outputObj['extra'][thisID] = {value: radio.value, visible: thisEye};
                         }
                     });
+                }
+                //link toggle
+                if(queryLink) {
+                    outputObj['link'] = queryLink.checked;
                 }
             }
         });
