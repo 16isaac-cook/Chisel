@@ -58,7 +58,7 @@ const menu = document.querySelector('#menu');
 explorer.addEventListener('click', e => {
     if(e.target.classList.contains('explorer-button')) {
         const menuID = e.target.getAttribute('href');
-        const activeMenu = menu.querySelector(`div[data-active=true]`);
+        const activeMenu = menu.querySelector(`.menu[data-active=true]`);
         const newActive = menu.querySelector(menuID);
         if(activeMenu !== newActive) {
             activeMenu.dataset.active = false;
@@ -67,10 +67,9 @@ explorer.addEventListener('click', e => {
             e.target.classList.add('current-page');
         }
         if(menuID == '#builder') {
-            createQuickMenu();
-            initiateBuilder(currentWorldFormatted);
+            initiateBuilder(currentWorld, currentWorldFormatted);
         }
-        const menuTitle = newActive.querySelector('.small-header');
+        const menuTitle = newActive.querySelector('.menu-header');
         document.title = `Chisel | Quill - ${menuTitle.innerText}`;
     }
 });
@@ -99,9 +98,9 @@ function closeAllSelect(elmnt) {
 }
 
 const createWorld = () => {
-    const explorerList = document.querySelector('#explorer-list-world');
-    const explorerHeader = explorerList.querySelector('#explorer-header');
-    explorerList.dataset.explorerActive = true;
+    const explorerList = document.querySelector('#explorer-world');
+    const explorerHeader = explorerList.querySelector('.small-header');
+    explorerList.dataset.active = true;
     explorerHeader.innerHTML = currentWorld;
 };
 
@@ -109,52 +108,8 @@ const createWorldList = () => {
     //create world list :p
 };
 
-//world creation popup
-const worldNamePopup = () => {
-    const popup = document.querySelector('#popup');
-    popup.dataset.popup = true;
-    
-    const box = popup.querySelector('#popup-box');
-    const header = box.querySelector('#popup-header');
-    const input = box.querySelector('#popup-input');
-    
-    header.innerHTML = 'Enter world name:';
-
-    box.addEventListener('submit', e => {
-        const newName = input.value;
-        const formattedName = formatString(newName, false, false);
-
-        //jerry-rig this shit to just check if it exists already and make a folder if it doesn't
-        electronAPI.readDir(`quill/${formattedName}`)
-            .then((data) => {
-                console.log('World file already exists, good to go!');
-                currentWorld = input.value;
-                currentWorldFormatted = formatString(currentWorld, false);
-                createWorld();
-                popup.dataset.popup = false;
-            })
-            .catch(err => {
-                console.log('Created world file!')
-                currentWorld = input.value;
-                currentWorldFormatted = formatString(currentWorld, false);
-                createWorld();
-                popup.dataset.popup = false;
-            });
-    });
-}
-
 //If the user clicks anywhere outside the select box, then close all select boxes:
 document.addEventListener("click", closeAllSelect); 
-
-document.querySelector('#builder-content-main-display-quick-access').addEventListener('click', e => {
-    if(e.target.classList.contains('builder-choose-button')) {
-        switchToBuilder(e.target.dataset.obj);
-    } else if(e.target.parentElement.classList.contains('builder-choose-button')) {
-        switchToBuilder(e.target.parentElement.dataset.obj);
-    } else if(e.target.parentElement.parentElement.classList.contains('builder-choose-button')) {
-        switchToBuilder(e.target.parentElement.parentElement.dataset.obj);
-    }
-});
 
 // document.querySelector('#worlds').querySelector('button').addEventListener('click', e => {
 //     worldNamePopup();

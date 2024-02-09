@@ -13,6 +13,7 @@ const mainSwitch = mainDisplay.querySelector('#builder-main-display-switch');
 let openedBuilder = false;
 let preview = false;
 let builderWorld = '';
+let builderWorldFormatted = '';
 let savedObjects = [];
 
 const populateList = (files = []) => {
@@ -222,8 +223,8 @@ const createObject = () => {
 
 const createJSONFile = (obj, folder) => {
     const name = formatString(obj.id, true, true);
-    electronAPI.writeJSON(JSON.stringify(obj, null, '\t'), name, `quill/${builderWorld}/${folder}`)
-        .then(() => initiateBuilder(builderWorld))
+    electronAPI.writeJSON(JSON.stringify(obj, null, '\t'), name, `quill/${builderWorldFormatted}/${folder}`)
+        .then(() => initiateBuilder(builderWorld, builderWorldFormatted))
         .catch(err => console.error(err));
 };
 
@@ -231,11 +232,13 @@ const switchDisplay = () => {
 
 };
 
-const initiateBuilder = world => {
+const initiateBuilder = (world, worldFormatted) => {
     builderWorld = world;
-    electronAPI.getWorldObjects('quill/TheLand_ALookintoTheDepthsofUltra-Magic')
+    builderWorldFormatted = worldFormatted;
+    electronAPI.getWorldObjects(`quill/${builderWorldFormatted}`)
         .then(data => {
             populateList(data);
+            makeCreateMenu();
         })
         .catch(err => {
             console.error(err);
@@ -274,6 +277,3 @@ mainCreate.addEventListener('click', e => {
         switchToBuilder(thisObj);
     }
 });
-
-initiateBuilder('TheLand_ALookintoTheDepthsofUltra-Magic');
-makeCreateMenu();
