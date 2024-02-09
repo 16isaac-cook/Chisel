@@ -85,16 +85,16 @@ a {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  border-radius: 5px;
+  border-radius: 2.5px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #5f5a63;
-  border-radius: 5px;
+  border-radius: 2.5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -103,8 +103,7 @@ a {
 
 .no-spin {
   -moz-appearance: textfield;
-  -webkit-appearance: textfield;
-          appearance: textfield;
+  appearance: textfield;
   background-color: #312b36;
   text-align: center;
   border: none;
@@ -138,6 +137,7 @@ a {
   right: 0;
   bottom: 0;
   background-color: #918d94;
+  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -149,6 +149,7 @@ a {
   left: 0.125em;
   bottom: 0.125em;
   background-color: white;
+  -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
@@ -161,6 +162,8 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
+  -webkit-transform: translateX(1em);
+  -ms-transform: translateX(1em);
   transform: translateX(1em);
 }
 
@@ -190,10 +193,7 @@ input:checked + .slider:before {
 }
 
 label {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */

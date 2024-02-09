@@ -114,14 +114,14 @@ a {
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
 }
 ::-webkit-scrollbar-track {
-    border-radius: 5px;
+    border-radius: 2.5px;
 }
 ::-webkit-scrollbar-thumb {
     background: $mixed-400;
-    border-radius: 5px;
+    border-radius: 2.5px;
 }
 ::-webkit-scrollbar-thumb:hover {
     background: $mixed-300;

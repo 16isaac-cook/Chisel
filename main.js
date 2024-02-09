@@ -72,6 +72,28 @@ async function readDir(filePath = '') {
         })
 }
 
+async function getWorldObjects(filePath = '') {
+    const fullPath = path.join(__dirname, `json/${filePath}/`);
+    const getFolders = await readdirAsync(fullPath)
+        .then(files => {
+            const folders = [];
+            files.forEach(file => {
+                if(!file.includes('.json')) {
+                    folders.push(file);
+                }
+            });
+            return folders;
+        })
+        .catch(err => { throw err });
+    const newFiles = getFolders.map(folder => {
+        return readDir(`${filePath}/${folder}`)
+            .then(data => ({folder: folder, files: data}))
+            .catch(err => { throw err; });
+    });
+    
+    return Promise.all(newFiles);
+}
+
 function createWindow() {
     let mainWindowState = windowStateKeeper({
         defaultWidth: 1366,
@@ -115,6 +137,7 @@ app.whenReady().then(() => {
     ipcMain.handle('writeJSON', async (e, data, name, filePath) => await writeJSON(data, name, filePath));
     ipcMain.handle('readJSON', async (e, name, filePath) => await readJSON(name, filePath));
     ipcMain.handle('readDir', async (e, filePath) => await readDir(filePath));
+    ipcMain.handle('getWorldObjects', async (e, filePath) => await getWorldObjects(filePath));
     createWindow();
     app.on('activate', () => {
         if(BrowserWindow.getAllWindows().length === 0) { createWindow(); }

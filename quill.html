@@ -1,132 +1,114 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Chisel | Quill - Home</title>
-        <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
         <link rel="stylesheet" href="css/quill.css">
         <link rel="stylesheet" href="fonts/remixicon.css">
     </head>
     <body>
-        <div id="nav-header" class="sheet-background">            
+        <div id="nav-header" class="sheet-background">
             <div id="title-bar">CHISEL - QUILL</div>
             <a href="index.html" id="home-button"><i class="ri-arrow-left-line"></i><i class="ri-home-2-fill"></i></a>
         </div>
         <div id="explorer" class="sheet-background">
-            <div id="explorer-main" class="sheet-section">
-                <div id="explorer-list-universal">
-                    <div id="explorer-header" class="small-header">Explorer</div>
-                    <a href="#home" id="home-button" class="explorer-button current-page"><i class="ri-home-2-fill"></i> Home</a>
-                    <a href="#worlds" id="worlds-button" class="explorer-button"><i class="ri-globe-fill"></i> Worlds</a>
+            <div class="menu-header">Explorer</div>
+            <div class="explorer-section">
+                <div class="explorer-buttons">
+                    <a href="#home" class="explorer-button current-page"><i class="ri-home-2-fill"></i> Home</a>
+                    <a href="#worlds" class="explorer-button"><i class="ri-globe-fill"></i> Worlds</a>
                 </div>
-                <div id="explorer-list-world" data-explorer-active="false">
-                    <div id="explorer-header" class="small-header">Select a World to get started!</div>
-                    <div id="explorer-list-world-buttons">
-                        <a href="#overview" id="overview-button" class="explorer-button"><i class="ri-book-2-fill"></i> Overview</a>
-                        <a href="#builder" id="builder-button" class="explorer-button"><i class="ri-haze-fill"></i> World Objects</a>
-                        <a href="#maps" id="maps-button" class="explorer-button"><i class="ri-map-fill"></i> Maps</a>
-                        <a href="#history" id="history-button" class="explorer-button"><i class="ri-hourglass-fill"></i> History</a>
-                        <a href="#campaigns" id="campaigns-button" class="explorer-button"><i class="ri-team-fill"></i> Campaigns</a>
-                        <a href="#writing" id="writing-button" class="explorer-button"><i class="ri-pen-nib-fill"></i> Writing Tools</a>
-                        <a href="#files" id="files-button" class="explorer-button"><i class="ri-folder-3-fill"></i> Files</a>
-                    </div>
+            </div>
+            <div id="explorer-world" class="explorer-section" data-active="false">
+                <div class="small-header">Select a World to get started!</div>
+                <div class="explorer-buttons">
+                    <a href="#overview" class="explorer-button"><i class="ri-book-2-fill"></i> Overview</a>
+                    <a href="#builder" class="explorer-button"><i class="ri-haze-fill"></i> World Objects</a>
+                    <a href="#maps" class="explorer-button"><i class="ri-map-fill"></i> Maps</a>
+                    <a href="#history" class="explorer-button"><i class="ri-hourglass-fill"></i> History</a>
+                    <a href="#campaigns" class="explorer-button"><i class="ri-team-fill"></i> Campaigns</a>
+                    <a href="#writing" class="explorer-button"><i class="ri-pen-nib-fill"></i> Writing Tools</a>
+                    <a href="#files" class="explorer-button"><i class="ri-folder-3-fill"></i> Files</a>
                 </div>
-                <div id="explorer-help">
-                    <a href="#settings" id="settings-button" class="explorer-button"><i class="ri-settings-5-fill"></i> Settings</a>
-                    <a href="#help" id="help-button" class="explorer-button"><i class="ri-question-fill"></i> Help & Info</a>
+            </div>
+            <div class="explorer-section">
+                <div class="explorer-buttons">
+                    <a href="#settings" class="explorer-button"><i class="ri-settings-5-fill"></i> Settings</a>
+                    <a href="#help" class="explorer-button"><i class="ri-question-fill"></i> Help & Info</a>
                 </div>
             </div>
         </div>
         <div id="menu" class="sheet-background">
-            <div id="home" data-active="true" class="sheet-section">
-                <div id="home-header" class="small-header quill-header">Home</div>
-                <div id="home-content" class="content">
-                    <div class="content-section">
-                        <p>Welcome to Chisel's Quill tool! This tool is used for building settings for play, and creating pages that can be accessed by players for reference. 
-                            Think of it as a tool for creating a Wiki for your setting.</p>
-                        <p>To get started, go to the Worlds section using the explorer on the left and create a new World! For more information, check the Help & Info section.</p>
-                        <div id="home-recent-header" class="small-header">Recent Items</div>
-                        <div id="home-recent">Your recently accessed worlds/objects will appear here, but you don't have any right now. Get creating!</div>
+            <div id="home" class="menu" data-active="false">
+                <div class="menu-header">Home</div>
+                <div class="content">a</div>
+            </div>
+            <div id="worlds" class="menu" data-active="false">
+                <div class="menu-header">Worlds</div>
+                <div class="content"></div>
+            </div>
+            <div id="overview" class="menu" data-active="false">
+                <div class="menu-header">Overview</div>
+                <div class="content"></div>
+            </div>
+            <div id="builder" class="menu" data-active="true">
+                <div class="menu-header">World Object Builder</div>
+                <div class="content">
+                    <div id="builder-list">
+                        <div class="small-header">World Objects</div>
+                        <div id="builder-list-display"></div>
+                        <button id="builder-list-add">Create New Object <i class='ri-add-box-fill'></i></button>
                     </div>
-                </div>
-            </div>
-            <div id="worlds" data-active="false" class="sheet-section">
-                <div id="worlds-header" class="small-header quill-header">Worlds</div>
-                <div id="worlds-content" class="content"></div>
-                <button>Add World</button>
-            </div>
-            <div id="overview" data-active="false" class="sheet-section">
-                <div id="overview-header" class="small-header quill-header">Overview</div>
-                <div id="overview-content" class="content"></div>
-            </div>
-            <div id="builder" data-active="false" class="sheet-section">
-                <div id="builder-header" class="small-header quill-header">World Object Builder</div>
-                <div id="builder-content" class="content">
-                    <div id="builder-content-list">
-                        <div id="builder-content-list-header" class="small-header quill-header">World Objects</div>
-                        <div id="builder-content-list-list"></div>
-                        <button id="builder-content-list-add-button">Create New Object <i class='ri-add-box-fill'></i></button>
-                    </div>
-                    <div id="builder-content-main">
-                        <div id="builder-content-main-header" class="small-header quill-header">Create Menu</div>
-                        <div id="builder-content-main-display">
-                            <div id="builder-content-main-display-quick-access" data-active-builder="true">
-                                <div id="builder-content-main-display-quick-access-desc">
-                                    Select an object below to create.
-                                </div>
-                                <div id="builder-content-main-display-quick-access-buttons"></div>
-                                <div id="builder-content-main-display-quick-access-blank"></div>
+                    <div id="builder-main">
+                        <div class="small-header">Create Menu</div>
+                        <div id="builder-main-display">
+                            <div id="builder-main-display-create" data-active="true">
+                                <div class="builder-desc">Select an object below to create.</div>
+                                <div id="builder-main-display-create-buttons"></div>
+                                <div class="empty-fill"></div>
                             </div>
-                            <form id="builder-content-main-display-builder" data-active-builder="false"></form>
-                            <div id="builder-content-main-display-preview" data-active-builder="false"></div>
-                            <div id="builder-content-main-display-switch">Switch to Preview</div>
+                            <form id="builder-main-display-form" data-active="false"></form>
+                            <div id="builder-main-display-preview" data-active="false"></div>
+                            <div id="builder-main-display-switch">Switch to Preview</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="maps" data-active="false" class="sheet-section">
-                <div id="maps-header" class="small-header quill-header">Maps</div>
-                <div id="maps-content" class="content"></div>
+            <div id="maps" class="menu" data-active="false">
+                <div class="menu-header">Maps</div>
+                <div class="content"></div>
             </div>
-            <div id="history" data-active="false" class="sheet-section">
-                <div id="history-header" class="small-header quill-header">History</div>
-                <div id="history-content" class="content"></div>
+            <div id="history" class="menu" data-active="false">
+                <div class="menu-header">History</div>
+                <div class="content"></div>
             </div>
-            <div id="campaigns" data-active="false" class="sheet-section">
-                <div id="campaigns-header" class="small-header quill-header">Campaigns</div>
-                <div id="campaigns-content" class="content"></div>
+            <div id="campaigns" class="menu" data-active="false">
+                <div class="menu-header">Campaigns</div>
+                <div class="content"></div>
             </div>
-            <div id="writing" data-active="false" class="sheet-section">
-                <div id="writing-header" class="small-header quill-header">Writing</div>
-                <div id="writing-content" class="content"></div>
+            <div id="writing" class="menu" data-active="false">
+                <div class="menu-header">Writing Tools</div>
+                <div class="content"></div>
             </div>
-            <div id="files" data-active="false" class="sheet-section">
-                <div id="files-header" class="small-header quill-header">Files</div>
-                <div id="files-content" class="content"></div>
+            <div id="files" class="menu" data-active="false">
+                <div class="menu-header">Files</div>
+                <div class="content"></div>
             </div>
-            <div id="settings" data-active="false" class="sheet-section">
-                <div id="settings-header" class="small-header quill-header">Settings</div>
-                <div id="settings-content" class="content"></div>
+            <div id="settings" class="menu" data-active="false">
+                <div class="menu-header">Settings</div>
+                <div class="content"></div>
             </div>
-            <div id="help" data-active="false" class="sheet-section">
-                <div id="help-header" class="small-header quill-header">Help & Info</div>
-                <div id="help-content" class="content"></div>
+            <div id="help" class="menu" data-active="false">
+                <div class="menu-header">Help & Info</div>
+                <div class="content"></div>
             </div>
         </div>
-        <div id="popup" data-popup="false">
-            <form id="popup-box" class="sheet-section">
-                <div id="popup-header">Popups be like</div>
-                <input type="text" id="popup-input" required>
-                <input type="submit" id="popup-button">
-            </form>
-        </div>
+        <div id="popup"></div>
 
         <script src="js/quill/classes.js"></script>
         <script src="js/quill/builder.js"></script>
-        <script src="js/quill/history.js"></script>
         <script src="js/quill/main.js"></script>
     </body>
 </html>

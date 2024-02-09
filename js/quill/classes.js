@@ -26,41 +26,39 @@ const formatString = (string, lower = true, hyphen = false) => {
 
 //object list folders and items
 class Folder {
-    constructor(plural, icon) {
-        this.plural = plural;
-        this.icon = icon;
+    constructor(name) {
+        this.name = name;
+        this.thisObj = builderObjects.find(e => formatString(e[1], false, false) == this.name);
+        this.plural = this.thisObj[1];
+        this.icon = this.thisObj[2];
         this.id = 'builder-list-folder-' + formatString(this.plural, true, true);
+        this.html = this.createHTML();
     }
     createHTML() {
         const listFolder = document.createElement('div');
         listFolder.id = this.id;
-        listFolder.classList.add('builder-list-folder');
+        listFolder.classList.add('folder');
+        listFolder.dataset.folder = this.plural;
 
         const folderCheck = document.createElement('input');
         folderCheck.type = 'checkbox';
         folderCheck.id = this.id + '-toggle';
-        folderCheck.classList.add('builder-list-folder-toggle');
+        folderCheck.classList.add('folder-toggle');
         listFolder.append(folderCheck);
 
         const folderLabel = document.createElement('label');
         folderLabel.htmlFor = folderCheck.id;
         folderLabel.id = this.id + '-label';
-        folderLabel.classList.add('builder-list-folder-label');
+        folderLabel.classList.add('folder-label');
         folderLabel.innerHTML = `<i class="ri-${this.icon}"></i> ${this.plural}`;
         listFolder.append(folderLabel);
 
         const listItems = document.createElement('div');
         listItems.id = this.id + '-items';
-        listItems.classList.add('builder-list-items');
+        listItems.classList.add('items');
         listFolder.append(listItems);
 
         return listFolder;
-    }
-    pushHTML() {
-        const list = document.querySelector('#builder-content-list-list');
-        if(list) {
-            list.append(this.createHTML());
-        }
     }
 }
 
@@ -69,56 +67,57 @@ class FolderItem {
         this.fileName = fileName;
         this.data = data;
         this.title = this.data.title.text;
-        this.id = 'builder-list-item-' + fileName.replace('.json', '');
-        this.folder = new Folder(this.data.type.plural, this.data.icon);
-        this.createFolder();
-    }
-    createFolder() {
-        if(!document.querySelector(`#${this.folder.id}`)) {
-            this.folder.pushHTML();
-        }
-        this.folder = null;
+        this.id = 'builder-item-' + fileName.replace('.json', '');
+        this.folder = folder;
+        this.html = this.createListItem();
     }
     createListItem() {
         const listItem = document.createElement('div');
         listItem.id = this.id;
-        listItem.classList.add('builder-list-item');
+        listItem.classList.add('item');
         listItem.innerHTML = this.title;
+        listItem.dataset.parentFolder = this.folder;
 
         return listItem;
     }
 }
 
-// builders
+//builders
 class Builder {
-    constructor(type, icon, plural) {
+    constructor(type, plural, icon) {
         this.type = type;
-        this.icon = icon;
         this.plural = plural;
+        this.icon = icon;
         this.html = [];
         this.header = `Builder - ${type}`;
         this.text('builder-title', `${this.type} Title`, null, null);
         this.box('builder-desc', `${this.type} Description`, null, null);
         this.html.push(this.addLinkCheck('builder-checkbox-link', 'Should this object get auto-linked in other objects?'));
-        this.save();
         this.html.push(this.addNote());
         this.box('builder-gm-notes', `GM Notes`, null, false);
     }
     addNote() {
         const newNote = document.createElement('div');
-        newNote.id = 'builder-content-main-display-note';
+        newNote.id = 'obj-note';
         newNote.classList.add('note');
         newNote.innerHTML = '<i class="ri-eye-fill"></i> = can be seen by players, <i class="ri-eye-close-fill"></i> = cannot be seen by players. Click to toggle';
-
+    
         return newNote;
     }
+    addSaveButton() {
+        const newSaveButton = document.createElement('input');
+        newSaveButton.type = 'submit';
+        newSaveButton.classList.add('builder-save-button');
+        newSaveButton.value = 'Save Object';
+
+        return newSaveButton;
+    }
     addTextInput(id, label, desc, eye = true) {
-        const newPair = document.createElement('div');
-        newPair.classList.add('pair');
+        const newCont = document.createElement('div');
+        newCont.classList.add('container');
         
         const newLabel = document.createElement('label');
         newLabel.id = id + '-label';
-        newLabel.for = id;
         if(eye == true) {
             newLabel.innerHTML = `${label} <input type="checkbox" id="${id}-eye" class="eye-checkbox" checked><label for="${id}-eye" class="eye-checkbox-label"></label>`
         } else if(eye == false) {
@@ -138,26 +137,29 @@ class Builder {
         }
 
         if(id == 'builder-title') {
+            const newWrap = document.createElement('div');
+            newWrap.id = 'builder-title-wrapper';
             newInput.required = true;
-            newPair.append(newInput);
-            newPair.append(newLabel);
+            newWrap.append(newInput);
+            newWrap.append(this.addSaveButton());
+            newCont.append(newWrap);
+            newCont.append(newLabel);
         } else {
-            newPair.append(newLabel);
-            newPair.append(newInput);
+            newCont.append(newLabel);
+            newCont.append(newInput);
         }
         if(newDesc) {
-            newPair.append(newDesc);
+            newCont.append(newDesc);
         }
 
-        return newPair;
+        return newCont;
     }
     addTextbox(id, label, desc, eye = true) {
-        const newPair = document.createElement('div');
-        newPair.classList.add('pair');
+        const newCont = document.createElement('div');
+        newCont.classList.add('container');
         
         const newLabel = document.createElement('label');
         newLabel.id = id + '-label';
-        newLabel.for = id;
         if(eye == true) {
             newLabel.innerHTML = `${label} <input type="checkbox" id="${id}-eye" class="eye-checkbox" checked><label for="${id}-eye" class="eye-checkbox-label"></label>`
         } else if(eye == false) {
@@ -175,17 +177,17 @@ class Builder {
             newDesc.innerHTML = desc;
         }
 
-        newPair.append(newLabel);
-        newPair.append(newTextbox);
+        newCont.append(newLabel);
+        newCont.append(newTextbox);
         if(newDesc) {
-            newPair.append(newDesc);
+            newCont.append(newDesc);
         }
 
-        return newPair;
+        return newCont;
     }
     addSelect(id, label, desc, eye = true) {
-        const newPair = document.createElement('div');
-        newPair.classList.add('pair');
+        const newCont = document.createElement('div');
+        newCont.classList.add('container');
         
         const newLabel = document.createElement('label');
         newLabel.id = id + '-label';
@@ -288,17 +290,17 @@ class Builder {
         newAddButton.innerHTML = '<i class="ri-add-box-fill"></i> Create and Link a New Object';
         newSelectBox.append(newAddButton);
 
-        newPair.append(newLabel);
-        newPair.append(newSelectBox);
+        newCont.append(newLabel);
+        newCont.append(newSelectBox);
         if(newDesc) {
-            newPair.append(newDesc);
+            newCont.append(newDesc);
         }
 
-        return newPair;
+        return newCont;
     }
     addRadio(id, label, desc, items = [], eye = true) {
-        const newPair = document.createElement('div');
-        newPair.classList.add('pair');
+        const newCont = document.createElement('div');
+        newCont.classList.add('container');
         
         const newLabel = document.createElement('label');
         newLabel.id = id + '-label';
@@ -339,51 +341,25 @@ class Builder {
             newDesc.innerHTML = desc;
         }
 
-        newPair.append(newLabel);
-        newPair.append(radioDiv);
+        newCont.append(newLabel);
+        newCont.append(radioDiv);
 
         if(newDesc) {
-            newPair.append(newDesc);
+            newCont.append(newDesc);
         }
 
-        return newPair;
+        return newCont;
     }
     addLinkCheck(id, label) {
-        const newPair = document.createElement('div');
-        newPair.classList.add('pair');
+        const newCont = document.createElement('div');
+        newCont.classList.add('container');
         
         const newLabel = document.createElement('label');
         newLabel.id = id;
         newLabel.innerHTML = `${label} <input type="checkbox" id="${id}-checkbox" class="link-checkbox" checked><label for="${id}-checkbox" class="link-checkbox-label"></label>`
-        newPair.append(newLabel);
+        newCont.append(newLabel);
 
-        return newPair;
-    }
-    addSaveButton() {
-        const newSaveButton = document.createElement('input');
-        newSaveButton.type = 'submit';
-        newSaveButton.classList.add('builder-save-button');
-        newSaveButton.value = 'Save Object';
-
-        return newSaveButton;
-    }
-    pushHTML() {
-        const header = document.querySelector('#builder-content-main-header');
-        header.innerHTML = this.header;
-        const builder = document.querySelector('#builder-content-main-display-builder');
-        if(builder) {
-            const typeID = document.createElement('div');
-            typeID.dataset.active = false;
-            typeID.id = 'builder-obj-type';
-            typeID.dataset.type = this.type;
-            typeID.dataset.icon = this.icon;
-            typeID.dataset.plural = this.plural;
-            builder.append(typeID);
-
-            for(let i = 0; i < this.html.length; i++) {
-                builder.append(this.html[i]);
-            }
-        }
+        return newCont;
     }
     text(id, label, desc, eye = true) {
         this.html.push(this.addTextInput(id, label, desc, eye));
@@ -597,39 +573,33 @@ class BuilderVehicle extends Builder {
 }
 
 const builderObjects = [
-    ['Building', 'home-3-fill', 'Buildings', BuilderBuilding],
-    ['Celestial Body', 'moon-fill', 'Celestial Bodies', BuilderCelestialBody],
-    ['Character', 'user-fill', 'Characters', BuilderCharacter],
-    ['Condition', 'alert-fill', 'Conditions', BuilderCondition],
-    ['Conflict', 'sword-fill', 'Conflicts', BuilderConflict],
-    ['Country', 'government-fill', 'Countries', BuilderCountry],
-    ['Currency', 'coins-fill', 'Currencies', BuilderCurrency],
-    ['Deity', 'psychotherapy-fill', 'Deities', BuilderDeity],
-    ['Document', 'file-paper-2-fill', 'Documents', BuilderDocument],
-    ['Ethnicity', 'walk-fill', 'Ethnicities', BuilderEthnicity],
-    ['Geographic Location', 'landscape-fill', 'Geographic Locations', BuilderGeographicLocation],
-    ['Item', 'key-2-fill', 'Items', BuilderItem],
-    ['Landmark', 'building-2-fill', 'Landmarks', BuilderLandmark],
-    ['Language', 'character-recognition-fill', 'Languages', BuilderLanguage],
-    ['Material', 'box-3-fill', 'Materials', BuilderMaterial],
-    ['Military', 'honour-fill', 'Militaries', BuilderMilitary],
-    ['Myth', 'book-2-fill', 'Myths', BuilderMyth],
-    ['Natural Law', 'flashlight-fill', 'Natural Laws', BuilderNaturalLaw],
-    ['Organization', 'team-fill', 'Organizations', BuilderOrganization],
-    ['Profession', 'account-box-fill', 'Professions', BuilderProfession],
-    ['Religion', 'sparkling-fill', 'Religions', BuilderReligion],
-    ['Rule', 'dice-fill', 'Rules', BuilderRule],
-    ['Settlement', 'community-fill', 'Settlements', BuilderSettlement],
-    ['Species', 'aliens-fill', 'Species', BuilderSpecies],
-    ['Spell', 'fire-fill', 'Spells', BuilderSpell],
-    ['Technology', 'flask-fill', 'Technologies', BuilderTechnology],
-    ['Title', 'vip-crown-fill', 'Titles', BuilderTitle],
-    ['Tradition', 'chat-history-fill', 'Traditions', BuilderTradition],
-    ['Vehicle', 'riding-line', 'Vehicles', BuilderVehicle]
+    ['Building', 'Buildings', 'home-3-fill', BuilderBuilding],
+    ['Celestial Body', 'Celestial Bodies', 'moon-fill', BuilderCelestialBody],
+    ['Character', 'Characters', 'user-fill', BuilderCharacter],
+    ['Condition', 'Conditions', 'alert-fill', BuilderCondition],
+    ['Conflict', 'Conflicts', 'sword-fill', BuilderConflict],
+    ['Country', 'Countries', 'government-fill', BuilderCountry],
+    ['Currency', 'Currencies', 'coins-fill', BuilderCurrency],
+    ['Deity', 'Deities', 'psychotherapy-fill', BuilderDeity],
+    ['Document', 'Documents', 'file-paper-2-fill', BuilderDocument],
+    ['Ethnicity', 'Ethnicities', 'walk-fill', BuilderEthnicity],
+    ['Geographic Location', 'Geographic Locations', 'landscape-fill', BuilderGeographicLocation],
+    ['Item', 'Items', 'key-2-fill', BuilderItem],
+    ['Landmark', 'Landmarks', 'building-2-fill', BuilderLandmark],
+    ['Language', 'Languages', 'character-recognition-fill', BuilderLanguage],
+    ['Material', 'Materials', 'box-3-fill', BuilderMaterial],
+    ['Military', 'Militaries', 'honour-fill', BuilderMilitary],
+    ['Myth', 'Myths', 'book-2-fill', BuilderMyth],
+    ['Natural Law', 'Natural Laws', 'flashlight-fill', BuilderNaturalLaw],
+    ['Organization', 'Organizations', 'team-fill', BuilderOrganization],
+    ['Profession', 'Professions', 'account-box-fill', BuilderProfession],
+    ['Religion', 'Religions', 'sparkling-fill', BuilderReligion],
+    ['Rule', 'Rules', 'dice-fill', BuilderRule],
+    ['Settlement', 'Settlements', 'community-fill', BuilderSettlement],
+    ['Species', 'Species', 'aliens-fill', BuilderSpecies],
+    ['Spell', 'Spells', 'fire-fill', BuilderSpell],
+    ['Technology', 'Technologies', 'flask-fill', BuilderTechnology],
+    ['Title', 'Titles', 'vip-crown-fill', BuilderTitle],
+    ['Tradition', 'Traditions', 'chat-history-fill', BuilderTradition],
+    ['Vehicle', 'Vehicles', 'riding-line', BuilderVehicle]
 ]
-
-// builderObjects.forEach(item => {
-//     let newFolder = new Folder(item[2], item[1]);
-//     newFolder.pushHTML();
-//     newFolder = null;
-// });
