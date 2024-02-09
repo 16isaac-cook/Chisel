@@ -13,11 +13,11 @@ const mainSwitch = mainDisplay.querySelector('#builder-main-display-switch');
 let openedBuilder = false;
 let preview = false;
 let builderWorld = '';
-const savedObjects = [];
+let savedObjects = [];
 
 const populateList = (files = []) => {
+    savedObjects = [];
     if(typeof files != 'string' && files.length) {
-        console.log('Files', files)
         //getting data
         files.forEach(file => {
             if(!savedObjects.find(element => element.folder == file.folder)){
@@ -26,12 +26,13 @@ const populateList = (files = []) => {
         });
     }
 
+    while(listDisplay.firstChild) {
+        listDisplay.removeChild(listDisplay.lastChild);
+    }
     savedObjects.forEach(item => {
         if(builderObjects.find(e => formatString(e[1], false, false) == item.folder)) {
             let newFolder = new Folder(item.folder);
-            if(!document.querySelector(`[data-folder="${newFolder.plural}"]`)) {
-                listDisplay.append(newFolder.html);
-            }
+            listDisplay.append(newFolder.html);
 
             item.files.forEach(file => {
                 let newFolderItem = new FolderItem(file.fileName, JSON.parse(file.data), newFolder.plural);
@@ -53,36 +54,83 @@ const populateList = (files = []) => {
             newFolder = null;
         }
     });
-
-    const builderList = document.querySelector('#builder-list-display');
-    builderList.addEventListener('click', e => {
-        if(e.target.classList.contains('item')) {
-            const thisItem = e.target.id.replace('builder-item-', '') + '.json';
-            const thisFolder = savedObjects.find(obj => obj.folder == formatString(e.target.dataset.parentFolder, false, false));
-            const itemData = thisFolder.files.find(obj => obj.fileName == thisItem);
-            const thisObj = builderObjects.find(obj => obj[1] == e.target.dataset.parentFolder);
-            switchToBuilder(thisObj, itemData);
-        }
-    });
 };
 
 const makeCreateMenu = () => {
+    const buttons = mainCreate.querySelector('#builder-main-display-create-buttons');
+    while(buttons.firstChild) {
+        buttons.removeChild(buttons.lastChild);
+    }
     builderObjects.forEach(obj => {
-        
+        const text = obj[0];
+        const textMod = formatString(text);
+        const icon = obj[2];
+
+        const objButton = document.createElement('a');
+        objButton.href = `#${textMod}`;
+        objButton.classList.add('object-button');
+        objButton.dataset.type = obj[1];
+
+        const objButtonIcon = document.createElement('div');
+        objButtonIcon.classList.add('icon');
+        objButtonIcon.innerHTML = `<i class="ri-${icon}"></i>`;
+        objButton.append(objButtonIcon);
+
+        const objButtonText = document.createElement('div');
+        objButtonText.classList.add('text');
+        objButtonText.innerHTML = text;
+        objButton.append(objButtonText);
+
+        buttons.append(objButton);
     });
+
+    const shownEle = mainDisplay.querySelector('[data-active=true]');
+    shownEle.dataset.active = false;
+    mainCreate.dataset.active = true;
 };
 
-const switchToBuilder = (builderObj, itemData) => {
-    while(mainForm.lastChild) {
-        mainForm.firstChild.remove();
+const switchToBuilder = (builderObj, itemData = null) => {
+    while(mainForm.firstChild) {
+        mainForm.removeChild(mainForm.lastChild);
     }
     let newObj = new builderObj[3](builderObj[0]);
     newObj.html.forEach(ele => {
         mainForm.append(ele);
     });
+
+    if(itemData) {
+        const jsonData = JSON.parse(itemData);
+        
+        for(const [key, val] of Object.entries(jsonData)) {
+            if(key == 'title') {
+                mainForm.querySelector('#builder-title').value = val;
+            } else if (key == 'description') {
+                mainForm.querySelector('#builder-desc').value = val;
+            } else if (key == 'gm-notes') {
+                mainForm.querySelector(`#builder-${key}`).value = val.value;
+                mainForm.querySelector(`#builder-${key}-label`).querySelector('.eye-checkbox').checked = val.visible;
+            } else if (key == 'extra') {
+                for(const [exKey, exVal] of Object.entries(val)) {
+                    if(exKey == 'type') {
+                        mainForm.querySelector(`[name="builder-${exKey}"][value="${exVal.value}"]`).checked = true;
+                        mainForm.querySelector(`#builder-${exKey}-label`).querySelector('.eye-checkbox').checked = exVal.visible;
+                    } else {
+                        mainForm.querySelector(`#builder-${exKey}`).value = exVal.value;
+                        mainForm.querySelector(`#builder-${exKey}-label`).querySelector('.eye-checkbox').checked = exVal.visible;
+                    }
+                }
+            }
+        }
+
+        mainForm.dataset.filename = jsonData.id;
+    } else {
+        mainForm.dataset.filename = '';
+    }
+
     const shownEle = mainDisplay.querySelector('[data-active=true]');
     shownEle.dataset.active = false;
     mainForm.dataset.active = true;
+    mainForm.dataset.folder = formatString(builderObj[1], false, false);
 };
 
 const createObject = () => {
@@ -95,7 +143,7 @@ const createObject = () => {
                 const queryText = child.querySelector('input[type="text"]');
                 const queryArea = child.querySelector('textarea');
                 const querySelect = child.querySelector('select');
-                const queryRadio = child.querySelector('input[type="radio"]');
+                const queryRadio = child.querySelectorAll('input[type="radio"]');
                 const queryEye = child.querySelector('.eye-checkbox');
                 const queryLink = child.querySelector('#builder-checkbox-link-checkbox');
 
@@ -108,6 +156,11 @@ const createObject = () => {
                 if(queryText) {
                     const thisID = queryText.id.replace('builder-', '');
                     if(thisID == 'title') {
+                        if(mainForm.dataset.filename) {
+                            outputObj['id'] = mainForm.dataset.filename;
+                        } else {
+                            outputObj['id'] = formatString(queryText.value, true, true);
+                        }
                         outputObj['title'] = queryText.value;
                     }
                     else {
@@ -139,27 +192,33 @@ const createObject = () => {
                     if(!('extra' in outputObj)) {
                         outputObj['extra'] = {};
                     }
-                    outputObj['extra'][thisID] = {value: queryArea.value, visible: thisEye};
+                    outputObj['extra'][thisID] = {value: querySelect.value, visible: thisEye};
                 }
                 //radio
                 if(queryRadio) {
-                    const thisID = querySelect.id.replace('builder-', '');
-                    if(!('extra' in outputObj)) {
-                        outputObj['extra'] = {};
-                    }
-                    outputObj['extra'][thisID] = {value: queryRadio.value, visible: thisEye};
+                    queryRadio.forEach(radio => {
+                        if(radio.checked) {
+                            const thisID = radio.name.replace('builder-', '');
+                            if(!('extra' in outputObj)) {
+                                outputObj['extra'] = {};
+                            }
+                            outputObj['extra'][thisID] = {value: radio.value, visible: thisEye};
+                        }
+                    });
                 }
-            }
-            else {
-                console.log('Not a container.');
             }
         });
     }
-    console.log(outputObj);
+
+    makeCreateMenu();
+    return outputObj;
 };
 
-const createJSONFile = () => {
-
+const createJSONFile = (obj, folder) => {
+    const name = formatString(obj.id, true, true);
+    electronAPI.writeJSON(JSON.stringify(obj, null, '\t'), name, `quill/${builderWorld}/${folder}`)
+        .then(() => initiateBuilder(builderWorld))
+        .catch(err => console.error(err));
 };
 
 const switchDisplay = () => {
@@ -177,9 +236,38 @@ const initiateBuilder = world => {
         });
 };
 
+list.addEventListener('click', e => {
+    if(e.target.classList.contains('item')) {
+        const thisItem = e.target.id.replace('builder-item-', '') + '.json';
+        const thisFolder = savedObjects.find(obj => obj.folder == formatString(e.target.dataset.parentFolder, false, false));
+        const itemData = thisFolder.files.find(obj => obj.fileName == thisItem);
+        const thisObj = builderObjects.find(obj => obj[1] == e.target.dataset.parentFolder);
+        switchToBuilder(thisObj, itemData.data);
+    } else if(e.target.id == 'builder-list-add') {
+        makeCreateMenu();
+    }
+});
+
 mainForm.addEventListener('submit', e => {
     e.preventDefault();
-    createObject();
+    createJSONFile(createObject(), mainForm.dataset.folder);
+});
+
+mainCreate.addEventListener('click', e => {
+    if(e.target.classList.contains('object-button')) {
+        const thisType = e.target.dataset.type;
+        const thisObj = builderObjects.find(obj => obj[1] == thisType);
+        switchToBuilder(thisObj);
+    } else if(e.target.parentElement.classList.contains('object-button')) {
+        const thisType = e.target.parentElement.dataset.type;
+        const thisObj = builderObjects.find(obj => obj[1] == thisType);
+        switchToBuilder(thisObj);
+    } else if(e.target.parentElement.parentElement.classList.contains('object-button')) {
+        const thisType = e.target.parentElement.parentElement.dataset.type;
+        const thisObj = builderObjects.find(obj => obj[1] == thisType);
+        switchToBuilder(thisObj);
+    }
 });
 
 initiateBuilder('TheLand_ALookintoTheDepthsofUltra-Magic');
+makeCreateMenu();

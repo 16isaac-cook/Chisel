@@ -14,6 +14,9 @@ const formatString = (string, lower = true, hyphen = false) => {
         .replaceAll('<', '')
         .replaceAll('>', '')
         .replaceAll('|', '')
+        .replaceAll(',', '')
+        .replaceAll('(', '')
+        .replaceAll(')', '')
         .replaceAll("'", '');
 
     if(lower) {
@@ -66,7 +69,7 @@ class FolderItem {
     constructor(fileName, data, folder) {
         this.fileName = fileName;
         this.data = data;
-        this.title = this.data.title.text;
+        this.title = this.data.title;
         this.id = 'builder-item-' + fileName.replace('.json', '');
         this.folder = folder;
         this.html = this.createListItem();
