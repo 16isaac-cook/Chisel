@@ -74,29 +74,6 @@ explorer.addEventListener('click', e => {
     }
 });
 
-//code for select boxes
-function closeAllSelect(elmnt) {
-    /* A function that will close all select boxes in the document,
-    except the current select box: */
-    var x, y, i, xl, yl, arrNo = [];
-    x = document.getElementsByClassName("select-items");
-    y = document.getElementsByClassName("select-selected");
-    xl = x.length;
-    yl = y.length;
-    for (i = 0; i < yl; i++) {
-        if (elmnt == y[i]) {
-            arrNo.push(i)
-        } else {
-            y[i].classList.remove("select-arrow-active");
-            }
-    }
-    for (i = 0; i < xl; i++) {
-        if (arrNo.indexOf(i)) {
-            x[i].classList.add("select-hide");
-        }
-    }
-}
-
 const createWorld = () => {
     const explorerList = document.querySelector('#explorer-world');
     const explorerHeader = explorerList.querySelector('.small-header');
@@ -108,12 +85,6 @@ const createWorldList = () => {
     //create world list :p
 };
 
-//If the user clicks anywhere outside the select box, then close all select boxes:
-document.addEventListener("click", closeAllSelect); 
-
-// document.querySelector('#worlds').querySelector('button').addEventListener('click', e => {
-//     worldNamePopup();
-// });
 createWorld();
 
 document.querySelector('#title-bar').addEventListener('click', e => {

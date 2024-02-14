@@ -103,7 +103,8 @@ a {
 
 .no-spin {
   -moz-appearance: textfield;
-  appearance: textfield;
+  -webkit-appearance: textfield;
+          appearance: textfield;
   background-color: #312b36;
   text-align: center;
   border: none;
@@ -137,7 +138,6 @@ a {
   right: 0;
   bottom: 0;
   background-color: #918d94;
-  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -149,7 +149,6 @@ a {
   left: 0.125em;
   bottom: 0.125em;
   background-color: white;
-  -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
@@ -162,8 +161,6 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(1em);
-  -ms-transform: translateX(1em);
   transform: translateX(1em);
 }
 
@@ -193,7 +190,10 @@ input:checked + .slider:before {
 }
 
 label {
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
@@ -263,13 +263,14 @@ label {
 }
 #popup #popup-box #popup-header {
   margin-bottom: 0.3em;
+  font-size: 32px;
 }
 #popup #popup-box #popup-button {
   margin-top: 0.3em;
   width: 50%;
 }
 
-#popup[data-popup=true] {
+#popup[data-active=true] {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -430,7 +431,10 @@ label {
   border-radius: 5px;
   width: 100%;
   cursor: pointer;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 #menu #builder .content #builder-list-display .folder .folder-label i {
   font-size: inherit;
@@ -477,7 +481,10 @@ label {
   margin-bottom: 0.3em;
   border-radius: 5px;
   cursor: pointer;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   overflow-x: hidden;
 }
 #menu #builder .content #builder-list-display .folder .items .item:last-of-type {
@@ -537,6 +544,8 @@ label {
   padding: 0.6em;
 }
 #menu #builder .content #builder-main-display-create-buttons .object-button {
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
   display: flex;
   flex-direction: column;
@@ -659,71 +668,21 @@ label {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  /* Style the arrow inside the select element: */
-  /* Point the arrow upwards when the select box is open (active): */
-  /* style the items (options), including the selected item: */
-  /* Style items (options): */
-  /* Hide the items when the select box is closed: */
 }
-#menu #builder .content #builder-main-display-form .container .select-box .select {
-  position: relative;
-  flex: 1 0 auto;
+#menu #builder .content #builder-main-display-form .container .select-box select {
+  flex: 1 1 100%;
   margin-right: 0.3em;
 }
-#menu #builder .content #builder-main-display-form .container .select-box .select select {
-  display: none;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-selected {
-  background-color: #47424c;
-  border: none;
-  border-radius: 5px;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-selected:after {
-  position: absolute;
-  content: "";
-  top: 14px;
-  right: 10px;
-  width: 0;
-  height: 0;
-  border: 6px solid transparent;
-  border-color: #fff transparent transparent transparent;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-selected[data-count="0"] {
-  color: #cacaca;
-  font-style: italic;
-  text-decoration: line-through;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-selected.select-arrow-active:after {
-  border-color: transparent transparent #fff transparent;
-  top: 7px;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-items div, #menu #builder .content #builder-main-display-form .container .select-box .select-selected {
-  color: #ffffff;
-  padding: 8px 16px;
-  border: 1px solid transparent;
-  cursor: pointer;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-items {
-  position: absolute;
-  background-color: #47424c;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 99;
-  border-radius: 5px;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-hide {
-  display: none;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-items div:hover, #menu #builder .content #builder-main-display-form .container .select-box .same-as-selected {
-  background-color: rgba(0, 0, 0, 0.1);
+#menu #builder .content #builder-main-display-form .container .select-box a {
+  flex: 1 0 auto;
 }
 #menu #builder .content #builder-main-display-form .container div.radio {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
-  column-gap: 0.3em;
+  -moz-column-gap: 0.3em;
+       column-gap: 0.3em;
   row-gap: 0.3em;
 }
 #menu #builder .content #builder-main-display-form .container div.radio input[type=radio] {
@@ -806,7 +765,10 @@ label {
   align-items: flex-end;
   cursor: pointer;
   margin-top: 0.3em;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 #menu #builder .content #builder-main-display-switch:hover {
   color: #fff;
