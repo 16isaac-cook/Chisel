@@ -262,12 +262,16 @@ label {
   font-size: inherit;
 }
 #popup #popup-box #popup-header {
-  margin-bottom: 0.3em;
   font-size: 32px;
 }
-#popup #popup-box #popup-button {
+#popup #popup-box label {
   margin-top: 0.3em;
-  width: 50%;
+}
+#popup #popup-box input[type=text] {
+  text-align: center;
+}
+#popup #popup-box input[type=submit] {
+  margin-top: 0.6em;
 }
 
 #popup[data-active=true] {

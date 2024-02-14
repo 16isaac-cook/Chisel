@@ -74,18 +74,9 @@ explorer.addEventListener('click', e => {
     }
 });
 
-const createWorld = () => {
-    const explorerList = document.querySelector('#explorer-world');
-    const explorerHeader = explorerList.querySelector('.small-header');
-    explorerList.dataset.active = true;
-    explorerHeader.innerHTML = currentWorld;
-};
-
 const createWorldList = () => {
     //create world list :p
 };
-
-createWorld();
 
 document.querySelector('#title-bar').addEventListener('click', e => {
     electronAPI.writeJSON('cring', 'spell-2', 'pathfinder/templates', 'super-spell')

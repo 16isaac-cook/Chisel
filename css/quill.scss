@@ -34,13 +34,19 @@
         }
 
         #popup-header {
-            margin-bottom: 0.3em;
             font-size: universal.$font-big;
         }
 
-        #popup-button {
+        label {
             margin-top: 0.3em;
-            width: 50%;
+        }
+
+        input[type=text] {
+            text-align: center;
+        }
+
+        input[type=submit] {
+            margin-top: 0.6em;
         }
     }
 }

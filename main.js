@@ -112,6 +112,8 @@ const readDir = (filePath = '') => {
                     return readJSON(file, filePath)
                         .then(data => ({ fileName: file, data: data }))
                         .catch(err => { throw err; });
+                } else {
+                    return { fileName: '', data: `Non-json file, ${file}` };
                 }
             }));
         })
