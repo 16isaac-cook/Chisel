@@ -1,97 +1,154 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const url = require('url');
 const path = require('path');
-const fs = require('fs');
+const fs = require('fs').promises;
 const util = require('util');
 const windowStateKeeper = require('electron-window-state');
 try {
 	require('electron-reloader')(module);
 } catch {}
 
-const readFileAsync = util.promisify(fs.readFile);
-const writeFileAsync = util.promisify(fs.writeFile);
-const readdirAsync = util.promisify(fs.readdir);
-const mkdirAsync = util.promisify(fs.mkdir);
-
 let devMode = true;
 
 let win;
 
-async function writeJSON(data, name, filePath = '') {
-    const fullPath = path.join(__dirname, `json/${filePath}/`);
+const fileNaming = (name, filePath = '') => {
     if(!name.includes('.json')) {
         name = name + '.json';
     }
-    const jsonPath = path.join(fullPath, `${name}`);
 
-    return mkdirAsync(fullPath, { recursive: true })
-        .then(() => writeFileAsync(jsonPath, data))
-        .then(() => console.log(`Created file ${name} at ${fullPath}`))
-        .catch(err => {
-            console.error(`Error creating file: ${err.message}`);
-            throw err;
-        });
+    return readDir(filePath)
+        .then(files => {
+            let newName = name;
+            let checking = true;
+            let number = 2;
+            let renamed = false;
+            while(checking) {
+                files.forEach(file => {
+                    console.log(`Comparing ${file.fileName} & ${newName}`);
+                    if(file.fileName == newName) {
+                        if(number == 2) {
+                            if(file.fileName.includes(`-${number}.json`)) {
+                                newName = newName.replace(`-${number}.json`, `-${number + 1}.json`);
+                                number++;
+                            } else {
+                                newName = newName.replace('.json', `-${number}.json`);
+                            }
+                        } else {
+                            newName = newName.replace(`-${number}.json`, `-${number + 1}.json`);
+                            number++
+                        }
+                        renamed = true;
+                    } else {
+                        renamed = false;
+                    }
+                });
+                if(!renamed) {
+                    checking = false;
+                }
+            }
+            return newName;
+        })
+        .catch(err => { throw err; });
 }
 
-async function readJSON(name, filePath = '') {
+const writeJSON = async (data, name, filePath = '', rename = '') => {
     const fullPath = path.join(__dirname, `json/${filePath}/`);
     if(!name.includes('.json')) {
         name = name + '.json';
     }
     const jsonPath = path.join(fullPath, `${name}`);
 
-    return readFileAsync(jsonPath, 'utf8')
+    if(rename != '') {
+        const checkNewName = await fileNaming(rename, filePath)
+            .then(newName => newName)
+            .catch(err => {throw err;});
+        const newPath = path.join(fullPath, `${checkNewName}`);
+        return fs.mkdir(fullPath, { recursive: true })
+            .then(() => {
+                return fs.writeFile(jsonPath, data)
+                    .then(() => `Created file ${checkNewName} at ${fullPath}`)
+                    .catch(err => {throw err;});
+            }).then(() => {
+                return fs.rename(jsonPath, newPath)
+                    .then(() => `Renamed ${name} to ${checkNewName}`)
+                    .catch(err => { throw err; });
+            })
+            .catch(err => {throw err;});
+    } else {
+        const checkNewName = await fileNaming(name, filePath)
+            .then(newName => newName)
+            .catch(err => {throw err;});
+        const newPath = path.join(fullPath, `${checkNewName}`);
+        return fs.mkdir(fullPath, { recursive: true })
+            .then(() => {
+                return fs.writeFile(newPath, data)
+                    .then(() => `Created file ${checkNewName} at ${fullPath}`)
+                    .catch(err => {throw err;});
+            })
+            .catch(err => {throw err;});
+    }
+}
+
+const readJSON = (name, filePath = '') => {
+    const fullPath = path.join(__dirname, `json/${filePath}/`);
+    if (!name.includes('.json')) {
+        name = name + '.json';
+    }
+    const jsonPath = path.join(fullPath, `${name}`);
+
+    return fs.readFile(jsonPath, 'utf8')
         .then(data => data)
         .catch(err => { throw err; });
 }
 
-async function readDir(filePath = '') {
+const readDir = (filePath = '') => {
     const fullPath = path.join(__dirname, `json/${filePath}/`);
 
-    return readdirAsync(fullPath)
+    return fs.readdir(fullPath)
         .then(files => {
-            const filePromises = files.map(file => {
-                return readJSON(file, filePath)
+            return Promise.all(files.map(file => {
+                if(file.includes('.json')) {
+                    return readJSON(file, filePath)
                         .then(data => ({ fileName: file, data: data }))
                         .catch(err => { throw err; });
-            });
-
-            return Promise.all(filePromises);
+                }
+            }));
         })
-        .catch(err => {
-            if(err.code === 'ENOENT') {
-                return mkdirAsync(fullPath, { recursive: true })
-                    .then(() => `File path was not found at "${fullPath}", created it for the future.`)
-                    .catch(err => {
-                        console.error(`Error creating file: ${err.message}`);
-                        throw err;
-                    });
-            } else {
-                throw err;
-            }
-        })
+        .catch(err => { 
+            console.log(`${fullPath} not found, creating...`);
+            return fs.mkdir(fullPath, { recursive: true })
+                .then(() => {
+                    return fs.readdir(fullPath)
+                        .then(files => {
+                            return Promise.all(files.map(file => {
+                                if(file.includes('.json')) {
+                                    return readJSON(file, filePath)
+                                    .then(data => ({ fileName: file, data: data }))
+                                    .catch(err => { throw err; });
+                                }
+                            }));
+                        })
+                        .catch(err => { throw err; });
+                })
+                .catch(err => {throw err;});
+        });
 }
 
-async function getWorldObjects(filePath = '') {
+const getWorldObjects = (filePath = '') => {
     const fullPath = path.join(__dirname, `json/${filePath}/`);
-    const getFolders = await readdirAsync(fullPath)
-        .then(files => {
-            const folders = [];
-            files.forEach(file => {
-                if(!file.includes('.json')) {
-                    folders.push(file);
-                }
-            });
-            return folders;
+
+    return fs.readdir(fullPath)
+        .then(folders => {
+            const onlyFolders = folders.filter(folder => !folder.includes('.'));
+
+            return Promise.all(onlyFolders.map(folder => {
+                return readDir(`${filePath}/${folder}`)
+                    .then(data => ({ folder, files: data }))
+                    .catch(err => { throw err; });
+            }));
         })
-        .catch(err => { throw err });
-    const newFiles = getFolders.map(folder => {
-        return readDir(`${filePath}/${folder}`)
-            .then(data => ({folder: folder, files: data}))
-            .catch(err => { throw err; });
-    });
-    
-    return Promise.all(newFiles);
+        .catch(err => { throw err; });
 }
 
 function createWindow() {
@@ -134,7 +191,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-    ipcMain.handle('writeJSON', async (e, data, name, filePath) => await writeJSON(data, name, filePath));
+    ipcMain.handle('writeJSON', async (e, data, name, filePath, rename) => await writeJSON(data, name, filePath, rename));
     ipcMain.handle('readJSON', async (e, name, filePath) => await readJSON(name, filePath));
     ipcMain.handle('readDir', async (e, filePath) => await readDir(filePath));
     ipcMain.handle('getWorldObjects', async (e, filePath) => await getWorldObjects(filePath));

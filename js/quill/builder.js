@@ -90,7 +90,7 @@ const makeCreateMenu = () => {
     mainCreate.dataset.active = true;
 };
 
-const switchToBuilder = (builderObj, itemData = null) => {
+const switchToBuilder = (builderObj, itemData = null, imported = false) => {
     while(mainForm.firstChild) {
         mainForm.removeChild(mainForm.lastChild);
     }
@@ -125,7 +125,7 @@ const switchToBuilder = (builderObj, itemData = null) => {
             }
         }
 
-        mainForm.dataset.filename = jsonData.id;
+        mainForm.dataset.filename = formatString(jsonData.title, true, true);
     } else {
         mainForm.dataset.filename = '';
     }
@@ -159,11 +159,6 @@ const createObject = () => {
                 if(queryText) {
                     const thisID = queryText.id.replace('builder-', '');
                     if(thisID == 'title') {
-                        if(mainForm.dataset.filename) {
-                            outputObj['id'] = mainForm.dataset.filename;
-                        } else {
-                            outputObj['id'] = formatString(queryText.value, true, true);
-                        }
                         outputObj['title'] = queryText.value;
                     }
                     else {
@@ -218,12 +213,23 @@ const createObject = () => {
     }
 
     makeCreateMenu();
-    return outputObj;
+    let newName;
+    let rename;
+    if(mainForm.dataset.filename) {
+        newName = mainForm.dataset.filename;
+        rename = outputObj.title;
+    } else {
+        newName = outputObj.title
+        rename = ''
+    }
+    return {obj: outputObj, name: newName, rename};
 };
 
-const createJSONFile = (obj, folder) => {
-    const name = formatString(obj.id, true, true);
-    electronAPI.writeJSON(JSON.stringify(obj, null, '\t'), name, `quill/${builderWorldFormatted}/${folder}`)
+const createJSONFile = (object, folder) => {
+    const name = formatString(object.name, true, true);
+    const rename = formatString(object.rename, true, true);
+    console.log(object.obj);
+    electronAPI.writeJSON(JSON.stringify(object.obj, null, '\t'), name, `quill/${builderWorldFormatted}/${folder}`, rename)
         .then(() => initiateBuilder(builderWorld, builderWorldFormatted))
         .catch(err => console.error(err));
 };
@@ -251,7 +257,7 @@ list.addEventListener('click', e => {
         const thisFolder = savedObjects.find(obj => obj.folder == formatString(e.target.dataset.parentFolder, false, false));
         const itemData = thisFolder.files.find(obj => obj.fileName == thisItem);
         const thisObj = builderObjects.find(obj => obj[1] == e.target.dataset.parentFolder);
-        switchToBuilder(thisObj, itemData.data);
+        switchToBuilder(thisObj, itemData.data, true);
     } else if(e.target.id == 'builder-list-add') {
         makeCreateMenu();
     }
