@@ -273,13 +273,5 @@ mainCreate.addEventListener('click', e => {
         const thisType = e.target.dataset.type;
         const thisObj = builderObjects.find(obj => obj[1] == thisType);
         switchToBuilder(thisObj);
-    } else if(e.target.parentElement.classList.contains('object-button')) {
-        const thisType = e.target.parentElement.dataset.type;
-        const thisObj = builderObjects.find(obj => obj[1] == thisType);
-        switchToBuilder(thisObj);
-    } else if(e.target.parentElement.parentElement.classList.contains('object-button')) {
-        const thisType = e.target.parentElement.parentElement.dataset.type;
-        const thisObj = builderObjects.find(obj => obj[1] == thisType);
-        switchToBuilder(thisObj);
     }
 });

@@ -20,18 +20,74 @@ Clicking a World loads the World Explorer with that World
 
 */
 
-const createWorld = (name, theme, author) => {
-    const nameFormatted = formatString(name, false);    
+const switchToWorld = () => {
+    const explorerList = document.querySelector('#explorer-world');
+    const explorerHeader = explorerList.querySelector('.small-header');
+    //enable the list in the explorer, it's hidden by default
+    explorerList.dataset.active = true;
+    //change the header of the explorer list to the name of the world
+    explorerHeader.innerHTML = currentWorld;
+    //use main.js switch function, just like what would happen if you clicked a button
+    switchToMenu('#overview');
+}
 
-    electronAPI.readDir(`quill/${nameFormatted}`)
-        .then(data => {
-            if(data) {
-                //create a new folder with a different name, this one already exists
-            } else {
-                console.log(`Created folder ${nameFormatted} in quill directory.`);
-            }
-        })
-        .catch(err => console.log(err));
+const createWorld = async (name, theme, author) => {
+    //format the name for the name of the folder
+    let nameFormatted = formatString(name, false);    
+
+    //make folder loop
+    let creating = true;
+    let number = 2;
+    let madeNew = false;
+    while(creating) {
+        //check for the folder
+        await electronAPI.readDir(`quill/${nameFormatted}`)
+            //if we have the folder already, check if it's empty
+            //if it is, just continue it doesn't really matter
+            //if it's not, add a number to the name and the loop starts again
+            //this will ensure we don't overwrite existing worlds
+            .then(data => {
+                if((typeof data == 'number' && data > 0) || (typeof data == 'object' && data.length > 0)) {
+                    if(number == 2) {
+                        nameFormatted = nameFormatted + '-2';
+                    } else {
+                        nameFormatted = nameFormatted.replace(`-${number - 1}`, `-${number}`);
+                    }
+                    number++;
+                } else if(typeof data == 'number' && data == 0) {
+                    madeNew = true;
+                    creating = false;
+                } else {
+                    creating = false;
+                }
+            })
+            //if we don't already have the folder, just make it and keep going
+            .catch(() => {
+                madeNew = true;
+                creating = false;
+            });
+    }
+
+    if(madeNew) {
+        //make the json object that'll be added to the folder with the world info
+        const worldJSON = {};
+        worldJSON['name'] = name;
+        worldJSON['theme'] = theme;
+        worldJSON['author'] = author;
+        const todayDate = new Date().toDateString();
+        worldJSON['date-created'] = todayDate;
+
+        //write the json file to the folder
+        electronAPI.writeJSON(JSON.stringify(worldJSON, null, '\t'), 'info', `quill/${nameFormatted}`)
+            .then(() => {
+                //change the current world we're in in main.js
+                currentWorld = name;
+                currentWorldFormatted = nameFormatted;
+                //switch to the world's overview page
+                switchToWorld();
+            })
+            .catch(err => console.error(err));
+    }
 }
 
 const worldCreationPopup = () => {
@@ -81,7 +137,7 @@ const worldCreationPopup = () => {
     //WIP//
     ///////
 
-    //auther name input
+    //author name input
     const authorLabel = document.createElement('label');
     authorLabel.htmlFor = 'author-input';
     authorLabel.innerHTML = 'Author Name (Optional):';
@@ -99,13 +155,19 @@ const worldCreationPopup = () => {
     //show popup
     pop.dataset.active = true;
 
+    //
     box.addEventListener('submit', e => {
+        //forms refresh the page on submit by default
         e.preventDefault();
+
         const name = box.querySelector('#name-input');
         const theme = box.querySelector('#theme-select');
         const author = box.querySelector('#author-input');
 
+        //hide the popup
         pop.dataset.active = false;
+
+        //delete everything inside the popup for next time
         while(box.hasChildNodes()) {
             box.removeChild(box.lastChild);
         }
@@ -113,12 +175,3 @@ const worldCreationPopup = () => {
         createWorld(name.value, theme.value, author.value);
     });
 }
-
-const openWorld = () => {
-    const explorerList = document.querySelector('#explorer-world');
-    const explorerHeader = explorerList.querySelector('.small-header');
-    explorerList.dataset.active = true;
-    explorerHeader.innerHTML = currentWorld;
-}
-
-worldCreationPopup();

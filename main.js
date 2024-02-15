@@ -123,13 +123,13 @@ const readDir = (filePath = '') => {
                 .then(() => {
                     return fs.readdir(fullPath)
                         .then(files => {
-                            return Promise.all(files.map(file => {
-                                if(file.includes('.json')) {
-                                    return readJSON(file, filePath)
-                                    .then(data => ({ fileName: file, data: data }))
-                                    .catch(err => { throw err; });
+                            return new Promise((resolve, reject) => {
+                                if(files.length == 0) {
+                                    resolve(files.length);
+                                } else if(files.length > 0) {
+                                    reject(files.length);
                                 }
-                            }));
+                            })
                         })
                         .catch(err => { throw err; });
                 })

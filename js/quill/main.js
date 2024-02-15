@@ -54,23 +54,27 @@ let currentWorldFormatted = formatString(currentWorld, false);
 const explorer = document.querySelector('#explorer');
 const menu = document.querySelector('#menu');
 
+const switchToMenu = (id) => {
+    const activeMenu = menu.querySelector(`.menu[data-active=true]`);
+    const newActive = menu.querySelector(id);
+    if(activeMenu !== newActive) {
+        activeMenu.dataset.active = false;
+        document.querySelector('.current-page').classList.remove('current-page');
+        newActive.dataset.active = true;
+        document.querySelector(`a[href="${id}"]`).classList.add('current-page');
+    }
+    if(id == '#builder') {
+        initiateBuilder(currentWorld, currentWorldFormatted);
+    }
+    const menuTitle = newActive.querySelector('.menu-header');
+    document.title = `Chisel | Quill - ${menuTitle.innerText}`;
+};
+
 //switch menus on clicking their respective button
 explorer.addEventListener('click', e => {
     if(e.target.classList.contains('explorer-button')) {
         const menuID = e.target.getAttribute('href');
-        const activeMenu = menu.querySelector(`.menu[data-active=true]`);
-        const newActive = menu.querySelector(menuID);
-        if(activeMenu !== newActive) {
-            activeMenu.dataset.active = false;
-            document.querySelector('.current-page').classList.remove('current-page');
-            newActive.dataset.active = true;
-            e.target.classList.add('current-page');
-        }
-        if(menuID == '#builder') {
-            initiateBuilder(currentWorld, currentWorldFormatted);
-        }
-        const menuTitle = newActive.querySelector('.menu-header');
-        document.title = `Chisel | Quill - ${menuTitle.innerText}`;
+        switchToMenu(menuID);
     }
 });
 
