@@ -17,7 +17,19 @@ const formatString = (string, lower = true, hyphen = false) => {
         .replaceAll(',', '')
         .replaceAll('(', '')
         .replaceAll(')', '')
-        .replaceAll("'", '');
+        .replaceAll("'", '')
+        .replaceAll('`', '')
+        .replaceAll('~', '')
+        .replaceAll('!', '')
+        .replaceAll('@', '')
+        .replaceAll('#', '')
+        .replaceAll('$', '')
+        .replaceAll('%', '')
+        .replaceAll('^', '')
+        .replaceAll('&', '')
+        .replaceAll('*', '')
+        .replaceAll('+', '')
+        .replaceAll('=', '');
 
     if(lower) {
         newString = newString.toLowerCase()
