@@ -39,6 +39,7 @@ const createWorld = async (name, theme, author) => {
     let creating = true;
     let number = 2;
     let madeNew = false;
+    let missingInfo = true;
     while(creating) {
         //check for the folder
         await electronAPI.readDir(`quill/${nameFormatted}`)
@@ -47,13 +48,22 @@ const createWorld = async (name, theme, author) => {
             //if it's not, add a number to the name and the loop starts again
             //this will ensure we don't overwrite existing worlds
             .then(data => {
-                if((typeof data == 'number' && data > 0) || (typeof data == 'object' && data.length > 0)) {
+                if(typeof data == 'number' && data > 0) {
                     if(number == 2) {
                         nameFormatted = nameFormatted + '-2';
                     } else {
                         nameFormatted = nameFormatted.replace(`-${number - 1}`, `-${number}`);
                     }
                     number++;
+                } else if(typeof data == 'object' && data.length > 0) {
+                    data.forEach(file => {
+                        if(file.fileName == "world-info.json") {
+                            missingInfo = false;
+                        }
+                    });
+                    if(missingInfo) {
+                        creating = false;
+                    }
                 } else if(typeof data == 'number' && data == 0) {
                     madeNew = true;
                     creating = false;
@@ -68,18 +78,17 @@ const createWorld = async (name, theme, author) => {
             });
     }
 
-    if(madeNew) {
+    if(madeNew || missingInfo) {
         //make the json object that'll be added to the folder with the world info
         const worldJSON = {};
         worldJSON['name'] = name;
         worldJSON['theme'] = theme;
         worldJSON['image'] = '';
         worldJSON['author'] = author;
-        const todayDate = new Date().toDateString();
-        worldJSON['date-created'] = todayDate;
+        worldJSON['date-created'] = new Date().toDateString();
 
         //write the json file to the folder
-        electronAPI.writeJSON(JSON.stringify(worldJSON, null, '\t'), 'info', `quill/${nameFormatted}`)
+        electronAPI.writeJSON(JSON.stringify(worldJSON, null, '\t'), 'world-info', `quill/${nameFormatted}`)
             .then(() => {
                 //change the current world we're in in main.js
                 currentWorld = name;
