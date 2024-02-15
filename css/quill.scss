@@ -185,6 +185,82 @@
         }
     }
 
+    #worlds {
+        .content {
+            .world-box {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                background-color: universal.$mixed-300;
+                width: fit-content;
+                min-width: 25%;
+                min-height: 30%;
+                max-width: 25%;
+                max-height: 30%;
+                border-radius: 5px;
+                cursor: pointer;
+                user-select: none;
+
+                &-image {
+                    width: 100%;
+                    border-radius: 5px 5px 0 0;
+                    overflow: hidden;
+                    position: relative;
+                    pointer-events: none;
+                    flex: 1 1 100%;
+
+                    .image {
+                        width: 100%;
+                        height: auto;
+                        display: block;
+                        position: relative;
+                        top: 50%;
+                        transform: scale(1, 1) translateY(-50%);
+                        transition: transform 0.5s;
+                    }
+                    i.image {
+                        text-align: center;
+                        font-size: 10em;
+                    }
+                }
+                
+                &-footer {
+                    width: 100%;
+                    padding: 0.3em;
+                    pointer-events: none;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    &-name {
+                        font-size: universal.$font-bigish;
+                        i {
+                            font-size: inherit;
+                        }
+                    }
+                }
+            }
+            .world-box:hover {
+                background-color: universal.$mixed-400;
+
+                .world-box-image {
+                    .image {
+                        transform: scale(1.2, 1.2) translateY(-40%);
+                    }
+                }
+            }
+            .world-box:active {
+                background-color: universal.$primary-300;
+                .world-box-image {
+                    .image {
+                        transform: scale(1, 1) translateY(-50%);
+                    }
+                }
+            }
+        }
+    }
+
     #builder {
         .content {
             background-color: universal.$mixed-100;
@@ -361,7 +437,9 @@
                                     display: flex;
                                     flex-direction: column;
                                     justify-content: center;
+                                    pointer-events: none;
                                     i {
+                                        pointer-events: none;
                                         font-size: inherit;
                                     }
                                 }
@@ -370,6 +448,7 @@
                                     flex: 1 0 0;
                                     font-size: universal.$font-bigish;
                                     text-align: center;
+                                    pointer-events: none;
                                 }
                             }
                             .object-button:hover {

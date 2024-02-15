@@ -396,6 +396,73 @@ label {
 #menu .menu .content *[data-active=false] {
   display: none;
 }
+#menu #worlds .content .world-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #47424c;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 25%;
+  min-height: 30%;
+  max-width: 25%;
+  max-height: 30%;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+#menu #worlds .content .world-box-image {
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  position: relative;
+  pointer-events: none;
+  flex: 1 1 100%;
+}
+#menu #worlds .content .world-box-image .image {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  top: 50%;
+  transform: scale(1, 1) translateY(-50%);
+  transition: transform 0.5s;
+}
+#menu #worlds .content .world-box-image i.image {
+  text-align: center;
+  font-size: 10em;
+}
+#menu #worlds .content .world-box-footer {
+  width: 100%;
+  padding: 0.3em;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#menu #worlds .content .world-box-footer-name {
+  font-size: 24px;
+}
+#menu #worlds .content .world-box-footer-name i {
+  font-size: inherit;
+}
+#menu #worlds .content .world-box:hover {
+  background-color: #5f5a63;
+}
+#menu #worlds .content .world-box:hover .world-box-image .image {
+  transform: scale(1.2, 1.2) translateY(-40%);
+}
+#menu #worlds .content .world-box:active {
+  background-color: #8e55cd;
+}
+#menu #worlds .content .world-box:active .world-box-image .image {
+  transform: scale(1, 1) translateY(-50%);
+}
 #menu #builder .content {
   background-color: #1c1621;
   flex-direction: row;
@@ -568,14 +635,17 @@ label {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  pointer-events: none;
 }
 #menu #builder .content #builder-main-display-create-buttons .object-button .icon i {
+  pointer-events: none;
   font-size: inherit;
 }
 #menu #builder .content #builder-main-display-create-buttons .object-button .text {
   flex: 1 0 0;
   font-size: 24px;
   text-align: center;
+  pointer-events: none;
 }
 #menu #builder .content #builder-main-display-create-buttons .object-button:hover {
   background-color: #5f5a63;

@@ -82,7 +82,6 @@ const createWorldList = () => {
     //create world list :p
 };
 
-document.querySelector('#title-bar').addEventListener('click', e => {
-    electronAPI.writeJSON('cring', 'spell-2', 'pathfinder/templates', 'super-spell')
-        .then(st => console.log(st));
+document.querySelector('.world-box').addEventListener('click', e => {
+    console.log('test');
 });

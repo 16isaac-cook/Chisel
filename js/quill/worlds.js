@@ -73,6 +73,7 @@ const createWorld = async (name, theme, author) => {
         const worldJSON = {};
         worldJSON['name'] = name;
         worldJSON['theme'] = theme;
+        worldJSON['image'] = '';
         worldJSON['author'] = author;
         const todayDate = new Date().toDateString();
         worldJSON['date-created'] = todayDate;
