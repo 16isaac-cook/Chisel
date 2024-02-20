@@ -187,6 +187,11 @@
 
     #worlds {
         .content {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+
             .world-box {
                 display: flex;
                 flex-direction: column;
@@ -194,9 +199,9 @@
                 align-items: center;
                 background-color: universal.$mixed-300;
                 width: fit-content;
-                min-width: 25%;
+                min-width: 23%;
                 min-height: 30%;
-                max-width: 25%;
+                max-width: 23%;
                 max-height: 30%;
                 border-radius: 5px;
                 cursor: pointer;
@@ -257,6 +262,9 @@
                         transform: scale(1, 1) translateY(-50%);
                     }
                 }
+            }
+            .world-box:last-of-type {
+                margin-right: 0;
             }
         }
     }

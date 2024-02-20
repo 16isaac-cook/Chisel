@@ -20,6 +20,23 @@ Clicking a World loads the World Explorer with that World
 
 */
 
+const worldsMenu = document.querySelector('div#worlds.menu');
+const worldsContent = worldsMenu.querySelector('.content');
+
+const worldThemes = [
+    { name: 'Fantasy', icon: 'sword-fill' }, 
+    { name: 'Sci-Fi', icon: 'aliens-fill' }, 
+    { name: 'Lovecraftian', icon: 'psychotherapy-fill' }, 
+    { name: 'Steampunk', icon: 'settings-5-fill' }, 
+    { name: 'Superhero', icon: 'user-star-fill' }, 
+    { name: 'Western', icon: 'cactus-fill' }, 
+    { name: 'Historical', icon: 'quill-pen-fill' }, 
+    { name: 'Modern', icon: 'building-4-fill' }, 
+    { name: 'Survival', icon: 'seedling-fill' }, 
+    { name: 'Dystopian', icon: 'earthquake-fill' }, 
+    { name: 'Other', icon: 'box-3-fill' }
+];
+
 const switchToWorld = () => {
     const explorerList = document.querySelector('#explorer-world');
     const explorerHeader = explorerList.querySelector('.small-header');
@@ -30,6 +47,60 @@ const switchToWorld = () => {
     //use main.js switch function, just like what would happen if you clicked a button
     switchToMenu('#overview');
 }
+
+// <div class="world-box">
+//     <div class="world-box-image"><img src="img/blank.png" alt="" class="image"></div>
+//     <div class="world-box-footer">
+//         <div class="world-box-footer-name"><i class="ri-settings-5-fill"></i> Settings</div>
+//         <div class="world-box-footer-author">John Doe</div>
+//     </div>
+// </div>
+
+const createWorldBox = (infoJSON, imgSrc, worldName) => {
+    const newBox = document.createElement('div');
+    newBox.classList.add('world-box');
+    newBox.dataset.worldName = worldName;
+
+    const imgBox = document.createElement('div');
+    imgBox.classList.add('world-box-image');
+
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.classList.add('image');
+    imgBox.append(img);
+
+    newBox.append(imgBox);
+
+    const footer = document.createElement('div');
+    footer.classList.add('world-box-footer');
+
+    const footerName = document.createElement('div');
+    footerName.classList.add('world-box-footer-name');
+    footerName.innerHTML = `<i class="ri-${infoJSON.icon}"></i> ${infoJSON.name}`;
+    footer.append(footerName);
+
+    const footerAuthor = document.createElement('div');
+    footerAuthor.classList.add('world-box-footer-author');
+    footerAuthor.innerHTML = infoJSON.author;
+    footer.append(footerAuthor);
+
+    newBox.append(footer);
+
+    worldsContent.append(newBox);
+}
+
+const getWorlds = async () => {
+    const read = await electronAPI.getWorldObjects('quill');
+    read.forEach(folder => {
+        const worldInfo = folder.files.find(file => file.fileName == 'world-info.json');
+        if(worldInfo) {
+            const worldInfoJSON = JSON.parse(worldInfo.data);
+            createWorldBox(worldInfoJSON, 'img/blank.png', formatString(worldInfoJSON.name, false, false));
+        }
+    })
+}
+
+getWorlds();
 
 const createWorld = async (name, theme, author) => {
     //format the name for the name of the folder
@@ -83,6 +154,8 @@ const createWorld = async (name, theme, author) => {
         const worldJSON = {};
         worldJSON['name'] = name;
         worldJSON['theme'] = theme;
+        const themeIcon = worldThemes.find(getTheme => formatString(getTheme.name) == theme).icon;
+        worldJSON['icon'] = themeIcon;
         worldJSON['image'] = '';
         worldJSON['author'] = author;
         worldJSON['date-created'] = new Date().toDateString();
@@ -133,11 +206,11 @@ const worldCreationPopup = () => {
     firstOption.innerHTML = 'Choose a theme...';
     themeSelect.append(firstOption);
 
-    const themes = ['Fantasy', 'Sci-Fi', 'Lovecraftian', 'Steampunk', 'Superhero', 'Western', 'Historical', 'Modern', 'Survival', 'Dystopian', 'Other'];
-    themes.forEach(theme => {
+    
+    worldThemes.forEach(theme => {
         const newOption = document.createElement('option');
-        newOption.value = formatString(theme);
-        newOption.innerHTML = theme;
+        newOption.value = formatString(theme.name);
+        newOption.innerHTML = theme.name;
         themeSelect.append(newOption);
     });
     box.append(themeLabel, themeSelect);

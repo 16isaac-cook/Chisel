@@ -396,6 +396,12 @@ label {
 #menu .menu .content *[data-active=false] {
   display: none;
 }
+#menu #worlds .content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
 #menu #worlds .content .world-box {
   display: flex;
   flex-direction: column;
@@ -405,9 +411,9 @@ label {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  min-width: 25%;
+  min-width: 23%;
   min-height: 30%;
-  max-width: 25%;
+  max-width: 23%;
   max-height: 30%;
   border-radius: 5px;
   cursor: pointer;
@@ -462,6 +468,9 @@ label {
 }
 #menu #worlds .content .world-box:active .world-box-image .image {
   transform: scale(1, 1) translateY(-50%);
+}
+#menu #worlds .content .world-box:last-of-type {
+  margin-right: 0;
 }
 #menu #builder .content {
   background-color: #1c1621;
