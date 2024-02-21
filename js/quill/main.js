@@ -64,7 +64,9 @@ const switchToMenu = (id) => {
         document.querySelector(`a[href="${id}"]`).classList.add('current-page');
     }
     if(id == '#builder') {
-        initiateBuilder(currentWorld, currentWorldFormatted);
+        initiateBuilder();
+    } else if (id == '#worlds') {
+        getWorlds();
     }
     const menuTitle = newActive.querySelector('.menu-header');
     document.title = `Chisel | Quill - ${menuTitle.innerText}`;
@@ -81,7 +83,3 @@ explorer.addEventListener('click', e => {
 const createWorldList = () => {
     //create world list :p
 };
-
-document.querySelector('.world-box').addEventListener('click', e => {
-    console.log('test');
-});

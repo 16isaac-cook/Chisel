@@ -12,7 +12,7 @@ let devMode = true;
 
 let win;
 
-const fileNaming = (name, filePath = '') => {
+const fileNaming = async (name, filePath = '') => {
     if(!name.includes('.json')) {
         name = name + '.json';
     }
@@ -49,7 +49,7 @@ const fileNaming = (name, filePath = '') => {
             }
             return newName;
         })
-        .catch(err => { throw err; });
+        .catch(() => name );
 }
 
 const writeJSON = async (data, name, filePath = '', rename = '') => {

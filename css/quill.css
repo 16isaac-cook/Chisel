@@ -398,11 +398,21 @@ label {
 }
 #menu #worlds .content {
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: hidden;
+}
+#menu #worlds .content .worlds {
+  flex: 1 1 100%;
+  width: 100%;
+  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  overflow-y: auto;
 }
-#menu #worlds .content .world-box {
+#menu #worlds .content .worlds .world-box {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -422,7 +432,7 @@ label {
       -ms-user-select: none;
           user-select: none;
 }
-#menu #worlds .content .world-box-image {
+#menu #worlds .content .worlds .world-box-image {
   width: 100%;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
@@ -430,7 +440,7 @@ label {
   pointer-events: none;
   flex: 1 1 100%;
 }
-#menu #worlds .content .world-box-image .image {
+#menu #worlds .content .worlds .world-box-image .image {
   width: 100%;
   height: auto;
   display: block;
@@ -439,11 +449,11 @@ label {
   transform: scale(1, 1) translateY(-50%);
   transition: transform 0.5s;
 }
-#menu #worlds .content .world-box-image i.image {
+#menu #worlds .content .worlds .world-box-image i.image {
   text-align: center;
   font-size: 10em;
 }
-#menu #worlds .content .world-box-footer {
+#menu #worlds .content .worlds .world-box-footer {
   width: 100%;
   padding: 0.3em;
   pointer-events: none;
@@ -451,26 +461,29 @@ label {
   flex-direction: column;
   align-items: center;
 }
-#menu #worlds .content .world-box-footer-name {
+#menu #worlds .content .worlds .world-box-footer-name {
   font-size: 24px;
 }
-#menu #worlds .content .world-box-footer-name i {
+#menu #worlds .content .worlds .world-box-footer-name i {
   font-size: inherit;
 }
-#menu #worlds .content .world-box:hover {
+#menu #worlds .content .worlds .world-box:hover {
   background-color: #5f5a63;
 }
-#menu #worlds .content .world-box:hover .world-box-image .image {
+#menu #worlds .content .worlds .world-box:hover .world-box-image .image {
   transform: scale(1.2, 1.2) translateY(-40%);
 }
-#menu #worlds .content .world-box:active {
+#menu #worlds .content .worlds .world-box:active {
   background-color: #8e55cd;
 }
-#menu #worlds .content .world-box:active .world-box-image .image {
+#menu #worlds .content .worlds .world-box:active .world-box-image .image {
   transform: scale(1, 1) translateY(-50%);
 }
-#menu #worlds .content .world-box:last-of-type {
+#menu #worlds .content .worlds .world-box:last-of-type {
   margin-right: 0;
+}
+#menu #worlds .content #create-world {
+  width: 100%;
 }
 #menu #builder .content {
   background-color: #1c1621;

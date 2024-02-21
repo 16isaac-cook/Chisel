@@ -22,6 +22,8 @@ Clicking a World loads the World Explorer with that World
 
 const worldsMenu = document.querySelector('div#worlds.menu');
 const worldsContent = worldsMenu.querySelector('.content');
+const worlds = worldsContent.querySelector('.worlds');
+const worldsCreate = worldsContent.querySelector('#create-world');
 
 const worldThemes = [
     { name: 'Fantasy', icon: 'sword-fill' }, 
@@ -48,14 +50,6 @@ const switchToWorld = () => {
     switchToMenu('#overview');
 }
 
-// <div class="world-box">
-//     <div class="world-box-image"><img src="img/blank.png" alt="" class="image"></div>
-//     <div class="world-box-footer">
-//         <div class="world-box-footer-name"><i class="ri-settings-5-fill"></i> Settings</div>
-//         <div class="world-box-footer-author">John Doe</div>
-//     </div>
-// </div>
-
 const createWorldBox = (infoJSON, imgSrc, worldName) => {
     const newBox = document.createElement('div');
     newBox.classList.add('world-box');
@@ -81,26 +75,34 @@ const createWorldBox = (infoJSON, imgSrc, worldName) => {
 
     const footerAuthor = document.createElement('div');
     footerAuthor.classList.add('world-box-footer-author');
-    footerAuthor.innerHTML = infoJSON.author;
+    if(infoJSON.author) {
+        footerAuthor.innerHTML = infoJSON.author;
+    } else {
+        footerAuthor.innerHTML = 'Author not specified';
+    }
     footer.append(footerAuthor);
 
     newBox.append(footer);
 
-    worldsContent.append(newBox);
+    worlds.append(newBox);
 }
 
 const getWorlds = async () => {
-    const read = await electronAPI.getWorldObjects('quill');
-    read.forEach(folder => {
-        const worldInfo = folder.files.find(file => file.fileName == 'world-info.json');
-        if(worldInfo) {
-            const worldInfoJSON = JSON.parse(worldInfo.data);
-            createWorldBox(worldInfoJSON, 'img/blank.png', formatString(worldInfoJSON.name, false, false));
-        }
-    })
+    while(worlds.firstChild) {
+        worlds.removeChild(worlds.lastChild);
+    }
+    electronAPI.getWorldObjects('quill')
+        .then(read => {
+            read.forEach(folder => {
+                const worldInfo = folder.files.find(file => file.fileName == 'world-info.json');
+                if(worldInfo) {
+                    const worldInfoJSON = JSON.parse(worldInfo.data);
+                    createWorldBox(worldInfoJSON, 'img/blank.png', folder.folder);
+                }
+            })
+        })
+        .catch(() => null);
 }
-
-getWorlds();
 
 const createWorld = async (name, theme, author) => {
     //format the name for the name of the folder
@@ -134,6 +136,13 @@ const createWorld = async (name, theme, author) => {
                     });
                     if(missingInfo) {
                         creating = false;
+                    } else {
+                        if(number == 2) {
+                            nameFormatted = nameFormatted + '-2';
+                        } else {
+                            nameFormatted = nameFormatted.replace(`-${number - 1}`, `-${number}`);
+                        }
+                        number++;
                     }
                 } else if(typeof data == 'number' && data == 0) {
                     madeNew = true;
@@ -164,6 +173,7 @@ const createWorld = async (name, theme, author) => {
         electronAPI.writeJSON(JSON.stringify(worldJSON, null, '\t'), 'world-info', `quill/${nameFormatted}`)
             .then(() => {
                 //change the current world we're in in main.js
+                console.log(name, nameFormatted);
                 currentWorld = name;
                 currentWorldFormatted = nameFormatted;
                 //switch to the world's overview page
@@ -258,3 +268,14 @@ const worldCreationPopup = () => {
         createWorld(name.value, theme.value, author.value);
     });
 }
+
+worldsContent.addEventListener('click', e => {
+    if(e.target.classList.contains('world-box')) {
+        const worldName = e.target.dataset.worldName;
+        currentWorld = worldName;
+        currentWorldFormatted = formatString(worldName, false, false);
+        switchToWorld();
+    } else if(e.target.id == 'create-world') {
+        worldCreationPopup();
+    }
+})
