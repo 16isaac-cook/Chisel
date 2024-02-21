@@ -146,4 +146,4 @@ dist
 # Personal Files
 img/
 characters/
-json/quill/
+json/quill/*
