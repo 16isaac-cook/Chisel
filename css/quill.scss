@@ -34,16 +34,23 @@
         }
 
         #popup-header {
-            margin-bottom: 0.3em;
+            font-size: universal.$font-big;
         }
 
-        #popup-button {
+        label {
             margin-top: 0.3em;
-            width: 50%;
+        }
+
+        input[type=text] {
+            text-align: center;
+        }
+
+        input[type=submit] {
+            margin-top: 0.6em;
         }
     }
 }
-#popup[data-popup=true] {
+#popup[data-active=true] {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -174,6 +181,105 @@
 
             *[data-active=false] {
                 display: none;
+            }
+        }
+    }
+
+    #worlds {
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            overflow-y: hidden;
+
+            .worlds {
+                flex: 1 1 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                flex-wrap: wrap;
+                overflow-y: auto;
+    
+                .world-box {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: center;
+                    background-color: universal.$mixed-300;
+                    width: fit-content;
+                    min-width: 23%;
+                    min-height: 30%;
+                    max-width: 23%;
+                    max-height: 30%;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    user-select: none;
+    
+                    &-image {
+                        width: 100%;
+                        border-radius: 5px 5px 0 0;
+                        overflow: hidden;
+                        position: relative;
+                        pointer-events: none;
+                        flex: 1 1 100%;
+    
+                        .image {
+                            width: 100%;
+                            height: auto;
+                            display: block;
+                            position: relative;
+                            top: 50%;
+                            transform: scale(1, 1) translateY(-50%);
+                            transition: transform 0.5s;
+                        }
+                        i.image {
+                            text-align: center;
+                            font-size: 10em;
+                        }
+                    }
+                    
+                    &-footer {
+                        width: 100%;
+                        padding: 0.3em;
+                        pointer-events: none;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+    
+                        &-name {
+                            font-size: universal.$font-bigish;
+                            i {
+                                font-size: inherit;
+                            }
+                        }
+                    }
+                }
+                .world-box:hover {
+                    background-color: universal.$mixed-400;
+    
+                    .world-box-image {
+                        .image {
+                            transform: scale(1.2, 1.2) translateY(-40%);
+                        }
+                    }
+                }
+                .world-box:active {
+                    background-color: universal.$primary-300;
+                    .world-box-image {
+                        .image {
+                            transform: scale(1, 1) translateY(-50%);
+                        }
+                    }
+                }
+                .world-box:last-of-type {
+                    margin-right: 0;
+                }
+            }
+
+            #create-world {
+                width: 100%;
             }
         }
     }
@@ -354,7 +460,9 @@
                                     display: flex;
                                     flex-direction: column;
                                     justify-content: center;
+                                    pointer-events: none;
                                     i {
+                                        pointer-events: none;
                                         font-size: inherit;
                                     }
                                 }
@@ -363,6 +471,7 @@
                                     flex: 1 0 0;
                                     font-size: universal.$font-bigish;
                                     text-align: center;
+                                    pointer-events: none;
                                 }
                             }
                             .object-button:hover {
@@ -470,70 +579,12 @@
                                 justify-content: flex-start;
                                 align-items: center;
 
-                                .select {
-                                    position: relative;
-                                    flex: 1 0 auto;
+                                select {
+                                    flex: 1 1 100%;
                                     margin-right: 0.3em;
-
-                                    select {
-                                        display: none;
-                                    }
                                 }
-                                .select-selected {
-                                    background-color: universal.$mixed-300;
-                                    border: none;
-                                    border-radius: 5px;
-                                }
-                                /* Style the arrow inside the select element: */
-                                .select-selected:after {
-                                    position: absolute;
-                                    content: "";
-                                    top: 14px;
-                                    right: 10px;
-                                    width: 0;
-                                    height: 0;
-                                    border: 6px solid transparent;
-                                    border-color: #fff transparent transparent transparent;
-                                }
-                                .select-selected[data-count='0'] {
-                                    color: #cacaca;
-                                    font-style: italic;
-                                    text-decoration: line-through;
-                                }
-                                
-                                /* Point the arrow upwards when the select box is open (active): */
-                                .select-selected.select-arrow-active:after {
-                                    border-color: transparent transparent #fff transparent;
-                                    top: 7px;
-                                }
-                                
-                                /* style the items (options), including the selected item: */
-                                .select-items div,.select-selected {
-                                    color: #ffffff;
-                                    padding: 8px 16px;
-                                    border: 1px solid transparent;
-                                    //border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-                                    cursor: pointer;
-                                }
-                                
-                                /* Style items (options): */
-                                .select-items {
-                                    position: absolute;
-                                    background-color: universal.$mixed-300;
-                                    top: 100%;
-                                    left: 0;
-                                    right: 0;
-                                    z-index: 99;
-                                    border-radius: 5px;
-                                }
-                                
-                                /* Hide the items when the select box is closed: */
-                                .select-hide {
-                                    display: none;
-                                }
-                                
-                                .select-items div:hover, .same-as-selected {
-                                    background-color: rgba(0, 0, 0, 0.1);
+                                a {
+                                    flex: 1 0 auto;
                                 }
                             }
 

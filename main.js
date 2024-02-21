@@ -12,7 +12,7 @@ let devMode = true;
 
 let win;
 
-const fileNaming = (name, filePath = '') => {
+const fileNaming = async (name, filePath = '') => {
     if(!name.includes('.json')) {
         name = name + '.json';
     }
@@ -49,7 +49,7 @@ const fileNaming = (name, filePath = '') => {
             }
             return newName;
         })
-        .catch(err => { throw err; });
+        .catch(() => name );
 }
 
 const writeJSON = async (data, name, filePath = '', rename = '') => {
@@ -112,6 +112,8 @@ const readDir = (filePath = '') => {
                     return readJSON(file, filePath)
                         .then(data => ({ fileName: file, data: data }))
                         .catch(err => { throw err; });
+                } else {
+                    return { fileName: '', data: `Non-json file, ${file}` };
                 }
             }));
         })
@@ -121,13 +123,13 @@ const readDir = (filePath = '') => {
                 .then(() => {
                     return fs.readdir(fullPath)
                         .then(files => {
-                            return Promise.all(files.map(file => {
-                                if(file.includes('.json')) {
-                                    return readJSON(file, filePath)
-                                    .then(data => ({ fileName: file, data: data }))
-                                    .catch(err => { throw err; });
+                            return new Promise((resolve, reject) => {
+                                if(files.length == 0) {
+                                    resolve(files.length);
+                                } else if(files.length > 0) {
+                                    reject(files.length);
                                 }
-                            }));
+                            })
                         })
                         .catch(err => { throw err; });
                 })

@@ -103,7 +103,8 @@ a {
 
 .no-spin {
   -moz-appearance: textfield;
-  appearance: textfield;
+  -webkit-appearance: textfield;
+          appearance: textfield;
   background-color: #312b36;
   text-align: center;
   border: none;
@@ -137,7 +138,6 @@ a {
   right: 0;
   bottom: 0;
   background-color: #918d94;
-  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -149,7 +149,6 @@ a {
   left: 0.125em;
   bottom: 0.125em;
   background-color: white;
-  -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
@@ -162,8 +161,6 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(1em);
-  -ms-transform: translateX(1em);
   transform: translateX(1em);
 }
 
@@ -193,7 +190,10 @@ input:checked + .slider:before {
 }
 
 label {
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
@@ -262,14 +262,19 @@ label {
   font-size: inherit;
 }
 #popup #popup-box #popup-header {
-  margin-bottom: 0.3em;
+  font-size: 32px;
 }
-#popup #popup-box #popup-button {
+#popup #popup-box label {
   margin-top: 0.3em;
-  width: 50%;
+}
+#popup #popup-box input[type=text] {
+  text-align: center;
+}
+#popup #popup-box input[type=submit] {
+  margin-top: 0.6em;
 }
 
-#popup[data-popup=true] {
+#popup[data-active=true] {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -391,6 +396,95 @@ label {
 #menu .menu .content *[data-active=false] {
   display: none;
 }
+#menu #worlds .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: hidden;
+}
+#menu #worlds .content .worlds {
+  flex: 1 1 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+#menu #worlds .content .worlds .world-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #47424c;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 23%;
+  min-height: 30%;
+  max-width: 23%;
+  max-height: 30%;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+#menu #worlds .content .worlds .world-box-image {
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  position: relative;
+  pointer-events: none;
+  flex: 1 1 100%;
+}
+#menu #worlds .content .worlds .world-box-image .image {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  top: 50%;
+  transform: scale(1, 1) translateY(-50%);
+  transition: transform 0.5s;
+}
+#menu #worlds .content .worlds .world-box-image i.image {
+  text-align: center;
+  font-size: 10em;
+}
+#menu #worlds .content .worlds .world-box-footer {
+  width: 100%;
+  padding: 0.3em;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#menu #worlds .content .worlds .world-box-footer-name {
+  font-size: 24px;
+}
+#menu #worlds .content .worlds .world-box-footer-name i {
+  font-size: inherit;
+}
+#menu #worlds .content .worlds .world-box:hover {
+  background-color: #5f5a63;
+}
+#menu #worlds .content .worlds .world-box:hover .world-box-image .image {
+  transform: scale(1.2, 1.2) translateY(-40%);
+}
+#menu #worlds .content .worlds .world-box:active {
+  background-color: #8e55cd;
+}
+#menu #worlds .content .worlds .world-box:active .world-box-image .image {
+  transform: scale(1, 1) translateY(-50%);
+}
+#menu #worlds .content .worlds .world-box:last-of-type {
+  margin-right: 0;
+}
+#menu #worlds .content #create-world {
+  width: 100%;
+}
 #menu #builder .content {
   background-color: #1c1621;
   flex-direction: row;
@@ -430,7 +524,10 @@ label {
   border-radius: 5px;
   width: 100%;
   cursor: pointer;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 #menu #builder .content #builder-list-display .folder .folder-label i {
   font-size: inherit;
@@ -477,7 +574,10 @@ label {
   margin-bottom: 0.3em;
   border-radius: 5px;
   cursor: pointer;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   overflow-x: hidden;
 }
 #menu #builder .content #builder-list-display .folder .items .item:last-of-type {
@@ -537,6 +637,8 @@ label {
   padding: 0.6em;
 }
 #menu #builder .content #builder-main-display-create-buttons .object-button {
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
   display: flex;
   flex-direction: column;
@@ -555,14 +657,17 @@ label {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  pointer-events: none;
 }
 #menu #builder .content #builder-main-display-create-buttons .object-button .icon i {
+  pointer-events: none;
   font-size: inherit;
 }
 #menu #builder .content #builder-main-display-create-buttons .object-button .text {
   flex: 1 0 0;
   font-size: 24px;
   text-align: center;
+  pointer-events: none;
 }
 #menu #builder .content #builder-main-display-create-buttons .object-button:hover {
   background-color: #5f5a63;
@@ -659,71 +764,21 @@ label {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  /* Style the arrow inside the select element: */
-  /* Point the arrow upwards when the select box is open (active): */
-  /* style the items (options), including the selected item: */
-  /* Style items (options): */
-  /* Hide the items when the select box is closed: */
 }
-#menu #builder .content #builder-main-display-form .container .select-box .select {
-  position: relative;
-  flex: 1 0 auto;
+#menu #builder .content #builder-main-display-form .container .select-box select {
+  flex: 1 1 100%;
   margin-right: 0.3em;
 }
-#menu #builder .content #builder-main-display-form .container .select-box .select select {
-  display: none;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-selected {
-  background-color: #47424c;
-  border: none;
-  border-radius: 5px;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-selected:after {
-  position: absolute;
-  content: "";
-  top: 14px;
-  right: 10px;
-  width: 0;
-  height: 0;
-  border: 6px solid transparent;
-  border-color: #fff transparent transparent transparent;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-selected[data-count="0"] {
-  color: #cacaca;
-  font-style: italic;
-  text-decoration: line-through;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-selected.select-arrow-active:after {
-  border-color: transparent transparent #fff transparent;
-  top: 7px;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-items div, #menu #builder .content #builder-main-display-form .container .select-box .select-selected {
-  color: #ffffff;
-  padding: 8px 16px;
-  border: 1px solid transparent;
-  cursor: pointer;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-items {
-  position: absolute;
-  background-color: #47424c;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 99;
-  border-radius: 5px;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-hide {
-  display: none;
-}
-#menu #builder .content #builder-main-display-form .container .select-box .select-items div:hover, #menu #builder .content #builder-main-display-form .container .select-box .same-as-selected {
-  background-color: rgba(0, 0, 0, 0.1);
+#menu #builder .content #builder-main-display-form .container .select-box a {
+  flex: 1 0 auto;
 }
 #menu #builder .content #builder-main-display-form .container div.radio {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
-  column-gap: 0.3em;
+  -moz-column-gap: 0.3em;
+       column-gap: 0.3em;
   row-gap: 0.3em;
 }
 #menu #builder .content #builder-main-display-form .container div.radio input[type=radio] {
@@ -806,7 +861,10 @@ label {
   align-items: flex-end;
   cursor: pointer;
   margin-top: 0.3em;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 #menu #builder .content #builder-main-display-switch:hover {
   color: #fff;

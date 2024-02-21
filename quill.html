@@ -17,8 +17,8 @@
             <div class="menu-header">Explorer</div>
             <div class="explorer-section">
                 <div class="explorer-buttons">
-                    <a href="#home" class="explorer-button current-page"><i class="ri-home-2-fill"></i> Home</a>
-                    <a href="#worlds" class="explorer-button"><i class="ri-globe-fill"></i> Worlds</a>
+                    <a href="#home" class="explorer-button"><i class="ri-home-2-fill"></i> Home</a>
+                    <a href="#worlds" class="explorer-button current-page"><i class="ri-globe-fill"></i> Worlds</a>
                 </div>
             </div>
             <div id="explorer-world" class="explorer-section" data-active="false">
@@ -41,13 +41,16 @@
             </div>
         </div>
         <div id="menu" class="sheet-background">
-            <div id="home" class="menu" data-active="true">
+            <div id="home" class="menu" data-active="false">
                 <div class="menu-header">Home</div>
                 <div class="content">a</div>
             </div>
-            <div id="worlds" class="menu" data-active="false">
+            <div id="worlds" class="menu" data-active="true">
                 <div class="menu-header">Worlds</div>
-                <div class="content"></div>
+                <div class="content">
+                    <div class="worlds"></div>
+                    <button id="create-world">Create new World <i class='ri-add-box-fill'></i></button>
+                </div>
             </div>
             <div id="overview" class="menu" data-active="false">
                 <div class="menu-header">Overview</div>
@@ -105,9 +108,12 @@
                 <div class="content"></div>
             </div>
         </div>
-        <div id="popup"></div>
+        <div id="popup" data-active="false">
+            <form id="popup-box" class="sheet-section"></div>
+        </div>
 
         <script src="js/quill/classes.js"></script>
+        <script src="js/quill/worlds.js"></script>
         <script src="js/quill/builder.js"></script>
         <script src="js/quill/main.js"></script>
     </body>

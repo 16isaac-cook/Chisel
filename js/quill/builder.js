@@ -12,8 +12,6 @@ const mainSwitch = mainDisplay.querySelector('#builder-main-display-switch');
 
 let openedBuilder = false;
 let preview = false;
-let builderWorld = '';
-let builderWorldFormatted = '';
 let savedObjects = [];
 
 const populateList = (files = []) => {
@@ -228,9 +226,8 @@ const createObject = () => {
 const createJSONFile = (object, folder) => {
     const name = formatString(object.name, true, true);
     const rename = formatString(object.rename, true, true);
-    console.log(object.obj);
-    electronAPI.writeJSON(JSON.stringify(object.obj, null, '\t'), name, `quill/${builderWorldFormatted}/${folder}`, rename)
-        .then(() => initiateBuilder(builderWorld, builderWorldFormatted))
+    electronAPI.writeJSON(JSON.stringify(object.obj, null, '\t'), name, `quill/${currentWorldFormatted}/${folder}`, rename)
+        .then(() => initiateBuilder(currentWorld, currentWorldFormatted))
         .catch(err => console.error(err));
 };
 
@@ -238,10 +235,8 @@ const switchDisplay = () => {
 
 };
 
-const initiateBuilder = (world, worldFormatted) => {
-    builderWorld = world;
-    builderWorldFormatted = worldFormatted;
-    electronAPI.getWorldObjects(`quill/${builderWorldFormatted}`)
+const initiateBuilder = () => {
+    electronAPI.getWorldObjects(`quill/${currentWorldFormatted}`)
         .then(data => {
             populateList(data);
             makeCreateMenu();
@@ -271,14 +266,6 @@ mainForm.addEventListener('submit', e => {
 mainCreate.addEventListener('click', e => {
     if(e.target.classList.contains('object-button')) {
         const thisType = e.target.dataset.type;
-        const thisObj = builderObjects.find(obj => obj[1] == thisType);
-        switchToBuilder(thisObj);
-    } else if(e.target.parentElement.classList.contains('object-button')) {
-        const thisType = e.target.parentElement.dataset.type;
-        const thisObj = builderObjects.find(obj => obj[1] == thisType);
-        switchToBuilder(thisObj);
-    } else if(e.target.parentElement.parentElement.classList.contains('object-button')) {
-        const thisType = e.target.parentElement.parentElement.dataset.type;
         const thisObj = builderObjects.find(obj => obj[1] == thisType);
         switchToBuilder(thisObj);
     }

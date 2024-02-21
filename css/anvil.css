@@ -35,27 +35,76 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  text-align: center;
 }
 
-button {
+.big-header {
+  color: #cacaca;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.3em;
+}
+
+button, input[type=submit] {
   border: 0;
   background-color: #47424c;
   padding: 0.3em;
-  font-weight: bold;
   cursor: pointer;
+  border-radius: 5px;
 }
 
-button:hover {
+button:hover, input[type=submit]:hover {
   background-color: #5f5a63;
 }
 
-button:active {
+button:active, input[type=submit]:active {
+  background-color: #7b3cc5;
+}
+
+input[type=text], textarea, select {
   background-color: #47424c;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3em;
+}
+
+input[type=text]:hover, textarea:hover, select:hover {
+  background-color: #5f5a63;
+}
+
+input[type=text]:focus, textarea:focus, select:focus {
+  outline: none;
+  background-color: #5f5a63;
+}
+
+a {
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 2.5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5f5a63;
+  border-radius: 2.5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #47424c;
 }
 
 .no-spin {
   -moz-appearance: textfield;
-  appearance: textfield;
+  -webkit-appearance: textfield;
+          appearance: textfield;
   background-color: #312b36;
   text-align: center;
   border: none;
@@ -63,6 +112,88 @@ button:active {
 .no-spin ::-webkit-outer-spin-button, .no-spin ::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 1em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #918d94;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 0.75em;
+  width: 0.75em;
+  left: 0.125em;
+  bottom: 0.125em;
+  background-color: white;
+  transition: 0.2s;
+}
+
+input:checked + .slider {
+  background-color: #8e55cd;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #8e55cd;
+}
+
+input:checked + .slider:before {
+  transform: translateX(1em);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.bigish {
+  font-size: 24px;
+}
+
+.link {
+  color: #8e55cd;
+}
+
+.link:hover {
+  color: #c19ce3;
+}
+
+.link:active {
+  color: #7b3cc5;
+}
+
+label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 /* ~~~~~~~~~~~ NAV BAR  ~~~~~~~~~~~ */
@@ -91,6 +222,9 @@ button:active {
   cursor: pointer;
   padding: 0 0.3em;
   text-decoration: none;
+}
+#nav-header #home-button:focus {
+  outline: none;
 }
 #nav-header #title-bar {
   font-size: 24px;
@@ -122,4 +256,4 @@ button:active {
   left: 65%;
   width: 35%;
   height: 95%;
-}/*# sourceMappingURL=workshop.css.map */
+}/*# sourceMappingURL=anvil.css.map */
