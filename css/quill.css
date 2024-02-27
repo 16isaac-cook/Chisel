@@ -485,6 +485,91 @@ label {
 #menu #worlds .content #create-world {
   width: 100%;
 }
+#menu #pages .content {
+  background-color: #1c1621;
+  flex-direction: row;
+  padding: 0;
+}
+#menu #pages .content #pages-home {
+  margin-right: 0.3em;
+  height: 100%;
+  display: flex;
+}
+#menu #pages .content #pages-home-main, #menu #pages .content #pages-home-index {
+  border-radius: 10px;
+  background-color: #312b36;
+  padding: 0.3em;
+  height: 100%;
+}
+#menu #pages .content #pages-home-main {
+  flex: 1 1 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+#menu #pages .content #pages-home-main div {
+  text-align: center;
+}
+#menu #pages .content #pages-home-main .title {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 0.3em;
+}
+#menu #pages .content #pages-home-main .quote {
+  font-size: 24px;
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+  width: 100%;
+  border-top: 1px solid #78737b;
+  border-bottom: 1px solid #78737b;
+  padding: 0.6em 0;
+  font-style: italic;
+}
+#menu #pages .content #pages-home-main .image {
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  width: 80%;
+  max-height: 30%;
+}
+#menu #pages .content #pages-home-main .image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  top: 50%;
+  transform: scale(1, 1) translateY(-50%);
+  transition: transform 0.5s;
+}
+#menu #pages .content #pages-home-main .desc {
+  margin-bottom: 0.3em;
+}
+#menu #pages .content #pages-home-index {
+  flex: 1 1 20%;
+}
+#menu #pages .content #pages-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+#menu #pages .content #pages-page-main, #menu #pages .content #pages-page-sidebar {
+  border-radius: 10px;
+  background-color: #312b36;
+  padding: 0.3em;
+  height: 100%;
+}
+#menu #pages .content #pages-page-main {
+  margin-right: 0.3em;
+  flex: 1 1 80%;
+}
+#menu #pages .content #pages-page-sidebar {
+  flex: 1 1 20%;
+  max-width: 20%;
+}
+#menu #pages .content .page[data-active=false] {
+  display: none !important;
+}
 #menu #builder .content {
   background-color: #1c1621;
   flex-direction: row;
