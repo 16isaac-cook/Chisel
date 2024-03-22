@@ -373,11 +373,45 @@
                 &-main {
                     margin-right: 0.3em;
                     flex: 1 1 80%;
+
+                    div {
+                        font-size: universal.$font-bigish;
+                        margin-bottom: 0.3em;
+                    }
+                    div:last-of-type {
+                        margin-bottom: 0;
+                    }
+
+                    .page-title {
+                        font-size: universal.$font-huge;
+                        font-weight: bold;
+                        margin-bottom: 0;
+                    }
                 }
 
                 &-sidebar {
                     flex: 1 1 20%;
                     max-width: 20%;
+
+                    div {
+                        margin-bottom: 0.3em;
+                    }
+                    div:last-of-type {
+                        margin-bottom: 0;
+                    }
+
+                    .page-sidebar-title {
+                        font-size: universal.$font-bigish;
+                        text-align: center;
+                    }
+
+                    .page-sidebar-image {
+                        max-width: 100%;
+
+                        img {
+                            width: 100%;
+                        }
+                    }
                 }
             }
 

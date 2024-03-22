@@ -563,9 +563,37 @@ label {
   margin-right: 0.3em;
   flex: 1 1 80%;
 }
+#menu #pages .content #pages-page-main div {
+  font-size: 24px;
+  margin-bottom: 0.3em;
+}
+#menu #pages .content #pages-page-main div:last-of-type {
+  margin-bottom: 0;
+}
+#menu #pages .content #pages-page-main .page-title {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 0;
+}
 #menu #pages .content #pages-page-sidebar {
   flex: 1 1 20%;
   max-width: 20%;
+}
+#menu #pages .content #pages-page-sidebar div {
+  margin-bottom: 0.3em;
+}
+#menu #pages .content #pages-page-sidebar div:last-of-type {
+  margin-bottom: 0;
+}
+#menu #pages .content #pages-page-sidebar .page-sidebar-title {
+  font-size: 24px;
+  text-align: center;
+}
+#menu #pages .content #pages-page-sidebar .page-sidebar-image {
+  max-width: 100%;
+}
+#menu #pages .content #pages-page-sidebar .page-sidebar-image img {
+  width: 100%;
 }
 #menu #pages .content .page[data-active=false] {
   display: none !important;
